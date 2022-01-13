@@ -31,7 +31,7 @@ function App() {
         toastVisibility={toastVis}
         setToastVisibility={setToastVis}
       />
-      <Router>
+      <Router basename='/Austin'>
         <Switch>
           <Route path="/" exact>
             <Login showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
