@@ -1,0 +1,105 @@
+/*==============================================
+    TOAST - DIALOG ERROR / SUCCESS MESSAGEBOX
+===============================================*/
+.toast {
+    position: fixed;
+    font-family: 'Poppins';
+    display: flex;
+    flex-direction: row;
+    z-index: 503;
+    max-width: 400px;
+    height: auto;
+    background: #fff;
+    border-radius: 8px;
+    padding: 18px;
+    top: 50px;
+    left: 50px;
+    box-shadow: 5px 12px 20px rgba(0,0,0,0.5);
+    transition: 0.5s ease;
+}
+
+.logo {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 10px;
+}
+
+.logo > #toastIcon {
+    width: 30px;
+}
+
+.content {
+    position: relative;
+    display: block;
+    border-left: 3px solid var(--main-green);
+    padding-left: 15px
+}
+
+.content .content-header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.toast .content .content-header > h4 {
+    display: block;
+    color: var(--main-green);
+    font-size: 16px;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+.toast .content .content-header > span {
+    display: block;
+    font-size: 16px;
+    font-weight: bold;
+    text-shadow: 0 1px 1px rgba(255,255,255,0.6);
+    cursor: pointer;
+    padding: 1px 6px;
+    background: #fff;
+    border-radius: 2px;
+    /* border: 1px solid var(--lighter-text); */
+}
+
+.toast .content .content-header > span:hover {
+    background: linear-gradient(whitesmoke, white);
+    border: 1px solid var(--lighter-text);
+}
+
+.toast .content > p {
+    position: relative;
+    display: block;
+    font-size: 13px;
+    color: var(--normal-text);
+}
+
+@keyframes animateToast {
+    from {
+        right: -20px;
+        opacity: 0;
+    }
+    to {
+        left: 50px;
+        opacity: 1;
+    }
+}
+
+@keyframes removeToast {
+    from {
+        left: 50px;
+        opacity: 1;
+    }
+    to {
+        bottom: -100px;
+        opacity: 0;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .toast {
+        width: 320px;
+    }
+}

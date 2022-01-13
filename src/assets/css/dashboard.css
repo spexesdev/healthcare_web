@@ -1,0 +1,406 @@
+
+/* Cards */
+
+.main {
+    display: block;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.main .cardBox {
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+@media screen and (max-width: 947px) {
+    .main {
+        width: 90%;
+    }
+
+    .main .cardBox {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 545px) {
+    .main {
+        width: 96%;
+    }
+
+    .main .cardBox {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+.main .cardBox .s-card {
+    background: #fff;
+    position: relative;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+}
+
+.cardBox .s-card .numbers {
+    font-size: 2.5em;
+    font-weight: 600;
+    position: relative;
+    color: var(--bluish);
+}
+
+.cardBox .s-card .cardName {
+    color: #777;
+    font-weight: 500;
+}
+
+.cardBox .s-card .iconBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.cardBox .s-card .iconBox i {
+    display: block;
+    font-size: 2.5em;
+    width: 40px;
+    height: 40px;
+    color: var(--main-green);
+    background: rgba(29, 112, 29, 0.2);
+    padding: 5px;
+    border-radius: 50%;
+    text-align: center;
+
+}
+
+.cardBox .s-card .iconBox span {
+    display: block;
+    font-size: 0.7em;
+    color: #777;
+    text-align: right;
+    margin-top: 5px;
+}
+
+.control-label {
+    color: #626264;
+    font-size: 0.9em;
+    font-weight: bold;
+}
+
+/* Lower Grid for the dashboard */
+.main .main-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 30px;
+    padding: 20px;
+}
+
+.main-content .left-main, .main-content .right-main, .main-content .doctors-list {
+    display: block;
+    position: relative;
+    ;
+}
+
+.main-content .left-main h2, .main-content .right-main h2 {
+    position: relative;
+    display: block;
+    color: var(--main-green);
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.left-main .doctors-list {
+    height: 600px;
+    overflow-y: auto;
+}
+
+.doctors-list .d-list-item {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
+    border-radius: 7px;
+    box-shadow: 0 5px 9px rgba(0,0,0,0.3);
+    width: 100%;
+    border-right: 6px solid #aaa;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-bottom: 15px;
+    zoom: 0.8;
+}
+
+.doctors-list .d-list-item.active {
+    background: rgba(91, 145, 70, 0.123);
+    border-right: 6px solid var(--main-green);
+}
+
+.doctors-list .d-list-item:hover {
+    background: #efefef;
+}
+
+.doctors-list .d-list-item .image-part {
+    display: block;
+    position: relative;
+    margin-right: 20px;
+}
+
+.doctors-list .d-list-item .image-part img {
+    position: relative;
+    border-radius: 50%;
+    width: 80px;
+}
+
+.doctors-list .d-list-item .image-part p {
+    color: #999;
+    text-align: center;
+    position: relative;
+    font-weight: bold;
+}
+
+.doctors-list .d-list-item .image-part p > span {
+    margin-right: 4px;
+    font-size: 16px;
+}
+
+.doctors-list .d-list-item .name-part {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.doctors-list .d-list-item .name-part h3 {
+    color: #777;
+    font-weight: 600;
+    font-size: 24px;
+    display: block;
+}
+
+.doctors-list .d-list-item .name-part h4 {
+    color: var(--main-green);
+    font-weight: 400;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.mt-2 {
+    margin-top: 20px;
+}
+
+.main-content .left-main input {
+    padding-left: 40px;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.main-content .left-main input:placeholder {
+    color: #ddd;
+}
+
+.main-content .left-main input ~ i {
+    position: absolute;
+    content: '\ec81';
+    font-family: 'Icofont';
+    left: 15px;
+    top: 13px;
+    color: #ddd;
+    z-index: 2;
+
+}
+
+.doctors-list .d-list-item .name-part > .pending {
+    float: right;
+    display: block;
+    background: var(--golden-rod);
+    padding: 3px 17px;
+    color: #fff;
+    outline: none;
+    border: 2px solid var(--golden-rod);
+    font-weight: 500;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+.doctors-list .d-list-item .name-part > .approved {
+    float: right;
+    display: block;
+    background: var(--main-green);
+    padding: 3px 17px;
+    color: #fff;
+    outline: none;
+    border: 2px solid var(--main-green);
+    font-weight: 500;
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+/* Body container for the details part */
+.dash-body-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    font-family: 'Poppins';
+    z-index: 4;
+    width: 100%;
+    margin-left: 30px;
+}
+
+@media screen and (max-width: 760px) {
+    .dash-body-container {
+        grid-template-columns: 1fr;
+    }
+
+    .dash-body-container .left-container {
+        padding: 30px;
+    }
+}
+
+.dash-body-container .left-container, .dash-body-container .right-container {
+    display: block;
+    position: relative;
+    background: #fff;
+}
+
+.dash-body-container .left-container .profile-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.dash-body-container .left-container .profile-image > img {
+    width: 100%;
+    max-width: 250px;
+    display: block;
+    position: relative;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 20px 0;
+}
+
+.dash-body-container .left-container .profile-image .title > h2 {
+    font-weight: 600;
+    font-size: 28px;
+    color: var(--bluish);
+    text-align: center;
+}
+
+.dash-body-container .left-container .profile-image > h3 {
+    font-weight: 500;
+    font-size: 18px;
+    color: #777;
+    display: block;
+    text-align: center;
+    transform: translateY(-10px);
+}
+
+.line-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    border-bottom: 3px solid lightgrey;
+    margin-bottom: 40px;
+}
+
+.line-container h4 {
+    position: absolute;
+    background: #efefef;
+    color: #777;
+    padding: 5px 10px;
+    top: -15px;
+    left: 0;
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 13px;
+}
+
+
+/* Right panel - Body container */
+.dash-body-container .right-container {
+    display: block;
+    position: relative;
+    margin-top: 20px;
+    padding-left: 10px;
+}
+
+.dash-body-container .right-container .title h2 {
+    color: var(--main-green);
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-size: 30px;
+}
+
+.dash-body-container .right-container .title {
+    display: flex;
+    position: relative;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 0px;
+
+}
+
+.dash-body-container .right-container .title h4 {
+    color: #888;
+}
+
+.dash-body-container .right-container > h3 {
+    display: block;
+    color: var(--bluish);
+    font-size: 15px;
+}
+
+.right-container .upcoming-appointment {
+    display: block;
+    position: relative;
+    margin: 50px 0 40px 0;
+}
+
+.right-container .upcoming-appointment > .title {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: flex-end;
+    font-size: 13px;
+    color: grey;
+}
+
+.right-container .upcoming-appointment .appointment {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.right-container .upcoming-appointment .appointment > img {
+    display: inline-block;
+    position: relative;
+    width: 120px;
+}
+
+.right-container .upcoming-appointment .appointment .details {
+    display: block;
+    color: #444;
+}
+
+.right-container .upcoming-appointment .appointment .details h2 {
+    margin-bottom: 10px;
+}
+
+.right-container .upcoming-appointment .appointment .details h3 {
+    margin-bottom: 20px;
+    font-weight: normal;
+    color: #999;
+    font-size: 14px;
+}
+
+.right-container .upcoming-appointment .appointment .details h4 {
+    margin-bottom: 20px;
+    font-weight: normal;
+    color: var(--bluish);
+}

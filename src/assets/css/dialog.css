@@ -1,0 +1,377 @@
+.dialog-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    display: none; /*display flex whenever needed to show*/
+    -ms-display: none;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px 0;
+    width: 100vw;
+    background: rgba(0,0,0,0.5);
+    z-index: 499;
+    overflow: hidden;
+    opacity: 0;
+    transition: 1000ms ease;
+
+}
+
+.dialog-background.image-dialog {
+    z-index: 600;
+    flex-direction: column;
+    background: rgba(0,0,0,0.7);
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-background.image-dialog .image-class {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: auto;
+    max-width: 50vw;
+    height: auto;
+    padding: 10px;
+    box-shadow: 5px 12px 30px black;
+}
+
+.dialog-container {
+    /* display: block;
+    max-width: 90%;
+    max-height: 95%;
+    width: 800px;
+*/
+    display: flex;
+    flex-direction: column;
+    width: 700px;
+    max-width: 800px;
+    margin: 1.75rem auto;
+    position: relative;
+    background: #fff;
+    opacity: 1;
+    padding: 20px 20px 30px 20px;
+    font-family: 'Poppins';
+    pointer-events: auto;
+    border-radius: .3rem;
+    outline: 0;
+    box-shadow: 0px 12px 30px rgba(0,0,0,0.7);
+}
+
+.dialog-container.otp {
+    width: 450px;
+    border-radius: 0;
+    padding: 30px;
+    background-color: #fff;
+}
+
+
+/* IMAGE CONTAINER */
+/* Style the Image Used to Trigger the Modal */
+/* The Modal (background) */
+#image-viewer {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
+}
+
+#full-image {
+    margin: auto;
+    display: block;
+    width: 100%;
+    max-width: 700px;
+}
+#full-image {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+@keyframes zoom {
+    from {transform:scale(0)}
+    to {transform:scale(1)}
+}
+
+#image-viewer .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+#image-viewer .close:hover,
+#image-viewer .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 700px){
+    #full-image {
+        width: 100%;
+    }
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    height: auto;
+    min-height: 90vh;
+}
+
+.embed-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 90vh;
+    min-height: auto;
+
+}
+
+/* IMAGE ENDS HERE */
+
+.dialog-container .dialog-content {
+    display: block;
+    position: relative;
+    background: transparent;
+}
+
+.dialog-container .dialog-header {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+}
+
+.dialog-container .dialog-header > .nully {
+    font-size: 20px;
+    font-weight: bold;
+    color: #121212;
+}
+
+.dialog-container .dialog-header > .nully.main {
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--bluish);
+
+}
+
+.dialog-container .dialog-header > .nully~span {
+    font-size: 28px;
+    cursor: pointer;
+    color: #666;
+    padding: 0 4px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    transition: 0.3s ease;
+}
+
+.dialog-container .dialog-header > .nully~span:hover {
+    border: 1px solid #bbb;
+}
+
+.dialog-header > .create,
+.dialog-header > .nully,
+.dialog-header > .edit {
+    position: relative;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: var(--faded-main-green);
+}
+
+.dialog-header > .create::before,
+.dialog-header > .edit::before {
+    position: absolute;
+    content: '\efc2';
+    left: 0;
+    top: -2px;
+    font-family: 'Icofont';
+    font-size: .5em;
+
+}
+
+.dialog-header > .edit::before {
+    content: '\ec55';
+}
+
+.dialog-header > .nully::before {
+    content: '';
+}
+
+.dialog-container .dialog-body {
+    position: relative;
+    display: block;
+}
+
+.dialog-container .dialog-body.main {
+    position: relative;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.dialog-container .dialog-body > h4 {
+    color: #666;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    display: block;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.dialog-container .dialog-body > .phone-no {
+    display: block;
+    text-align: center;
+    font-size: 24px;
+    color: #222;
+    margin-bottom: 30px;
+}
+
+.dialog-container .dialog-body > .input-array {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    flex-direction: row;
+    width: 100%;
+    height: 50px;
+    background: white;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.dialog-container .dialog-body > .input-array > input {
+    width: 100%;
+    height: 100%;
+    border-radius: 6px;
+    position: relative;
+    outline: none;
+    border: 3px solid lightgrey;
+    display: inline-block;
+    text-align: center;
+    font-size: 24px;
+    color: var(--bluish);
+
+}
+
+.dialog-container .dialog-body .resend-group {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    height: 20px;
+    width: 100%;
+    margin-bottom: 10px;
+
+}
+
+.dialog-container .dialog-body .resend-group > div {
+    display: flex;
+    font-size: 12px;
+    color: #777;
+    font-weight: bold;
+}
+
+.dialog-container .dialog-body .resend-group > div > button {
+    display: inline-block;
+    position: relative;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: var(--bluish);
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.dialog-container .dialog-body .resend-group > div > button:hover {
+    text-decoration: underline;
+}
+
+.dialog-container .dialog-body .otp-call {
+    display: block;
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.dialog-container .dialog-body .otp-call > button {
+    display: inline-block;
+    position: relative;
+    outline: none;
+    border: none;
+    background-color: transparent;
+    color: #777;
+    cursor: pointer;
+    text-decoration: underline;
+    font-size: 12px;
+}
+
+
+/* Dialog footer part */
+.dialog-container .dialog-footer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+.dialog-container .dialog-footer.main {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.dialog-container .dialog-footer .btn-continue, .btn-cancel {
+    display: block;
+    width: 100%;
+    outline: none;
+    border: none;
+    background: #0080AE;
+    color: #FFF;
+    padding: 15px 25px;
+    text-align: center;
+    font-size: 14px;
+    border-radius: 4px;
+    cursor: pointer;
+    position: relative;
+    margin-bottom: 10px;
+}
+
+.btn-cancel {
+    background: #888!important;
+}
+
+.dialog-background.fade {
+    display: flex;
+    -ms-display: flex;
+    opacity: 1;
+    transition: opacity .15s linear;
+}
+
+input:focus, select:focus, button:focus, textarea:focus {
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
+}
+
+.mr-2 {
+    margin-right: 10px!important;
+}
+
+.mr-1 {
+    margin-right: 5px!important;
+}
