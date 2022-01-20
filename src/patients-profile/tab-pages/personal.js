@@ -14,32 +14,32 @@ export const Personal = props => {
                 <table className="profile-table">
                     <tbody>
                         <tr>
-                            <td>Name</td>
+                            <td><span style={{color:'red'}}>*</span>Name</td>
                             <td>{props.data?.name}</td>
                             <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
                         <tr>
-                            <td>Gender</td>
+                            <td><span style={{color:'red'}}>*</span>Gender</td>
                             <td>{props.data?.gender}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Marital Status</td>
+                            <td><span style={{color:'red'}}>*</span>Marital Status</td>
                             <td>{props.data?.maritalStatus}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Date of Birth</td>
+                            <td><span style={{color:'red'}}>*</span>Date of Birth</td>
                             <td>{props.data?.birthDate}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Pref. Language</td>
+                            <td><span style={{color:'red'}}>*</span>Pref. Language</td>
                             <td>{props.data?.communicationLang?.languagePref}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Is Deceased?</td>
+                            <td><span style={{color:'red'}}>*</span>Is Deceased?</td>
                             <td>{props.data?.deceased?.deceasedBoolean || "No"}</td>
                             <td></td>
                         </tr>

@@ -51,7 +51,6 @@ const ScheduleAppointment = props => {
                 }
             })
 
-
 }
 
 //Fetch the data on form load...

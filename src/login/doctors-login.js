@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import { ApiPath } from '../assets/common/base-url';
 
-
 export const DoctorsLogin = props => {
 
     const { showToast, setIsLoaderVisible } = props;
@@ -60,10 +59,10 @@ export const DoctorsLogin = props => {
                     <div className="left-sidebar" style={{ minHeight: '100vh' }} >
                         <img src="../mah-logo.png" />
 
-                        <div className="left-text">
+                        <div className="left-text" style={{ marginTop: '-1px'}}>
                             <h2><i className="icofont-check-circled"></i> Doctors' Login!</h2>
 
-                            <h4>Enter your details</h4>
+                            <h4 style={{ marginTop: '-20px'}}>Enter your details</h4>
                             <div className="form-row">
                                 <div className="input-group">
                                     <input

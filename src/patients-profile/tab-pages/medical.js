@@ -19,32 +19,32 @@ export const Medical = props => {
                             <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
                         <tr>
-                            <td>Managing Organization (Hospital)</td>
+                            <td><span style={{color:'red'}}>*</span>Managing Organization (Hospital)</td>
                             <td>{props.data.managingOrganization}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Blood Group</td>
+                            <td><span style={{color:'red'}}>*</span>Blood Group</td>
                             <td>{props.data.general?.bloodGroup}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Height</td>
+                            <td><span style={{color:'red'}}>*</span>Height</td>
                             <td>{props.data.general?.height} cm</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Weight</td>
+                            <td><span style={{color:'red'}}>*</span>Weight</td>
                             <td>{props.data.general?.weight} kg</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>BMI</td>
+                            <td><span style={{color:'red'}}>*</span>BMI</td>
                             <td>{props.data.general?.bmi}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Chest Expansion</td>
+                            <td><span style={{color:'red'}}>*</span>Chest Expansion</td>
                             <td>{props.data.general?.chestExpansion} cm</td>
                             <td></td>
                         </tr>
@@ -59,12 +59,12 @@ export const Medical = props => {
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Pulse</td>
+                            <td><span style={{color:'red'}}>*</span>Pulse</td>
                             <td>{props.data.general?.pulse} BPM</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Oxygen Saturation</td>
+                            <td><span style={{color:'red'}}>*</span>Oxygen Saturation</td>
                             <td>{props.data.general?.oxygenSaturation} %</td>
                             <td></td>
                         </tr>

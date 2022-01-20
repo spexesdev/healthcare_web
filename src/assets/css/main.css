@@ -9,6 +9,7 @@ body {
     --bluish: #0080AE;
     --golden-rod: #a88e16;
     --light-golden-rod: #e4c020;
+    
 }
 
 .header-bar {
@@ -342,6 +343,22 @@ button:focus {
     background: #0080AE33;
 }
 
+.link-main {
+    position: relative;
+    display: inline-block;
+    border: none;
+    outline: none;
+    background: none;
+    cursor: pointer;
+    text-decoration: underline;
+    color: var(--bluish);
+    font-family: Poppins;
+}
+
+.link-main:hover {
+    opacity: 0.8;
+}
+
 /* Main body parts */
 .body-container {
     display: grid;
@@ -379,6 +396,33 @@ button:focus {
     box-shadow: 3px 12px 16px rgba(0,0,0,0.15);
     padding: 10px;
 
+}
+
+/* Doctor's allow view */
+.doctor-view {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    background: #efefef;
+    padding: 15px;
+    margin-top: 30px;
+}
+
+.doctor-view > div > i {
+    margin-right: 5px;
+    color: var(--main-green);
+    font-size: 18px;
+}
+
+.doctor-view > div > span {
+    color: #555;
+    font-size: 16px;
+}
+
+.doctor-view button {
+    display: inline-block!important;
 }
 
 .line-container {
@@ -487,6 +531,22 @@ button:focus {
     font-weight: normal;
     color: var(--bluish);
 }
+
+.right-container .upcoming-appointment .appointment .details h4 > a {
+    display: inline-block;
+    background: var(--bluish);
+    color: white;
+    padding: 5px 15px;
+    text-decoration: none;
+    margin-left: 10px;
+    border-radius: 5px;
+}
+
+.right-container .upcoming-appointment .appointment .details h4 > a:hover {
+    opacity: 0.8;
+}
+
+
 
 .right-container .book-appointment {
     display: block;
@@ -761,4 +821,112 @@ button:focus {
     background: #88b8;
     color: var(--main-green)!important;
     padding: 3px 12px;
+}
+
+/* Application Status */
+.application-status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    width: 200px;
+    height: 250px;
+    top: 0;
+    right: 0;
+    border-radius: 7px;
+    background: #fff;
+    box-shadow: 3px 5px 12px rgba(0, 0, 0, 25%);
+    z-index: 2;
+    zoom: 0.7;
+}
+
+.application-status h4 {
+    color: var(--main-green);
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.application-status h2 {
+    color: var(--main-green);
+    font-size: 32px;
+    display: block;
+    text-align: center;
+    line-height: 40px;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+}
+
+.application-status p {
+    display: block;
+    color: #888;
+}
+
+.application-status .outer-circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to left, rgb(86, 122, 92), rgb(54, 126, 66),rgb(56, 102, 64), rgb(54, 126, 66));
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+}
+
+.application-status .inner-circle {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+}
+
+.application-status .arc {
+    display: flex;
+    position: absolute;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 50%;
+    flex-direction: column;
+    transform-origin: 100% 100%;
+    width: 140px;
+    height: 140px;
+    /* transform: rotate(75deg) skew(60deg); */
+
+}
+
+.span-in-span {
+    display: flex;
+    position: relative;
+    justify-content: space-between;
+    align-items: center;
+    color: #666;
+    margin-bottom: 15px;
+    font-size: 13px;
+}
+
+.span-in-span > span {
+    color: var(--main-green);
+    background: #efefefaa;
+    padding: 5px 9px;
+}
+
+.span-in-span > span > span {
+    color: #666;
+}
+
+.meeting-button-container {
+    padding: 20px;
+    background: #888;
+    width: 20vw;
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    border-radius: 7px;
+    height: auto;
 }

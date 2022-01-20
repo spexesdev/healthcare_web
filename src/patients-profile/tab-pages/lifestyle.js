@@ -14,22 +14,22 @@ export const Lifestyle = props => {
                 <table className="profile-table">
                     <tbody>
                         <tr>
-                            <td>Smoking Habit</td>
+                            <td><span style={{color:'red'}}>*</span>Smoking Habit</td>
                             <td>{props.data?.lifeStyle?.smokingHabbit}</td>
                             <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
                         <tr>
-                            <td>Alcohol Consumption</td>
+                            <td><span style={{color:'red'}}>*</span>Alcohol Consumption</td>
                             <td>{props.data?.lifeStyle?.alcoholConsumption}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Activity Level</td>
+                            <td><span style={{color:'red'}}>*</span>Activity Level</td>
                             <td>{props.data?.lifeStyle?.activityLevel}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td>Food Preference</td>
+                            <td><span style={{color:'red'}}>*</span>Food Preference</td>
                             <td>{props.data?.lifeStyle?.foodPreference}</td>
                             <td></td>
                         </tr>
@@ -181,9 +181,6 @@ const LifestyleDialog = props => {
 
                             </select>
                         </div>
-
-
-
                     </div>
 
                 </div>

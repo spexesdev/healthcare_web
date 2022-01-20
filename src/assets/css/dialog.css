@@ -375,3 +375,20 @@ input:focus, select:focus, button:focus, textarea:focus {
 .mr-1 {
     margin-right: 5px!important;
 }
+
+/* Dialog table... */
+.dialog-left-panel {
+    display: table;
+    width: 100%;
+    color: #666;
+    font-size: 14px;
+}
+
+.dialog-left-panel tbody tr td:first-child {
+    font-weight: 600;
+}
+
+.dialog-left-panel tbody > tr > td:last-child {
+    font-weight: 300;
+    text-align: right;
+}

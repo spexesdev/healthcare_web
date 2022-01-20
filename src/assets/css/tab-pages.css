@@ -107,3 +107,11 @@
 .tab-page-content .page-body .profile-table > tbody td:last-child:hover {
     text-decoration: underline;
 }
+
+.sel-items {
+    background: #efefef;
+    padding: 10px;
+    margin-bottom: 20px;
+    color: #666;
+    font-size: 13px;
+}

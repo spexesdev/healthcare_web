@@ -1,7 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ApiPath, CryptoApiPath } from '../assets/common/base-url';
-import { toTimestamp } from '../assets/common/operations';
-
 
 export const DoctorsDialog = props => {
 
@@ -11,7 +9,7 @@ export const DoctorsDialog = props => {
     const [selectedDoctor, setSelectedDoctor] = useState('')
     const [txtDate, setTxtDate] = useState(today.getFullYear() + "-" + today.getMonth() + 1 + "-" + today.getDate());
     const [spanValue, setSpanValue] = useState(1);
-    const [timeOfCommenement, setTimeOfCommencement] = useState([])
+    const [timeOfCommencement, setTimeOfCommencement] = useState('')
 
     //The componentDidMount equivalent...
     //Fetch the doctors list...
@@ -25,22 +23,19 @@ export const DoctorsDialog = props => {
 
     useEffect(() => {
         //To set the actual timing for the time of commencement
-        const splitDate = txtDate.split("-")
-        const dateArray = [splitDate[0], splitDate[1], splitDate[2]]
-
         switch (spanValue) {
             case 1:
-                setTimeOfCommencement([...dateArray, '11', '00', '00'])
+                setTimeOfCommencement(new Date(`${txtDate} 11:00:00`))
                 break;
             case 2:
-                setTimeOfCommencement([...dateArray, '14', '00', '00'])
+                setTimeOfCommencement(new Date(`${txtDate} 14:00:00`))
                 break;
             default:
-                setTimeOfCommencement([...dateArray, '20', '00', '00'])
+                setTimeOfCommencement(new Date(`${txtDate} 20:00:00`))
                 break;
         }
 
-        console.log(timeOfCommenement);
+        console.log(timeOfCommencement);
 
     }, [spanValue])
 
@@ -79,24 +74,12 @@ export const DoctorsDialog = props => {
         }
 
         const thisDoctor = doctorsData.find(item => item.uidNo === selectedDoctor)
-
-        // // const payLoad = {
-        // //     doctor_id: thisDoctor.uidNo,
-        // //     doctor_name: thisDoctor.name,
-        // //     doctor_email_id: thisDoctor.email || 'somedoctor@mailer.com',
-        // //     patient_id: props.data.uidNo,
-        // //     patient_name: props.data.name,
-        // //     patient_email_id: props.data.emailId || 'somepatient@gmail.com',
-        // //     starttime: toTimestamp(...timeOfCommenement),
-        // //     duration: 0.75 * 60 * 60,
-
-        // // }
-
         props.setIsLoaderVisible(true);
 
         const input1 = `doctor_id=${thisDoctor.uidNo}&doctor_name=${thisDoctor.name}&doctor_email_id=${thisDoctor.email || 'somedoctor@mailer.com'}&`;
         const input2 = `patient_id=${props.data.uidNo}&patient_name=${props.data.name}&patient_email_id=${props.data.emailId || 'somepatient@gmail.com'}&`;
-        const input3 = `starttime=${toTimestamp(...timeOfCommenement)}&duration=${0.75 * 60 * 60}`
+        const input3 = `starttime=${timeOfCommencement.getTime()}&duration=${0.50 * 60 * 60}`
+        ////const input3 = `starttime=1642264897448&duration=${0.75 * 60 * 60}`
 
         const options = {
             'headers': {
@@ -104,7 +87,6 @@ export const DoctorsDialog = props => {
                 'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
             },
             'method': 'POST',
-            // 'body': JSON.stringify(payLoad),
         }
 
         fetch(`${CryptoApiPath}scheduleAppointment?${input1}${input2}${input3}`, options)
@@ -117,8 +99,8 @@ export const DoctorsDialog = props => {
 
                     props.setSpecialObject({
                         speciality: cbxSpeciality,
-                        startTime: toTimestamp(...timeOfCommenement),
-                        duration: 0.75 * 60,
+                        startTime: timeOfCommencement.getTime(),
+                        duration: 0.50 * 60,
                         meetingID: response.result?.meeting_id,
                         doctor_id: thisDoctor.uidNo,
                         doctor_name: thisDoctor.name

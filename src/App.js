@@ -8,6 +8,7 @@ import Patients from './patients-profile/patients';
 import Doctors from './doctors-profile/doctors';
 import { DoctorsLogin } from './login/doctors-login';
 import Dashboard from './admin/dashboard/dashboard';
+import Meeting from './meeting/meeting';
 
 function App() {
 
@@ -31,7 +32,7 @@ function App() {
         toastVisibility={toastVis}
         setToastVisibility={setToastVis}
       />
-      <Router basename='/Austin'>
+      <Router basename='/'>
         <Switch>
           <Route path="/" exact>
             <Login showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
@@ -51,10 +52,15 @@ function App() {
           <Route path="/admin/dashboard">
             <Dashboard showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
+          <Route path="/meeting/meeting-page">
+            {/* Re-route to the patient's main page... */}
+            <Meeting showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
+          </Route>
           <Route path="*">
             {/* Re-route to the patient's main page... */}
             <Patients showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
+
         </Switch>
       </Router>
     </>

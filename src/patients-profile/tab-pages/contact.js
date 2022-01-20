@@ -28,12 +28,12 @@ export const Contact = props => {
                     <table className="profile-table">
                         <tbody>
                             <tr>
-                                <td>Phone</td>
+                                <td><span style={{color:'red'}}>*</span>Phone</td>
                                 <td>{props.data?.phoneNumber}</td>
                                 <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                             </tr>
                             <tr>
-                                <td>Address</td>
+                                <td><span style={{color:'red'}}>*</span>Address</td>
                                 <td>{address && address === []
                                     ? ""
                                     : `${houseNumber}${street}${city}${district}${state}${postalCode}`}
@@ -41,17 +41,17 @@ export const Contact = props => {
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Country</td>
+                                <td><span style={{color:'red'}}>*</span>Country</td>
                                 <td>{address ? address[0]?.country : "-"}</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>E-mail</td>
+                                <td><span style={{color:'red'}}>*</span>E-mail</td>
                                 <td>{props.data.emailId}</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Contact Person</td>
+                                <td><span style={{color:'red'}}>*</span>Contact Person</td>
                                 <td>
                                     { contactDetails }<br />
                                     <i className={showPhone}></i>{props.data?.contactPerson && props.data?.contactPerson[0]?.contact?.value}

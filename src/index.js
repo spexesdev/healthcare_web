@@ -8,6 +8,7 @@ import './assets/css/toast.css'
 import './assets/css/scrollbar.css'
 import './assets/css/dialog.css'
 import './assets/css/tab-pages.css'
+import './assets/css/progress-bar.css'
 import './assets/200/icofont/icofont.min.css'
 import './assets/200/boxicons/css/boxicons.min.css'
 import App from './App';
