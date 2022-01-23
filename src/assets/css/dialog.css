@@ -327,7 +327,9 @@
     justify-content: center;
     width: 100%;
     margin-bottom: 10px;
+    font-family: Poppins;
 }
+
 .dialog-container .dialog-footer.main {
     position: relative;
     display: flex;

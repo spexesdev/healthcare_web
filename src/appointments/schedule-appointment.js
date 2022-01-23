@@ -134,7 +134,7 @@ return (
                     </div>
                     <div className='form-row'>
                         <div className='input-group'>
-                            <label>Allow Doctor to view my files?</label>
+                            <label>Allow Doctor to view my medical history?</label>
                             <select
                                 id="fileConsent"
                                 value={fileConsent}

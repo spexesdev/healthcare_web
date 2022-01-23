@@ -14,22 +14,22 @@ export const Lifestyle = props => {
                 <table className="profile-table">
                     <tbody>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Smoking Habit</td>
+                            <td><span style={{ color: 'red' }}>*</span>Smoking Habit</td>
                             <td>{props.data?.lifeStyle?.smokingHabbit}</td>
                             <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Alcohol Consumption</td>
+                            <td><span style={{ color: 'red' }}>*</span>Alcohol Consumption</td>
                             <td>{props.data?.lifeStyle?.alcoholConsumption}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Activity Level</td>
+                            <td><span style={{ color: 'red' }}>*</span>Activity Level</td>
                             <td>{props.data?.lifeStyle?.activityLevel}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Food Preference</td>
+                            <td><span style={{ color: 'red' }}>*</span>Food Preference</td>
                             <td>{props.data?.lifeStyle?.foodPreference}</td>
                             <td></td>
                         </tr>
@@ -56,6 +56,11 @@ const LifestyleDialog = props => {
     const [txtAlcohol, setTxtAlcohol] = useState(props.data.lifeStyle?.alcoholConsumption)
     const [txtActivityLevel, setTxtActivityLevel] = useState(props.data.lifeStyle?.activityLevel)
     const [txtFoodPreference, setTxtFoodPreference] = useState(props.data.lifeStyle?.foodPreference)
+
+    //Others
+    const [txtAnyMedicationTaken, setTxtAnyMedicationTaken] = useState('No');
+    const [txtRelapse, setTxtRelapse] = useState('No');
+    const [txtWhenQuit, setTxtWhenQuit] = useState('');
 
     const updateLifestyleDetails = () => {
         const data = {
@@ -129,6 +134,44 @@ const LifestyleDialog = props => {
                                 <option value="> 10/day">{'> 10/day'}</option>
                             </select>
                         </div>
+                    </div>
+                    <div className={txtSmokingHabits === "I used to, but I quit" ? "form-row-3" : "d-none"}>
+                        <div className='input-group'>
+                            <label>Any Medication Taken?</label>
+                            <select
+                                id="txtAnyMedicationTaken"
+                                value={txtAnyMedicationTaken}
+                                className="form-control"
+                                onChange={e => setTxtAnyMedicationTaken(e.target.value)}
+                            >
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                        <div className='input-group'>
+                            <label>Any relapse?</label>
+                            <select
+                                id="txtRelapse"
+                                value={txtRelapse}
+                                className="form-control"
+                                onChange={e => setTxtRelapse(e.target.value)}
+                            >
+                                <option value="No">No</option>
+                                <option value="Yes">Yes</option>
+                            </select>
+                        </div>
+                        <div className='input-group'>
+                            <label>When did you quit?</label>
+                            <input
+                                id="txtWhenQuit"
+                                value={txtWhenQuit}
+                                className="form-control"
+                                onChange={e => setTxtWhenQuit(e.target.value)}
+                                type='date'
+                            />
+                        </div>
+                    </div>
+                    <div className="form-row">
                         <div className='input-group'>
                             <label>Alcohol Consumption</label>
                             <select
@@ -146,7 +189,6 @@ const LifestyleDialog = props => {
 
                             </select>
                         </div>
-
                     </div>
                     <div className="form-row-2-1">
                         <div className='input-group'>

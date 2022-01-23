@@ -3,11 +3,18 @@ import { ImageDialog } from "../../components/image-dialog"
 import { fileToBase64 } from '../../assets/common/file-to-base64';
 import { ApiPath } from '../../assets/common/base-url';
 import { PastPrescriptionsDialog } from './others/past-prescriptions-dialog';
+import { DiseasesDialog } from './others/diseases-dialog';
+import { InjuriesDialog } from './others/injuries-dialog';
+import { SurgeriesDialog } from './others/surgeries-dialog';
 
 export const MedicalHistory = (props) => {
 
     const [showDialog, setShowDialog] = useState(false);
     const [showPrescriptionsDialog, setShowPrescriptionsDialog] = useState(false);
+    const [showDiseasesDialog, setShowDiseasesDialog] = useState(false);
+    const [showSurgeriesDialog, setShowSurgeriesDialog] = useState(false);
+    const [showInjuriesDialog, setShowInjuriesDialog] = useState(false);
+
     const [showImageDialog, setShowImageDialog] = useState(false);
     const [imageSource, setImageSource] = useState('');
 
@@ -46,11 +53,26 @@ export const MedicalHistory = (props) => {
                             <td>{(props.data.pastPrescriptions.length > 0 && <button
                                 className="btn-main"
                                 onClick={() => {
-                                    setImageSource(props.data.pastPrescriptions[0].records[3])
+                                    setImageSource(props.data.pastPrescriptions[0].records[0])
                                     setShowImageDialog(true)
                                 }}
                             >Preview</button>) || '-'}</td>
                             <td onClick={() => setShowPrescriptionsDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
+                        </tr>
+                        <tr>
+                            <td>Chronic Diseases</td>
+                            <td>{props.data.chronicDiseases.length > 0 ? props.data.chronicDiseases[0]?.name.join(", ") : "-"}</td>
+                            <td onClick={() => setShowDiseasesDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
+                        </tr>
+                        <tr>
+                            <td>Injuries</td>
+                            <td>{props.data.injuries.length > 0 ? props.data.injuries[0]?.name.join(", ") : "-"}</td>
+                            <td onClick={() => setShowInjuriesDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
+                        </tr>
+                        <tr>
+                            <td>Surgeries</td>
+                            <td>{props.data.surgeries.length > 0 ? props.data.surgeries[0]?.name.join(", ") : "-"}</td>
+                            <td onClick={() => setShowSurgeriesDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
 
                     </tbody>
@@ -71,6 +93,39 @@ export const MedicalHistory = (props) => {
             <PastPrescriptionsDialog
                 showDialog={showPrescriptionsDialog}
                 hideDialog={() => setShowPrescriptionsDialog(false)}
+                setIsLoaderVisible={props.setIsLoaderVisible}
+                showToast={props.showToast}
+                data={props.data}
+                setImageSource={setImageSource}
+                setResetData={props.setResetData}
+                setShowImageDialog={setShowImageDialog}
+            />
+
+            <DiseasesDialog
+                showDialog={showDiseasesDialog}
+                hideDialog={() => setShowDiseasesDialog(false)}
+                setIsLoaderVisible={props.setIsLoaderVisible}
+                showToast={props.showToast}
+                data={props.data}
+                setImageSource={setImageSource}
+                setResetData={props.setResetData}
+                setShowImageDialog={setShowImageDialog}
+            />
+
+            <InjuriesDialog
+                showDialog={showInjuriesDialog}
+                hideDialog={() => setShowInjuriesDialog(false)}
+                setIsLoaderVisible={props.setIsLoaderVisible}
+                showToast={props.showToast}
+                data={props.data}
+                setImageSource={setImageSource}
+                setResetData={props.setResetData}
+                setShowImageDialog={setShowImageDialog}
+            />
+
+            <SurgeriesDialog
+                showDialog={showSurgeriesDialog}
+                hideDialog={() => setShowSurgeriesDialog(false)}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
                 data={props.data}

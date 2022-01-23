@@ -18,6 +18,8 @@ export const Header = () => {
         //Reset the other variables....
         sessionStorage.setItem("token", null);
         sessionStorage.setItem("id_val", null);
+        localStorage.setItem('patient', null);
+        localStorage.setItem('token', null);
 
         history.push("/");
     }

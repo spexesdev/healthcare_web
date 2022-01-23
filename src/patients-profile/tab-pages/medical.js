@@ -18,33 +18,33 @@ export const Medical = props => {
                             <td>{Object.keys(props.data?.allergies).length > 0 ? props.data?.allergies?.value.join(", ") : ''}</td>
                             <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
-                        <tr>
-                            <td><span style={{color:'red'}}>*</span>Managing Organization (Hospital)</td>
+                        <tr className='d-none'>
+                            <td><span style={{ color: 'red' }}>*</span>Managing Organization (Hospital)</td>
                             <td>{props.data.managingOrganization}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Blood Group</td>
+                            <td><span style={{ color: 'red' }}>*</span>Blood Group</td>
                             <td>{props.data.general?.bloodGroup}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Height</td>
+                            <td><span style={{ color: 'red' }}>*</span>Height</td>
                             <td>{props.data.general?.height} cm</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Weight</td>
+                            <td><span style={{ color: 'red' }}>*</span>Weight</td>
                             <td>{props.data.general?.weight} kg</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>BMI</td>
+                            <td><span style={{ color: 'red' }}>*</span>BMI</td>
                             <td>{props.data.general?.bmi}</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Chest Expansion</td>
+                            <td><span style={{ color: 'red' }}>*</span>Chest Expansion</td>
                             <td>{props.data.general?.chestExpansion} cm</td>
                             <td></td>
                         </tr>
@@ -59,12 +59,12 @@ export const Medical = props => {
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Pulse</td>
+                            <td><span style={{ color: 'red' }}>*</span>Pulse</td>
                             <td>{props.data.general?.pulse} BPM</td>
                             <td></td>
                         </tr>
                         <tr>
-                            <td><span style={{color:'red'}}>*</span>Oxygen Saturation</td>
+                            <td><span style={{ color: 'red' }}>*</span>Oxygen Saturation</td>
                             <td>{props.data.general?.oxygenSaturation} %</td>
                             <td></td>
                         </tr>
@@ -85,8 +85,8 @@ export const Medical = props => {
 
 const MedicalDialog = props => {
 
-    const [boxContent, setBoxContent] = useState('')
-    const [txtAllergies, setTxtAllergies] = useState(Object.keys(props.data?.allergies).length === 0 ? props.data.allergies?.value?.join(", ") : '')
+    const [txtAllergies, setTxtAllergies] = useState('')
+    const [chkAllergies, setChkAllergies] = useState(props.data?.general.allergies?.length === 0 ? false : true);
     const [txtManagingOrg, setTxtManagingOrg] = useState(props.data.managingOrganization)
 
     const [bloodGroup, setBloodGroup] = useState(props.data?.general?.bloodGroup);
@@ -99,32 +99,65 @@ const MedicalDialog = props => {
     const [oxygenSaturation, setOxygenSaturation] = useState(props.data?.general?.oxygenSaturation);
     const [bmi, setBmi] = useState(props.data?.general?.bmi);
 
-    const createItems = () => {
-        /** as the textbox blurs,
-         * create a list of
-         * emails with special colorizing
-         * and close items...
+    const [selectedAllergies, setSelectedAllergies] = useState(Object.keys(props.data?.allergies).length > 0 ? [...props.data?.allergies?.value] : []);
+    const allergiesList = ['Lactose', 'Soy', 'Seafood', 'Nuts', 'Eggs', 'Fish', 'Mushroom', 'Gluten', 'Penicillin', 'Sulpha drugs', 'Local anaesthesia',
+        'Aspirin', 'Insulin', 'X-Ray dye', 'Pollen', 'Mould', 'Pets', 'Other']
 
-        After clearing the container, fix the emails...*/
-        const allergies = Array.isArray(txtAllergies) ? txtAllergies.split(",") : [];
-        const content = allergies.map((item, index) => {
-            return (
-                <span key={index}>{item.trim()}</span>
-            )
-        })
+    const allergiesMap = allergiesList.map((item, index) => {
+        return (<option key={index} value={item}>{item}</option>)
+    })
 
-        setBoxContent(content || "Selected Allergies")
+    const addAllergiesToList = selItem => {
+        //Ensure that the selected item is not in the list...
+        if (selectedAllergies.indexOf(selItem) === -1) {
+            //Item is not found in the list...
+            setSelectedAllergies([...selectedAllergies, selItem])
 
+            //Also, remove this item from the original list.
+            allergiesList.splice(allergiesList.indexOf(selItem), 1)
+
+        }
     }
 
     useEffect(() => {
-        createItems();
-    }, [])
+        if (parseInt(height) === 0 || parseInt(weight) === 0) {
+            //Avoid NaN
+            setBmi(0);
+        } else {
+            setBmi((parseInt(height) / parseInt(weight)).toString().substring(0, 4))
+        }
+
+    }, [height, weight])
+
+    const handleBlur = (minValue, maxValue, inputValue, item) => {
+        //Check for split values in blood pressure and vision
+        if (item === 'bloodPressure' || item === 'vision') {
+            //Proceed to do the rest...
+            const splitValue = inputValue.split("/");
+            if (splitValue[1] > maxValue || splitValue[0] < minValue) {
+                //Doesnt work...
+                props.showToast('Acceptable range of values for ' + item + ' is between ' + minValue + ' and ' + maxValue + '.', 'exclamation');
+                const itemElt = document.getElementById(item)
+                itemElt.classList.add('error-border')
+                itemElt.focus();
+            }
+
+            return;
+        }
+
+        if (inputValue > maxValue || inputValue < minValue) {
+            //Beyond range
+            props.showToast('Acceptable range of values for ' + item + ' is between ' + minValue + ' and ' + maxValue + '.', 'exclamation');
+            const itemElt = document.getElementById(item)
+            itemElt.classList.add('error-border')
+            itemElt.focus();
+        }
+    }
 
     const updateMedicalDetails = () => {
         //update just the personal details contained here...
         const data = {
-            allergies: { value: [txtAllergies] },
+            allergies: { value: [...selectedAllergies] },
             general: {
                 "bloodGroup": bloodGroup,
                 "height": height,
@@ -180,28 +213,39 @@ const MedicalDialog = props => {
         <div className={displayDialog}>
             <div className="dialog-container">
                 <div className="dialog-header">
-                    <h2 className="nully" style={{ color: 'var(--bluish)'}}><i className="icofont-ui-edit"></i> Edit Medical Details</h2>
+                    <h2 className="nully" style={{ color: 'var(--bluish)' }}><i className="icofont-ui-edit"></i> Edit Medical Details</h2>
                 </div>
                 <div className="dialog-body">
                     <div className="form-row">
                         <div className='input-group'>
-                            <label>Allergies</label>
-                            <input
+                            <label>
+                                <input
+                                    type='checkbox'
+                                    id='chkAllergies'
+                                    value={chkAllergies}
+                                    onChange={e => setChkAllergies(!chkAllergies)}
+                                    className='custom-checkbox' /> Allergies
+                            </label>
+                            <select
                                 id="txtAllergies"
-                                className="form-control mb-1"
+                                className={chkAllergies ? "form-control mb-1" : 'd-none'}
                                 value={txtAllergies}
                                 onChange={e => {
                                     setTxtAllergies(e.target.value)
-                                    if (e.keyCode === 13) createItems();
+                                    addAllergiesToList(e.target.value);
                                 }}
-                                onBlur={createItems}
-                                placeholder='Enter comma-separated values'
-                            />
-                            <div className="emails-box">{boxContent}</div>
+                            >
+                                {allergiesMap}
+                            </select>
+                            {selectedAllergies.length > 0 && chkAllergies &&
+                                <div className='sel-items'>
+                                    {selectedAllergies.join(", ")}
+                                    <button onClick={() => setSelectedAllergies([])} className='btn-grey' style={{ float: 'right' }}>Clear</button>
+                                </div>
+                            }
                         </div>
-
                     </div>
-                    <div className="form-row">
+                    <div className="form-row d-none">
                         <div className='input-group'>
                             <label>Managing Organization</label>
                             <select
@@ -242,7 +286,12 @@ const MedicalDialog = props => {
                                 id="height"
                                 className="form-control"
                                 value={height}
-                                onChange={e => setHeight(e.target.value)}
+                                onChange={e => {
+                                    setHeight(e.target.value)
+                                    document.getElementById(e.target.id).classList.remove('error-border')
+                                }}
+                                type='number'
+                                onBlur={() => handleBlur(0, 500, height, 'height')}
                             />
                         </div>
                         <div className="input-group">
@@ -251,7 +300,12 @@ const MedicalDialog = props => {
                                 id="weight"
                                 className="form-control"
                                 value={weight}
-                                onChange={e => setWeight(e.target.value)}
+                                onChange={e => {
+                                    setWeight(e.target.value)
+                                    document.getElementById(e.target.id).classList.remove('error-border')
+                                }}
+                                type='number'
+                                onBlur={() => handleBlur(0, 180, weight, 'weight')}
                             />
                         </div>
                     </div>
@@ -263,6 +317,7 @@ const MedicalDialog = props => {
                                 className="form-control"
                                 value={bmi}
                                 onChange={e => setBmi(e.target.value)}
+                                disabled
                             />
                         </div>
                         <div className="input-group">
@@ -271,7 +326,12 @@ const MedicalDialog = props => {
                                 id="chestExpansion"
                                 className="form-control"
                                 value={chestExpansion}
-                                onChange={e => setChestExpansion(e.target.value)}
+                                onChange={e => {
+                                    setChestExpansion(e.target.value)
+                                    document.getElementById(e.target.id).classList.remove('error-border');
+                                }}
+                                type='number'
+                                onBlur={() => handleBlur(2, 5, chestExpansion, 'chestExpansion')}
                             />
                         </div>
                         <div className="input-group">
@@ -280,7 +340,11 @@ const MedicalDialog = props => {
                                 id="vision"
                                 className="form-control"
                                 value={vision}
-                                onChange={e => setVision(e.target.value)}
+                                onChange={e => {
+                                    setVision(e.target.value)
+                                    document.getElementById(e.target.id).classList.remove('error-border');
+                                }}
+                                onBlur={() => handleBlur(0, 6, vision, 'vision')}
                             />
                         </div>
                     </div>
@@ -291,7 +355,11 @@ const MedicalDialog = props => {
                                 id="bloodPressure"
                                 className="form-control"
                                 value={bloodPressure}
-                                onChange={e => setBloodPressure(e.target.value)}
+                                onChange={e => {
+                                    setBloodPressure(e.target.value)
+                                    document.getElementById(e.target.id).classList.remove('error-border');
+                                }}
+                                onBlur={() => handleBlur(10, 250, bloodPressure, 'bloodPressure')}
                             />
                         </div>
                         <div className="input-group">
@@ -300,7 +368,12 @@ const MedicalDialog = props => {
                                 id="pulse"
                                 className="form-control"
                                 value={pulse}
-                                onChange={e => setPulse(e.target.value)}
+                                onChange={e => {
+                                    setPulse(e.target.value)
+                                    document.getElementById(e.target.id).classList.remove('error-border');
+                                }}
+                                type='number'
+                                onBlur={() => handleBlur(0, 200, pulse, 'pulse')}
                             />
                         </div>
                         <div className="input-group">
@@ -309,7 +382,13 @@ const MedicalDialog = props => {
                                 id="oxygenSaturation"
                                 className="form-control"
                                 value={oxygenSaturation}
-                                onChange={e => setOxygenSaturation(e.target.value)}
+                                onChange={e => {
+                                    setOxygenSaturation(e.target.value)
+                                    document.getElementById(e.target.id).classList.remove('error-border');
+                                }}
+                                type='number'
+                                onBlur={() => handleBlur(1, 100, oxygenSaturation, 'oxygenSaturation')}
+
                             />
                         </div>
                     </div>

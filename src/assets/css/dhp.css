@@ -1,0 +1,364 @@
+.dhp-container {
+    display: block;
+    width: 72%;
+    min-height: 100vh;
+    margin: 0 auto;
+    /* background: linear-gradient(var(--bluish), white, white, transparent); */
+}
+
+.dhp-container .dhp-header {
+    display: flex;
+    flex-direction: row;
+    padding: 30px;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--special-blue);
+    /* height: 250px; */
+}
+
+.dhp-header .header-text {
+    display: block;
+    position: relative;
+}
+
+.dhp-header .header-text h2 {
+    display: block;
+    color: #222;
+    margin-bottom: 20px;
+    font-size: 24px;
+}
+
+.dhp-header .header-text p {
+    display: block;
+    color: #444;
+    width: 350px;
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+.dhp-header .bar-code img {
+    display: block;
+    width: 170px;
+}
+
+.dhp-body {
+    padding: 50px 0;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+.dhp-body .left-side-bar {
+    display: block;
+}
+
+.dhp-body .left-side-bar .side-bar-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 20px 0 20px 20px;
+    border-left: 6px solid #666;
+    cursor: pointer;
+    transition: 0.5s ease;
+    /* border-radius: 6px; */
+    margin-bottom: 15px;
+    background: #efefef55;
+}
+
+.dhp-body .left-side-bar .side-bar-item.active {
+    border-left: 6px solid var(--bluish);
+    background: #fff;
+}
+
+.dhp-body .left-side-bar .side-bar-item:hover:not(.active) {
+    transform: translateY(-2px);
+    background: #efefef66;
+}
+
+.dhp-body .left-side-bar .side-bar-item h2 {
+    color: #888;
+    margin-bottom: 15px;
+    display: block;
+    letter-spacing: 1px;
+    font-size: 20px;
+}
+
+.dhp-body .left-side-bar .side-bar-item.active h2 {
+    color: var(--bluish);
+}
+
+.dhp-body .left-side-bar .side-bar-item p {
+    color: #666;
+    display: block;
+    font-size: 14px;
+}
+
+.dhp-body .left-side-bar .side-bar-item i {
+    font-size: 20px;
+    color: #666;
+    display: block;
+    margin-left: 15px;
+    margin-right: 10px;
+}
+
+/* main-content */
+.dhp-body .main-content {
+    display: block;
+    padding: 30px;
+    box-shadow: 3px 5px 17px rgba(0,0,0,25%);
+}
+
+.dhp-body .main-content .appointment {
+    display: block;
+}
+
+.dhp-body .main-content .appointment h2 {
+    display: block;
+    position: relative;
+    color: var(--bluish);
+    font-size: 20px;
+}
+
+.dhp-body .main-content .appointment h2::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: -10px;
+    height: 4px;
+    background: var(--bluish);
+    width: 120px;
+}
+
+.dhp-body .main-content .appointment h2::after {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: -8px;
+    height: 1px;
+    background: var(--bluish);
+    width: 100%;
+}
+
+.dhp-body .main-content .appointment .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+}
+
+.dhp-body .main-content .appointment .not-found > h4 {
+    font-size: 24px;
+    color: #888;
+    letter-spacing: 1px;
+    font-weight: 400;
+
+}
+
+.dhp-body .main-content .appointment .not-found > img {
+    width: 50%;
+    margin-bottom: 50px;
+    margin-top: 50px;
+}
+
+.dhp-body .main-content .appointment > .details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0;
+}
+
+.dhp-body .main-content .appointment > .details img {
+    width: 150px;
+    border-radius: 50%;
+    margin: 40px 0;
+}
+
+.dhp-body .main-content .appointment > .details h3 {
+    display: block;
+    color: #444;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.dhp-body .main-content .appointment > .details h4 {
+    display: block;
+    color: var(--bluish);
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.dhp-body .main-content .appointment > .details h5,
+.dhp-body .main-content .appointment > .details p {
+    display: block;
+    color: #888;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 20px;
+}
+
+.dhp-body .main-content .appointment > .details p {
+    font-size: 18px;
+}
+
+.dhp-body .main-content .appointment > .details button {
+    font-size: 16px;
+}
+
+/* dhp cards */
+.dhp-body .past-appointments {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    padding: 30px 0px;
+    cursor: pointer;
+}
+
+.dhp-body .past-appointments .appt-card {
+    display: block;
+    width: 50%;
+    position: relative;
+    padding: 20px;
+    box-shadow: 3px 3px 10px rgba(0,0,0,15%);
+    border-radius: 6px;
+}
+
+.dhp-body .past-appointments .appt-card .card-top {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+}
+
+.dhp-body .past-appointments .appt-card .card-top > img {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+.dhp-body .past-appointments .appt-card .card-top .card-top-text {
+    display: block;
+}
+
+.dhp-body .past-appointments .appt-card .card-top .card-top-text > h3 {
+    color: var(--bluish);
+    font-weight: 600;
+    font-size: 16px;
+
+}
+
+.dhp-body .past-appointments .appt-card .card-top .card-top-text > h5 {
+    color: #666;
+    font-weight: 600;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.dhp-body .past-appointments .appt-card .card-top .card-top-text > span {
+    color: #888;
+    font-weight: 400;
+    font-size: 12px;
+    margin-bottom: 10px;
+    position: relative;
+    display: block;
+}
+
+.dhp-body .past-appointments .appt-card .card-top .card-top-text > span::before {
+    position: absolute;
+    content: '';
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: #999;
+}
+
+.dhp-body .past-appointments .appt-card .card-top .card-top-text > p {
+    color: #888;
+    font-weight: 400;
+    font-size: 13px;
+}
+
+.dhp-body .past-appointments .appt-card h6 {
+    display: block;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.dhp-body .past-appointments .appt-card > span {
+    display: block;
+    width: 100%;
+    background: var(--bluish);
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+/* dhp nav-bar */
+.nav-bar {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    background: var(--special-blue);
+    padding: 0 30px;
+}
+
+.nav-bar .logo {
+    display: block;
+    position: relative;
+    width: 60px;
+    object-fit: contain;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.nav-bar .logo > img {
+    width: 60px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.nav-bar .profile-img {
+    display: block;
+    width: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #efefef;
+}
+
+.nav-bar .links {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: auto;
+
+}
+
+.nav-bar .links > a {
+    display: block;
+    position: relative;
+    padding: 20px 15px;
+    text-decoration: none;
+    color: #888;
+    transition: 0.5s ease;
+}
+
+.nav-bar .links > a.active {
+    color: var(--bluish);
+}
+
+.nav-bar .links > a:hover:not(.active) {
+    background: #008AC045;
+    color: white;
+}

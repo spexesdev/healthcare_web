@@ -9,6 +9,7 @@ import Doctors from './doctors-profile/doctors';
 import { DoctorsLogin } from './login/doctors-login';
 import Dashboard from './admin/dashboard/dashboard';
 import Meeting from './meeting/meeting';
+import DigitalHealthPassport from './dhp/digital-health-passport'
 
 function App() {
 
@@ -40,25 +41,28 @@ function App() {
           <Route path="/register" exact>
             <Register showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
-          <Route path="/patients/profile">
+          <Route path="/patients/profile" exact>
             <Patients showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
-          <Route path="/doctors/profile">
+          <Route path="/doctors/profile" exact>
             <Doctors showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
-          <Route path="/doctors/login">
+          <Route path="/doctors/login" exact>
             <DoctorsLogin showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
-          <Route path="/admin/dashboard">
+          <Route path="/admin/dashboard" exact>
             <Dashboard showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
-          <Route path="/meeting/meeting-page">
+          <Route path="/meeting/meeting-page" exact>
             {/* Re-route to the patient's main page... */}
             <Meeting showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
+          <Route path='/patients/digital-health-passport' exact>
+            <DigitalHealthPassport showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
+          </Route>
           <Route path="*">
             {/* Re-route to the patient's main page... */}
-            <Patients showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
+            <DigitalHealthPassport showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
 
         </Switch>

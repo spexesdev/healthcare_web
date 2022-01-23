@@ -56,7 +56,7 @@ const OTPLogin = (props) => {
                         sessionStorage.setItem("token", res.token);
                         sessionStorage.setItem("id_val", res.uidNo);
 
-                        history.push("/patients/profile")
+                        history.push("/patients/digital-health-passport")
 
                     } else {
                         props.showToast(res.message, 'exclamation');
@@ -151,7 +151,7 @@ const OTPLogin = (props) => {
 
                         </div>
 
-                        <div className="resend-group">
+                        <div className="resend-group d-none">
                             <div>
                                 <p>Didn't receive the OTP?</p>
                                 <button>Resend</button>
@@ -159,7 +159,7 @@ const OTPLogin = (props) => {
                             <div>00:{countdownTimer}</div>
                         </div>
 
-                        <div className="otp-call">
+                        <div className="otp-call d-none">
                             <button>Get OTP on call</button>
                         </div>
                     </div>

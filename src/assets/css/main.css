@@ -9,7 +9,7 @@ body {
     --bluish: #0080AE;
     --golden-rod: #a88e16;
     --light-golden-rod: #e4c020;
-    
+    --special-blue: #0080AE44;;
 }
 
 .header-bar {
@@ -21,7 +21,7 @@ body {
     height: 90px;
     background: var(--bluish);
     padding: 0 30px;
-    box-shadow: 2px 5px 12px rgba(0,0,0,0.2);
+    box-shadow: 2px 5px 12px rgba(0, 0, 0, 0.2);
     z-index: 5;
 }
 
@@ -34,7 +34,7 @@ body {
     display: flex;
 }
 
-.header-bar-image > a {
+.header-bar-image>a {
     display: flex;
     align-items: center;
     color: #efefef;
@@ -44,18 +44,26 @@ body {
     text-decoration: none;
 }
 
-.header-bar-image > a > img {
+.header-bar-image>a>img {
     padding: 0 10px;
 
 }
 
 /* Container for login...  */
 .container {
-    display: block;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    height: 100%;
-    background-color: #fff;
+    min-height: 100vh;
+    background: linear-gradient(135deg, white, white, transparent, var(--bluish), var(--bluish));
     z-index: 1;
+}
+
+.container .smaller-container {
+    display: block;
+    width: 75%;
+    min-height: 70%;
 }
 
 .container .container-divider {
@@ -68,25 +76,38 @@ body {
 .container .left-sidebar {
     display: block;
     padding: 40px;
-    height: 100%;
+    height: auto;
 }
 
+.container .float-logo {
+    display: block;
+    position: absolute;
+    top: calc(50% - 125px);
+    left: 50px;
+}
+
+.container .float-logo > i {
+    position: absolute;
+    font-size: 250px;
+    opacity: 0.5;
+    color: var(--bluish);
+}
 .container .left-sidebar .left-text {
     display: block;
-    margin-top: 100px;
+    margin-top: 20px;
     position: relative;
 
 }
 
-.container .left-sidebar .left-text > h2 {
-    font-weight: bold;
+.container .left-sidebar .left-text>h2 {
+    font-weight: 500;
     color: #0080AE;
     font-size: 30px;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     position: relative;
 }
 
-.container .left-sidebar .left-text > h4 {
+.container .left-sidebar .left-text>h4 {
     font-weight: bold;
     font-family: Poppins;
     margin-bottom: 15px;
@@ -120,12 +141,13 @@ body {
 
 .container .left-sidebar .left-text h5 {
     font-weight: 600;
-    color: dimgray;
+    color: #888;
     display: block;
     margin-bottom: 7px;
+    font-size: 14px;
 }
 
-.container .left-sidebar .left-text h5 ~ a {
+.container .left-sidebar .left-text h5~a {
     /* Terms and conditions */
     display: block;
     position: relative;
@@ -134,16 +156,17 @@ body {
     color: #0080AE;
 }
 
-.container .left-sidebar .left-text > button, .left-text .btn-continue {
+.container .left-sidebar .left-text>button,
+.left-text .btn-continue {
     display: block;
-    width: calc(100%);
+    width: 100%;
     outline: none;
     border: none;
     background: #0080AE;
     color: #FFF;
-    padding: 15px 25px;
+    padding: 9px 25px;
     text-align: center;
-    font-size: 18px;
+    font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
     margin-bottom: 40px;
@@ -155,21 +178,22 @@ body {
     margin-top: 20px;
 }
 
-.container .left-sidebar .doctor-register {
+.container .left-sidebar .doctor-register h4 {
     display: block;
     color: #444;
     position: relative;
-    font-size: 16px;
-    color: grey;
+    font-size: 14px;
+    color: #888;
+    font-weight: 500;
 }
 
-.container .left-sidebar .doctor-register h4 > a {
+.container .left-sidebar .doctor-register h4>a {
     display: inline-block;
     position: relative;
-    font-weight: bold;
+    font-weight: 600;
     color: #0080AE;
     margin-left: 7px;
-    font-size: 16px;
+    font-size: 14px;
 }
 
 .left-footer {
@@ -197,9 +221,10 @@ body {
     padding: 60px;
     background: #0080AE;
     height: 100%;
+    box-shadow: 3px 3px 15px rgba(0,0,0,25%);
 }
 
-.container .right-sidebar > img {
+.container .right-sidebar>img {
     display: block;
     width: 80%;
     margin-bottom: 50px;
@@ -210,10 +235,10 @@ body {
     position: relative;
 }
 
-.container .right-sidebar .image-text > p {
+.container .right-sidebar .image-text>p {
     font-weight: 18px;
     color: #efefef;
-    font-size: 40px;
+    font-size: 35px;
     font-weight: 300;
     text-align: center;
 }
@@ -221,12 +246,24 @@ body {
 /* Input group etc */
 .form-data {
     display: block;
+    width: 100%;
     position: relative;
     background: #fff;
     border-radius: 6px;
     border: 1px solid #dedede;
     padding: 35px 20px;
     margin-bottom: 30px;
+    box-shadow: 3px 3px 15px rgba(0,0,0,0.15);
+}
+
+.form-data h2 {
+    position: absolute;
+    left: 20px;
+    top: -17px;
+    color: var(--bluish);
+    font-weight: 600;
+    background: transparent;
+    font-size: 20px;
 }
 
 .form-row {
@@ -263,8 +300,13 @@ body {
     position: relative;
 }
 
-@media screen and (max-width: 550px ){
-    .form-row, .form-row-2, .form-row-3, .form-row-4, .form-row-1-2 {
+@media screen and (max-width: 550px) {
+
+    .form-row,
+    .form-row-2,
+    .form-row-3,
+    .form-row-4,
+    .form-row-1-2 {
         grid-template-columns: 1fr;
     }
 }
@@ -275,7 +317,7 @@ body {
     margin-bottom: 15px;
 }
 
-.input-group > label {
+.input-group>label {
     font-weight: 400;
     font-size: 14px;
     color: #666;
@@ -296,6 +338,29 @@ body {
     color: #666;
     font-family: Poppins;
 
+}
+
+.form-control input[type=tel] {
+    display: block;
+    outline: 0;
+    border: none;
+    padding: 10px 18px;
+    width: 100%;
+    border-radius: 3px;
+    font-size: 16px;
+    color: #888;
+    font-family: Poppins;
+    letter-spacing: 1px;
+    font-weight: 500;
+}
+
+.input-group-doctor .form-control input[type=tel] {
+    font-size: 14px;
+}
+
+.form-control input[type=tel]:focus {
+    border: none;
+    box-shadow: none;
 }
 
 select.form-control {
@@ -379,7 +444,8 @@ button:focus {
     }
 }
 
-.body-container .left-container, .body-container .right-container {
+.body-container .left-container,
+.body-container .right-container {
     display: block;
     position: relative;
     background: #fff;
@@ -393,7 +459,7 @@ button:focus {
     position: relative;
     object-fit: cover;
     margin: 20px 0 40px 0;
-    box-shadow: 3px 12px 16px rgba(0,0,0,0.15);
+    box-shadow: 3px 12px 16px rgba(0, 0, 0, 0.15);
     padding: 10px;
 
 }
@@ -410,19 +476,19 @@ button:focus {
     margin-top: 30px;
 }
 
-.doctor-view > div > i {
+.doctor-view>div>i {
     margin-right: 5px;
     color: var(--main-green);
     font-size: 18px;
 }
 
-.doctor-view > div > span {
+.doctor-view>div>span {
     color: #555;
     font-size: 16px;
 }
 
 .doctor-view button {
-    display: inline-block!important;
+    display: inline-block !important;
 }
 
 .line-container {
@@ -454,12 +520,6 @@ button:focus {
     padding-left: 10px;
 }
 
-.body-container .right-container .title h2 {
-    color: var(--main-green);
-    font-weight: 600;
-    letter-spacing: 1px;
-    font-size: 34px;
-}
 
 .body-container .right-container .title {
     display: flex;
@@ -471,11 +531,31 @@ button:focus {
 
 }
 
+.body-container .right-container .title h2 {
+    position: relative;
+    color: var(--bluish);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    font-size: 34px;
+    text-transform: uppercase;
+}
+
+.body-container .right-container .title h2::before {
+    position: absolute;
+    content: '';
+    bottom: -7px;
+    left: 0;
+    height: 4px;
+    background: #888;
+    width: 70px;
+    border: none;
+}
+
 .body-container .right-container .title h4 {
     color: #888;
 }
 
-.body-container .right-container > h3 {
+.body-container .right-container>h3 {
     display: block;
     color: var(--bluish);
     font-size: 15px;
@@ -487,7 +567,7 @@ button:focus {
     margin: 50px 0 40px 0;
 }
 
-.right-container .upcoming-appointment > .title {
+.right-container .upcoming-appointment>.title {
     display: flex;
     width: 100%;
     align-items: center;
@@ -502,12 +582,17 @@ button:focus {
     align-items: center;
     justify-content: space-between;
     position: relative;
+    background: #efefef46;
+    padding: 30px;
+    box-shadow: 3px 5px 17px rgba(0,0,0,15%);
+    border-radius: 8px;
 }
 
-.right-container .upcoming-appointment .appointment > img {
+.right-container .upcoming-appointment .appointment>img {
     display: inline-block;
     position: relative;
     width: 120px;
+    border-radius: 50%;
 }
 
 .right-container .upcoming-appointment .appointment .details {
@@ -516,51 +601,67 @@ button:focus {
 }
 
 .right-container .upcoming-appointment .appointment .details h2 {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .right-container .upcoming-appointment .appointment .details h3 {
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     font-weight: normal;
     color: #999;
     font-size: 14px;
 }
 
 .right-container .upcoming-appointment .appointment .details h4 {
-    margin-bottom: 20px;
-    font-weight: normal;
-    color: var(--bluish);
+    color: #888;
+    font-size: 14px;
+    font-weight: 600;
 }
 
-.right-container .upcoming-appointment .appointment .details h4 > a {
-    display: inline-block;
+.right-container .upcoming-appointment .appointment .details > a {
+    display: block;
+    text-align: center;
     background: var(--bluish);
     color: white;
     padding: 5px 15px;
     text-decoration: none;
-    margin-left: 10px;
     border-radius: 5px;
+    font-size: 14px;
 }
 
-.right-container .upcoming-appointment .appointment .details h4 > a:hover {
+.right-container .upcoming-appointment .appointment .details >a:hover {
     opacity: 0.8;
 }
 
 
 
 .right-container .book-appointment {
-    display: block;
+    display: flex;
     position: relative;
     margin-bottom: 20px;
+    background: #f1f1f1;
+    padding: 15px;
+    border-radius: 4px;
 }
 
-.right-container .book-appointment h4 {
+.right-container .book-appointment > div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.right-container .book-appointment > div > img {
+    width: 80px;
+}
+
+.right-container .book-appointment > div > h4 {
     display: block;
     font-weight: 300;
     font-size: 18px;
     font-family: Poppins;
     color: #777;
     margin-bottom: 30px;
+    margin-right: 20px;
 }
 
 
@@ -616,7 +717,7 @@ button:focus {
     font-family: Poppins;
 }
 
-.upload-file-area .btn-upload {
+.upload-file-area .btn-upload, .btn-grey {
     display: inline-block;
     overflow: hidden;
     cursor: pointer;
@@ -629,11 +730,16 @@ button:focus {
     color: #000;
 }
 
-.upload-file-area .btn-upload:hover {
+.btn-grey {
+    padding: 2px 7px;
+    font-size: 12px;
+}
+
+.upload-file-area .btn-upload:hover, .btn-grey:hover {
     background: linear-gradient(silver, gainsboro);
 }
 
-.upload-file-area .btn-upload > input[type=file] {
+.upload-file-area .btn-upload>input[type=file] {
     display: flex;
     position: absolute;
     width: 100%;
@@ -650,19 +756,19 @@ button:focus {
     color: var(--bluish);
 }
 
-.upload-file-area > label {
+.upload-file-area>label {
     display: block;
     margin-top: 10px;
     font-weight: normal;
     font-size: 12px;
 }
 
-.upload-file-area > label > span {
+.upload-file-area>label>span {
     color: var(--main-green);
     font-size: 12px;
 }
 
-.upload-file-area > span {
+.upload-file-area>span {
     display: block;
     margin-bottom: 10px;
     font-size: 14px;
@@ -670,13 +776,13 @@ button:focus {
     color: var(--medium-text)
 }
 
-.upload-file-area > span:last-child {
+.upload-file-area>span:last-child {
     margin-bottom: 0;
     color: var(--main-green)
 }
 
 .mb-2 {
-    margin-bottom: 20px!important;
+    margin-bottom: 20px !important;
 }
 
 /* Schedule Appointment */
@@ -694,14 +800,14 @@ button:focus {
     padding: 20px;
     width: 100%;
     background: #fafafa;
-    box-shadow: 2px 4px 7px rgba(0,0,0,15%);
+    box-shadow: 2px 4px 7px rgba(0, 0, 0, 15%);
 }
 
-.doctor-area .chosen-doctor > img {
+.doctor-area .chosen-doctor>img {
     border-radius: 50%;
     width: 100%;
-    box-shadow: 2px 2px 8px rgba(0,0,0,0.2),
-                -2px -2px 2px rgb(255,255,255,1);
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2),
+        -2px -2px 2px rgb(255, 255, 255, 1);
 }
 
 .doctor-area .chosen-doctor .details {
@@ -723,12 +829,12 @@ button:focus {
     margin-bottom: 8px;
 }
 
-.doctor-area .chosen-doctor .details > div {
+.doctor-area .chosen-doctor .details>div {
     display: flex;
     flex-direction: row;
 }
 
-.doctor-area .chosen-doctor .details > div > span {
+.doctor-area .chosen-doctor .details>div>span {
     display: flex;
     position: relative;
     background: #ddd;
@@ -777,20 +883,20 @@ button:focus {
 }
 
 .doctors-list-container .doctor-area.selected {
-    background: rgba(9, 204, 9, 0.5)!important;
+    background: rgba(9, 204, 9, 0.5) !important;
 }
 
-.doctors-list-container .doctor-area .details > div > span {
+.doctors-list-container .doctor-area .details>div>span {
     font-weight: 500;
     cursor: pointer;
     padding: 3px 7px 2px;
 }
 
-.doctors-list-container .doctor-area .details > div > span:hover:not(.blue) {
+.doctors-list-container .doctor-area .details>div>span:hover:not(.blue) {
     background: #88d8;
 }
 
-.doctors-list-container .doctor-area .details > div > span.blue {
+.doctors-list-container .doctor-area .details>div>span.blue {
     background: var(--bluish);
     color: white;
 }
@@ -803,7 +909,7 @@ button:focus {
     margin-top: 7px;
 }
 
-.doctors-list-container .doctor-area .details .schedule > p {
+.doctors-list-container .doctor-area .details .schedule>p {
     margin-top: 5px;
     font-size: 12px;
     color: #999;
@@ -815,11 +921,11 @@ button:focus {
     margin-top: 0px;
 }
 
-.costing > p {
+.costing>p {
     font-size: 12px;
     font-weight: 500;
     background: #88b8;
-    color: var(--main-green)!important;
+    color: var(--main-green) !important;
     padding: 3px 12px;
 }
 
@@ -856,7 +962,7 @@ button:focus {
     display: block;
     text-align: center;
     line-height: 40px;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.15);
 }
 
 .application-status p {
@@ -868,7 +974,7 @@ button:focus {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(to left, rgb(86, 122, 92), rgb(54, 126, 66),rgb(56, 102, 64), rgb(54, 126, 66));
+    background: linear-gradient(to left, rgb(86, 122, 92), rgb(54, 126, 66), rgb(56, 102, 64), rgb(54, 126, 66));
     width: 160px;
     height: 160px;
     border-radius: 50%;
@@ -910,13 +1016,13 @@ button:focus {
     font-size: 13px;
 }
 
-.span-in-span > span {
+.span-in-span>span {
     color: var(--main-green);
     background: #efefefaa;
     padding: 5px 9px;
 }
 
-.span-in-span > span > span {
+.span-in-span>span>span {
     color: #666;
 }
 
@@ -929,4 +1035,9 @@ button:focus {
     right: 25px;
     border-radius: 7px;
     height: auto;
+}
+
+/* Error border */
+.error-border {
+    border: 1px solid red;
 }

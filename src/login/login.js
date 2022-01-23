@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { ApiPath } from '../assets/common/base-url';
 import OTPLogin from './OTPLogin';
+import { LoginHeaders } from './login-headers';
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
 
 
 export const Login = (props) => {
@@ -10,11 +13,18 @@ export const Login = (props) => {
 
     const [value, setValue] = useState("");
     const [displayOTP, setDisplayOTP] = useState(false);
+    const [selectedTab, setSelectedTab] = useState(1);
+
+    const [txtPassportID, setTxtPassportID] = useState('')
+    const [txtPassword, setTxtPassword] = useState('')
+
+    const history = useHistory();
 
     const tryLogin = () => {
         //Try logging in...
-        const data = {
-            phoneNumber: value
+        const data = selectedTab === 1 ? { phoneNumber: value } : {
+            loginId: txtPassportID,
+            password: txtPassword
         }
 
         const options = {
@@ -26,8 +36,9 @@ export const Login = (props) => {
         }
 
         setIsLoaderVisible(true);
+        const route = selectedTab === 1 ? "sendSms" : "login";
 
-        fetch(ApiPath + "sendSms", options)
+        fetch(ApiPath + route, options)
             ?.then(response => (response.json()))
             .then(response => {
 
@@ -37,8 +48,14 @@ export const Login = (props) => {
                     showToast(response.message, 'exclamation');
                 } else {
                     //Else, proceed... show the 2fa page...
-                    showToast("Enter the OTP sent to your registered phone number to proceed.", "information");
-                    setDisplayOTP(true);
+                    if (selectedTab === 1) {
+                        showToast("Enter the OTP sent to your registered phone number to proceed.", "information");
+                        setDisplayOTP(true);
+
+                    } else {
+                        showToast(response.message, "information");
+                        history.push("/patients/digital-health-passport");
+                    }
                 }
             })
             .catch(err => {
@@ -50,55 +67,91 @@ export const Login = (props) => {
     return (
         <>
             <div className="container">
-                <div className="container-divider">
-                    <div className="left-sidebar" style={{ minHeight: '100vh' }} >
-                        <img src="./mah-logo.png" />
+                <div className='smaller-container'>
+                    <div className="container-divider">
+                        <div className="left-sidebar">
+                            <img src="./mah-logo.png" />
 
-                        <div className="left-text">
-                            <h2><i className="icofont-check-circled"></i> Let's get started!</h2>
+                            <div className="left-text">
+                                <h2><i className="icofont-check-circled"></i> Let's get started!</h2>
+                                <div className='form-data'>
+                                    <LoginHeaders
+                                        selectedTab={selectedTab}
+                                        setSelectedTab={setSelectedTab}
+                                        style={{ marginBottom: '30px' }}
+                                    />
 
-                            <h4>Enter your mobile number</h4>
-                            <div className="phone-input-container">
-                                <input
-                                    id="value"
-                                    value={value}
-                                    onChange={e => setValue(e.target.value)}
-                                    defaultCountry='IN'
-                                    className="login-control"
-                                    placeholder="Mobile Number"
-                                    maxLength={14}
-                                    type="text"
-                                />
+                                    {
+                                        selectedTab === 1 &&
+                                        <div className='form-row mb-2'>
+                                            <h5>Login using Mobile number and OTP</h5>
+
+                                            <div className='input-group'>
+                                                <PhoneInput
+                                                    placeholder="Enter mobile number"
+                                                    value={value}
+                                                    onChange={phone => setValue(phone)}
+                                                    className='form-control'
+                                                    style={{ paddingTop: 0, paddingBottom: 0 }}
+                                                />
+                                            </div>
+                                        </div>
+                                    }
+
+                                    {
+                                        selectedTab === 2 && <div className='form-row mb-2'>
+                                            <h5>Login using Passport ID and Password</h5>
+                                            <div className='input-group'>
+                                                <input className='form-control'
+                                                    placeholder='Enter Passport ID'
+                                                    id='txtPassportID'
+                                                    value={txtPassportID}
+                                                    maxLength={14}
+                                                    onChange={e => setTxtPassportID(e.target.value)}
+                                                />
+                                            </div>
+                                            <div className='input-group'>
+                                                <input className='form-control'
+                                                    type='password'
+                                                    placeholder='Enter Password'
+                                                    id='txtPassword'
+                                                    value={txtPassword}
+                                                    onChange={e => setTxtPassword(e.target.value)}
+                                                />
+                                            </div>
+
+                                        </div>
+                                    }
+
+                                    <h5>By continuing, you agree to our</h5>
+                                    <Link to="/admin/dashboard">Terms and conditions</Link>
+
+                                    <button
+                                        id="btnLogin"
+                                        className="btn-continue"
+                                        onClick={tryLogin}   //Show 2fa page...
+                                    >Continue</button>
+                                </div>
+                                <div className="doctor-register">
+                                    <h4>Are you a new user? <Link to="/register">Register here</Link></h4>
+                                </div>
+                                <div className="doctor-register">
+                                    <h4>Returning Doctor? <Link to="/doctors/login">Login here</Link></h4>
+                                </div>
                             </div>
-
-                            <h5>By continuing, you agree to our</h5>
-                            <Link to="/admin/dashboard">Terms and conditions</Link>
-
-                            <button
-                                id="btnLogin"
-                                className="btn-continue"
-                                onClick={tryLogin}   //Show 2fa page...
-                            >Continue</button>
-                            <div className="doctor-register">
-                                <h4>Are you a new user? <Link to="/register">Register here</Link></h4>
-                            </div>
-                            <div className="doctor-register">
-                                <h4>Returning Doctor? <Link to="/doctors/login">Login here</Link></h4>
+                            <div className="left-footer" style={{ display: 'none' }}>
+                                <p>Certified and secure online healthcare platform</p>
                             </div>
                         </div>
-                        <div className="left-footer" style={{ display: 'none' }}>
-                            <p>Certified and secure online healthcare platform</p>
+                        <div className="right-sidebar">
+                            <img src="./doctors.svg" />
+                            <div className="image-text">
+                                <p>India's top doctors to guide you to better health everyday</p>
+                            </div>
                         </div>
+
                     </div>
-                    <div className="right-sidebar">
-                        <img src="./doctors.svg" />
-                        <div className="image-text">
-                            <p>India's top doctors to guide you to better health everyday</p>
-                        </div>
-                    </div>
-
                 </div>
-
             </div>
 
             {

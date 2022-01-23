@@ -211,7 +211,7 @@ const PersonalDialog = props => {
                             >
                                 <option value=""></option>
                                 <option value="English">English</option>
-                                <option value="Hindu">Hindu</option>
+                                <option value="Hindi">Hindi</option>
                             </select>
                         </div>
                     </div>

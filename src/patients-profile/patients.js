@@ -1,4 +1,4 @@
-import { Header } from "../components/header";
+import { NavBar } from "../components/nav-bar";
 import { PatientTabHeaders } from "./tab-pages/patient-tab-headers";
 import React, { useState, useEffect } from 'react';
 import { Contact } from "./tab-pages/contact";
@@ -57,7 +57,7 @@ const Patients = props => {
         //the patient's data..
         //First, get all the relative values required...
         const pix = patientsData.photo === "" ? 0 : 10;
-        const lifeStyle1 = patientsData.lifeStyle?.activityLevel === "" ? 0 : 3;
+        const lifeStyle1 = (patientsData.lifeStyle?.activityLevel && patientsData.lifeStyle?.activityLevel === "") ? 0 : 3;
         const lifeStyle2 = patientsData.lifeStyle?.alcoholConsumption === "" ? 0 : 3;
         const lifeStyle3 = patientsData.lifeStyle?.foodPreference === "" ? 0 : 3;
         const lifeStyle4 = patientsData.lifeStyle?.smokingHabbit === "" ? 0 : 3;
@@ -88,8 +88,8 @@ const Patients = props => {
         const contactPerson = patientsData.contactPerson?.length === 0 ? 0 : 5;
 
         const totalValue = pix + lifeStyle1 + lifeStyle2 + lifeStyle3 + lifeStyle4 + general +
-                    fullName + phoneNo + gender + email + maritalStatus + pastPrescriptions +
-                    currentMedications + diagnosisReport + contactPerson + birthDate;
+            fullName + phoneNo + gender + email + maritalStatus + pastPrescriptions +
+            currentMedications + diagnosisReport + contactPerson + birthDate;
 
         //Set the variable...
         setPercentComplete(totalValue);
@@ -160,7 +160,11 @@ const Patients = props => {
 
     }, [])
 
-    useEffect(() => checkAppointmentBooked(), [picture, scheduleObject])
+    useEffect(() => {
+        checkAppointmentBooked();
+        checkCircleSector();
+
+    }, [picture, scheduleObject, patientsData])
 
     useEffect(() => {
 
@@ -179,9 +183,6 @@ const Patients = props => {
 
                         //Save this for future use...
                         localStorage.setItem('patient', JSON.stringify(res.data));
-
-                        //Update the completion status
-                        checkCircleSector();
 
                     } else {
                         props.showToast(res.message, 'exclamation');
@@ -230,7 +231,13 @@ const Patients = props => {
 
                     //Set other parameters...
                     setDoctorData(result[result.length - 1]);
-                    setAppointmentBooked(true);
+                    if (result.length > 0) {
+                        //Fiter generated result thus...
+                        setAppointmentBooked(true);
+                    } else {
+                        setAppointmentBooked(false);
+                    }
+
 
                 } else {
                     props.showToast('Failed to fetch data. Please try again after some time.', 'exclamation');
@@ -328,10 +335,14 @@ const Patients = props => {
             })
     }
 
+    const disableConsultButton = SplitDateFromTimestamp(doctorData?.starttime).date !== SplitDateFromTimestamp(new Date()).date ? 'true' : '';
+
     return (
         <div>
-            <Header />
-
+            <NavBar
+                activeLink={2}
+                picture={picture}
+            />
             <div className="body-container">
                 <div className="left-container">
                     <div className="profile-image">
@@ -366,7 +377,7 @@ const Patients = props => {
                             <i className="icofont-upload-alt"></i> Update Profile Picture
                         </button>
 
-                        <div className='doctor-view'>
+                        <div className='doctor-view d-none'>
                             <div>
                                 <i className={allowState ? 'icofont-ui-check' : 'icofont-ui-close'} style={{ color: !allowState ? 'maroon' : 'var(--main-green)' }}></i>
                                 <span>Doctor can view data</span>
@@ -385,7 +396,6 @@ const Patients = props => {
                 <div className="right-container">
                     <div className="title">
                         <h2>{patientsData.name}</h2>
-                        <h4 className="d-none"><i className="icofont-location-pin"></i>{props.data?.address && props.data.address[0]?.city}, {props.data?.address && props.data.address[0]?.state}</h4>
                     </div>
                     <div className='box'>
                         <h4>Profile Status</h4>
@@ -409,19 +419,23 @@ const Patients = props => {
                                 <h2>{doctorData !== '' && `Dr. ${doctorData?.doctor_name}`}</h2>
                                 <h3>{doctorData && doctorData?.doctor_email_id}</h3>
                                 <h4><i className="icofont-clock-time" /> {SplitDateFromTimestamp(doctorData?.starttime).dateTime}</h4>
-                                <h4>Meeting Link: <Link
+                                <Link
                                     to={doctorData !== '' && '/meeting/meeting-page?meeting_id=' +
                                         doctorData?.meetinng_id + '&doctor_id=' + doctorData?.doctor_id +
                                         '&gravatar=./portfolio/avatar.png&past_prescription=' + patientsData?.pastPrescriptions[0]?.name +
                                         '&patient_id=' + patientsData?.uidNo + '&tk=' + sessionStorage.getItem('token')}
-                                    target='_blank'>
-                                    {doctorData !== '' && doctorData?.meetinng_id}
-                                </Link></h4>
+                                    target='_blank'
+                                    disabled={disableConsultButton}>
+                                    <i className='icofont-video-cam' /> Join Video Consultation
+                                </Link>
                             </div>
                             <img src="/portfolio/team-3.jpg" />
                         </div>
                             : <div className="book-appointment">
-                                <h4>You do not have any upcoming appointment!</h4>
+                                <div>
+                                    <img src="/warning-96.png" alt="" />
+                                    <h4>You do not have any upcoming appointment!</h4>
+                                </div>
                                 <button
                                     className="btn-main"
                                     onClick={() => {

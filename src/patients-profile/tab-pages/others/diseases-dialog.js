@@ -2,21 +2,42 @@ import React, { useState } from 'react';
 import { ApiPath } from '../../../assets/common/base-url';
 import { fileToBase64 } from '../../../assets/common/file-to-base64';
 
-export const PastPrescriptionsDialog = props => {
+export const DiseasesDialog = props => {
 
-    const [txtPastPrescriptions, setTxtPastPrescriptions] = useState(props.data?.pastPrescriptions.length > 1 ? props.data?.pastPrescriptions[0].records[0] : '')
-    const [cbxMedicines, setCbxMedicines] = useState(props.data.pastPrescriptions.length > 1 ? props.data?.pastPrescriptions[0].type : 'No')
-    const [txtAddMedication, setTxtAddMedication] = useState(props.data?.pastPrescriptions.length > 1 ? props.data?.pastPrescriptions[0].name : '');
-    const [txtMedicationDescription, setTxtMedicationDescription] = useState(props.data?.pastPrescriptions.length > 1 ? props.data?.pastPrescriptions[0].description : '')
+    const [txtDiseases, setTxtDiseases] = useState('');
+    const [chkDiseases, setChkDiseases] = useState(false);
+    const [txtDiseaseImage, setTxtDiseaseImage] = useState(props.data?.pastPrescriptions.length > 1 ? props.data?.pastPrescriptions[0].records[0] : '')
+    const [txtDiseaseDescription, setTxtDiseaseDescription] = useState(props.data?.pastPrescriptions.length > 1 ? props.data?.pastPrescriptions[0].description : '')
 
-    const updatePastPrescriptions = () => {
+    const [selectedDiseases, setSelectedDiseases] = useState([])
+    const diseasesList = ['Diabetes', 'Hypertension', 'PCOS', 'Hypothyroidism', 'COPD',
+        'Asthma', 'Heart disease', 'Arthritis', 'Mental illness/depression',
+        'Fertility issues', 'Other']
+
+    const diseasesMap = diseasesList.map((item, index) => {
+        return (<option key={index} value={item}>{item}</option>)
+    })
+
+    const addDiseasesToList = selItem => {
+        //Ensure that the selected item is not in the list...
+        if (selectedDiseases.indexOf(selItem) === -1) {
+            //Item is not found in the list...
+            setSelectedDiseases([...selectedDiseases, selItem])
+
+            //Also, remove this item from the original list.
+            diseasesList.splice(diseasesList.indexOf(selItem), 1)
+
+        }
+    }
+
+    const updateChronicDiseases = () => {
 
         const data = {
-            pastPrescriptions: [{
-                type: cbxMedicines,
-                name: txtAddMedication,
-                records: [txtPastPrescriptions],
-                description: txtMedicationDescription,
+            chronicDiseases: [{
+                type: "-",
+                name: [...selectedDiseases],
+                records: [txtDiseaseImage],
+                description: txtDiseaseDescription,
             }]
         }
 
@@ -57,7 +78,7 @@ export const PastPrescriptionsDialog = props => {
 
     const saveImageToBase64 = () => {
 
-        const fileUpload = document.querySelector("#txtPastPrescriptions")
+        const fileUpload = document.querySelector("#txtDiseaseImage")
 
         if (fileUpload?.files[0]?.size > 500152) {
             props.showToast("File size cannot be more than 500kb!", "exclamation")
@@ -69,7 +90,7 @@ export const PastPrescriptionsDialog = props => {
             //Ensuring that there is a file to convert
             fileToBase64(fileUpload?.files[0])
                 .then(response => {
-                    setTxtPastPrescriptions(response.toString());
+                    setTxtDiseaseImage(response.toString());
                 })
                 .catch(err => {
                     props.showToast(err);
@@ -86,47 +107,51 @@ export const PastPrescriptionsDialog = props => {
         <div className={displayDialog}>
             <div className="dialog-container">
                 <div className="dialog-header">
-                    <h2 className="nully" style={{ color: 'var(--bluish)' }}><i className="icofont-ui-edit"></i> Add/Edit Past Prescriptions</h2>
+                    <h2 className="nully" style={{ color: 'var(--bluish)' }}><i className="icofont-ui-edit"></i> Add/Edit Chronic Diseases</h2>
                 </div>
                 <div className="dialog-body" style={{ marginBottom: '20px' }}>
-
                     <div
                         className="form-row"
                         style={{ border: '1px solid #efefef', borderRadius: '5px', padding: '20px' }}>
                         <label
                             style={{ transform: 'translateY(-10px)', color: '#999' }}>
-                            <i className="icofont-drug"></i> Past Prescriptions / Medications
+                            <i className="icofont-drug"></i> Chronic Diseases
                         </label>
-                        <div className="form-row-2-1">
+                        <div className="form-row">
                             <div className='input-group'>
-                                <label>Have you taken any medicines in past?</label>
+                                <label>
+                                    <input
+                                        type='checkbox'
+                                        id='chkDiseases'
+                                        value={chkDiseases}
+                                        onChange={() => setChkDiseases(!chkDiseases)}
+                                    /> I have a/some chronic disease(s)?
+                                </label>
                                 <select
-                                    id="cbxMedicines"
-                                    value={cbxMedicines}
-                                    className="form-control"
-                                    onChange={e => setCbxMedicines(e.target.value)}
+                                    id="txtDiseases"
+                                    className={chkDiseases ? "form-control mb-1" : 'd-none'}
+                                    value={txtDiseases}
+                                    onChange={e => {
+                                        setTxtDiseases(e.target.value)
+                                        addDiseasesToList(e.target.value);
+                                    }}
                                 >
-                                    <option value="No">No</option>
-                                    <option value="Yes">Yes</option>
+                                    {diseasesMap}
                                 </select>
+                                {selectedDiseases.length > 0 && chkDiseases &&
+                                    <div className='sel-items'>
+                                        {selectedDiseases.join(", ")}
+                                        <button onClick={() => setSelectedDiseases([])} className='btn-grey' style={{ float: 'right' }}>Clear</button>
+                                    </div>
+                                }
                             </div>
 
                         </div>
-                        <div className={cbxMedicines === "Yes" ? "form-row-2" : "d-none"}>
-                            <div className="input-group">
-                                <label>Add Medication</label>
-                                <input
-                                    id="txtAddMedication"
-                                    value={txtAddMedication}
-                                    className="form-control"
-                                    onChange={e => setTxtAddMedication(e.target.value)}
-                                    type="text"
-                                />
-                            </div>
-                            <div className="input-group">
+                        <div className={chkDiseases ? "form-row" : 'd-none'}>
+                            <div className='input-group'>
                                 <label>Upload File (.pdf) (optional)</label>
                                 <input
-                                    id="txtPastPrescriptions"
+                                    id="txtDiseaseImage"
                                     onChange={() => saveImageToBase64()}
                                     className="form-control"
                                     accept=".pdf"
@@ -134,14 +159,14 @@ export const PastPrescriptionsDialog = props => {
                                 />
                             </div>
                         </div>
-                        <div className={cbxMedicines === "Yes" ? "form-row" : "d-none"}>
+                        <div className={chkDiseases ? "form-row" : "d-none"}>
                             <div className="input-group">
                                 <label>Description (optional)</label>
                                 <textarea
-                                    id="txtMedicationDescription"
-                                    value={txtMedicationDescription}
+                                    id="txtDiseaseDescription"
+                                    value={txtDiseaseDescription}
                                     className="form-control"
-                                    onChange={e => setTxtMedicationDescription(e.target.value)}
+                                    onChange={e => setTxtDiseaseDescription(e.target.value)}
                                     type="text"
                                 />
                             </div>
@@ -152,7 +177,7 @@ export const PastPrescriptionsDialog = props => {
                     <button
                         id="btnUpdate"
                         className="btn-main mr-1"
-                        onClick={updatePastPrescriptions}
+                        onClick={updateChronicDiseases}
                     >Update
                     </button>
                     <button
