@@ -82,3 +82,58 @@
     margin-top: -15px;
     font-size: 24px;
 }
+
+/* Health completion status */
+.health-status {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 60px;
+    background: var(--special-blue);
+    padding: 0 30px;
+}
+
+.health-status h2 {
+    position: relative;
+    display: block;
+    color: #222;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.health-status > div {
+    display: block;
+    position: relative;
+    height: 6px;
+    width: 100%;
+}
+
+.health-status span {
+    position: relative;
+    display: block;
+    width: 100%;
+    background: silver;
+    height: 6px;
+    margin: 3px 0;
+    border-radius: 3px;
+}
+
+.health-status span.progress-status {
+    position: absolute;
+    content: '';
+    display: block;
+    width: 40%;
+    z-index: 1;
+    top: -3px;
+    left: 0;
+    background: var(--main-green);
+    height: 6px;
+}
+
+.health-status h4 {
+    position: relative;
+    display: block;
+    color: #666;
+    font-weight: 500;
+    font-size: 11px;
+}

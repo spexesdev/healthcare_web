@@ -54,6 +54,14 @@ export const Login = (props) => {
 
                     } else {
                         showToast(response.message, "information");
+
+                        //Remember to store the bearer token
+                        sessionStorage.setItem("token", response.token);
+                        sessionStorage.setItem("id_val", response.uidNo);
+
+                        //Store patient's data
+                        sessionStorage.setItem('patient', JSON.stringify(response.data));
+
                         history.push("/patients/digital-health-passport");
                     }
                 }

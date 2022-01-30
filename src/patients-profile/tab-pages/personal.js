@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ApiPath } from '../../assets/common/base-url';
+import { shortDateString } from "../../assets/common/operations"
 
 export const Personal = props => {
 
@@ -30,7 +31,7 @@ export const Personal = props => {
                         </tr>
                         <tr>
                             <td><span style={{color:'red'}}>*</span>Date of Birth</td>
-                            <td>{props.data?.birthDate}</td>
+                            <td>{shortDateString(props.data?.birthDate)}</td>
                             <td></td>
                         </tr>
                         <tr>
@@ -195,7 +196,7 @@ const PersonalDialog = props => {
                             >
                                 <option value=""></option>
                                 <option value="Single">Single</option>
-                                <option value="Maried">Maried</option>
+                                <option value="Married">Married</option>
                                 <option value="Widowed">Widowed</option>
                                 <option value="Divorced">Divorced</option>
                                 <option value="Do not wish to disclose">Do not wish to disclose</option>

@@ -10,9 +10,7 @@ export const SurgeriesDialog = props => {
     const [txtSurgeryDescription, setTxtSurgeryDescription] = useState(props.data?.pastPrescriptions.length > 1 ? props.data?.pastPrescriptions[0].description : '')
 
     const [selectedSurgeries, setSelectedSurgeries] = useState([])
-    const surgeriesList = ['Burns', 'Spinal cord surgery', 'Spinal fracture', 'Rib fracture',
-        'Jaw fracture', 'Concussion', 'Amputation', 'Traumatic brain surgery', 'Facial trauma',
-        'Acoustic trauma', 'Other']
+    const surgeriesList = ['Heart', 'Liver', 'Kidney', 'Lungs', 'Brain', 'Facial/Cosmetic', 'Other']
 
     const surgeriesMap = surgeriesList.map((item, index) => {
         return (<option key={index} value={item}>{item}</option>)

@@ -25,13 +25,13 @@ export const PatientTabHeaders = (props) => {
                 className={props.selectedTab === 4 ? "tab active" : "tab"}
                 onClick={() => props.setSelectedTab(4)}
             >
-                <i className="icofont-history"></i>History
+                <i className="icofont-glass"></i>Lifestyle
             </div>
             <div
                 className={props.selectedTab === 5 ? "tab active" : "tab"}
                 onClick={() => props.setSelectedTab(5)}
             >
-                <i className="icofont-glass"></i>Lifestyle
+                <i className="icofont-history"></i>History
             </div>
         </div>
     );

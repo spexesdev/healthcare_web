@@ -1,4 +1,5 @@
 .dhp-container {
+    position: relative;
     display: block;
     width: 72%;
     min-height: 100vh;
@@ -7,6 +8,7 @@
 }
 
 .dhp-container .dhp-header {
+    position: relative;
     display: flex;
     flex-direction: row;
     padding: 30px;
@@ -23,12 +25,14 @@
 
 .dhp-header .header-text h2 {
     display: block;
+    position: relative;
     color: #222;
     margin-bottom: 20px;
     font-size: 24px;
 }
 
 .dhp-header .header-text p {
+    position: relative;
     display: block;
     color: #444;
     width: 350px;
@@ -37,11 +41,13 @@
 }
 
 .dhp-header .bar-code img {
+    position: relative;
     display: block;
     width: 170px;
 }
 
 .dhp-body {
+    position: relative;
     padding: 50px 0;
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -109,18 +115,21 @@
     box-shadow: 3px 5px 17px rgba(0,0,0,25%);
 }
 
-.dhp-body .main-content .appointment {
+.dhp-body .main-content .appointment,
+.right-container .appointment {
     display: block;
 }
 
-.dhp-body .main-content .appointment h2 {
+.dhp-body .main-content .appointment h2,
+.right-container .appointment h2 {
     display: block;
     position: relative;
     color: var(--bluish);
     font-size: 20px;
 }
 
-.dhp-body .main-content .appointment h2::before {
+.dhp-body .main-content .appointment h2::before,
+.right-container .appointment h2::before {
     position: absolute;
     content: '';
     left: 0;
@@ -130,7 +139,8 @@
     width: 120px;
 }
 
-.dhp-body .main-content .appointment h2::after {
+.dhp-body .main-content .appointment h2::after,
+.right-container .appointment h2::after {
     position: absolute;
     content: '';
     left: 0;
@@ -162,7 +172,76 @@
     margin-top: 50px;
 }
 
-.dhp-body .main-content .appointment > .details {
+.dhp-body .main-content .appointment button.medication,
+.right-container .appointment button.medication {
+    display: block;
+    margin: 15px auto 30px auto;
+}
+
+.dhp-body .main-content .appointment .medications,
+.right-container .appointment .medications {
+    display: block;
+    position: relative;
+    padding: 30px 10px;
+    background: #f8f8f8;
+    margin-bottom: 15px;
+}
+
+.dhp-body .main-content .appointment .medications > h3,
+.right-container .appointment .medications > h3 {
+    position: relative;
+    display: inline-block;
+    color: #666;
+    font-weight: 400;
+    margin-bottom: 20px;
+
+}
+
+.dhp-body .main-content .appointment .medications > h3::before,
+.right-container .appointment .medications > h3::before {
+    display: block;
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #999;
+    bottom: 0px;
+    left: 0;
+}
+
+.dhp-body .main-content .appointment .medications-container,
+.right-container .appointment .medications-container {
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    gap: 10px;
+    align-self: center;
+}
+
+.dhp-body .main-content .appointment .medications-container > div,
+.right-container .appointment .medications-container > div {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.dhp-body .main-content .appointment .medications-container > div > h3,
+.right-container .appointment .medications-container > div > h3 {
+    position: relative;
+    display: block;
+    color: var(--bluish);
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.dhp-body .main-content .appointment .medications-container > div > p,
+.right-container .appointment .medications-container > div > p {
+    display: block;
+    color: #666;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.dhp-body .main-content .appointment > .details,
+.right-container .appointment > .details {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -170,20 +249,23 @@
     padding: 50px 0;
 }
 
-.dhp-body .main-content .appointment > .details img {
+.dhp-body .main-content .appointment > .details img,
+.right-container .appointment > .details img {
     width: 150px;
     border-radius: 50%;
     margin: 40px 0;
 }
 
-.dhp-body .main-content .appointment > .details h3 {
+.dhp-body .main-content .appointment > .details h3,
+.right-container .appointment > .details h3 {
     display: block;
     color: #444;
     font-size: 20px;
     margin-bottom: 20px;
 }
 
-.dhp-body .main-content .appointment > .details h4 {
+.dhp-body .main-content .appointment > .details h4,
+.right-container .appointment > .details h4 {
     display: block;
     color: var(--bluish);
     font-size: 16px;
@@ -192,7 +274,9 @@
 }
 
 .dhp-body .main-content .appointment > .details h5,
-.dhp-body .main-content .appointment > .details p {
+.dhp-body .main-content .appointment > .details p,
+.right-container .appointment > .details h5,
+.right-container .appointment > .details p {
     display: block;
     color: #888;
     font-size: 16px;
@@ -200,12 +284,25 @@
     margin-bottom: 20px;
 }
 
-.dhp-body .main-content .appointment > .details p {
-    font-size: 18px;
+.dhp-body .main-content .appointment > .details p,
+.right-container .appointment > .details p {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
-.dhp-body .main-content .appointment > .details button {
-    font-size: 16px;
+.dhp-body .main-content .appointment > .details > a,
+.right-container .appointment > .details > a {
+    background: var(--bluish);
+    font-size: 14px;
+    color: #fff;
+    border: none;
+    outline: none;
+    text-decoration: none;
+    padding: 5px 18px;
+    text-align: center;
+    border-radius: 5px;
+
 }
 
 /* dhp cards */
@@ -224,6 +321,7 @@
     padding: 20px;
     box-shadow: 3px 3px 10px rgba(0,0,0,15%);
     border-radius: 6px;
+    zoom: 0.85;
 }
 
 .dhp-body .past-appointments .appt-card .card-top {
@@ -234,8 +332,8 @@
 
 .dhp-body .past-appointments .appt-card .card-top > img {
     display: block;
-    width: 100px;
-    height: 100px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     margin-right: 20px;
 }
@@ -304,6 +402,7 @@
 /* dhp nav-bar */
 .nav-bar {
     display: flex;
+    position: relative;
     flex-direction: row;
     width: 100%;
     align-items: center;
@@ -323,31 +422,91 @@
 }
 
 .nav-bar .logo > img {
+    display: block;
+    position: relative;
     width: 60px;
     border-radius: 50%;
     cursor: pointer;
 }
 
+.nav-bar .image {
+    position: relative;
+    display: flex;
+    align-items: center;
+    color: #888;
+    font-size: 16px;
+}
+
+.nav-bar .image > h5 {
+    position: relative;
+    display: inline-block;
+    margin-right: 7px;
+}
+
 .nav-bar .profile-img {
     display: block;
+    position: relative;
     width: 50px;
     border-radius: 50%;
     cursor: pointer;
     background: #efefef;
 }
 
+.nav-bar .img-flyout {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background: #fff;
+    bottom: -50px;
+    left: -100px;
+    padding: 20px;
+    z-index: 3;
+    box-shadow: 3px 5px 12px rgba(0,0,0,25%);
+    border-radius: 10px;
+    width: 130px;
+}
+
+.nav-bar .img-flyout::before {
+    position: absolute;
+    content: '';
+    background: #fff;
+    width: 10px;
+    height: 12px;
+    transform: rotate(45deg);
+    background: green;
+    left: -105px;
+    bottom: -25px;
+    z-index: 2;
+}
+
+.nav-bar .img-flyout > a {
+    display: block;
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    margin: 6px 0;
+}
+
+.nav-bar .img-flyout > a:hover {
+    color: var(--bluish);
+}
+
+.nav-bar .img-flyout > a > i {
+    margin-right: 5px;
+}
+
+
 .nav-bar .links {
     display: flex;
+    position: relative;
     flex-direction: row;
     align-items: center;
     justify-content: space-around;
-    width: auto;
 
 }
 
 .nav-bar .links > a {
     display: block;
-    position: relative;
     padding: 20px 15px;
     text-decoration: none;
     color: #888;

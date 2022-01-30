@@ -4,47 +4,31 @@ import React, { useState, useEffect } from 'react';
 import { Contact } from "./tab-pages/contact";
 import { Personal } from "./tab-pages/personal"
 import { Medical } from "./tab-pages/medical";
-import { MedicalHistory } from "./tab-pages/medical-history";
 import { Lifestyle } from "./tab-pages/lifestyle";
-import { ApiPath, CryptoApiPath } from "../assets/common/base-url";
+import { ApiPath } from "../assets/common/base-url";
 import { fileToBase64 } from "../assets/common/file-to-base64";
-import ScheduleAppointment from "../appointments/schedule-appointment";
-import { SplitDateFromTimestamp } from "../assets/common/split-date";
-import { Link } from "react-router-dom";
+import useFetchPatientsData from "../hooks/useFetchPatientsData";
+import { DiagnosisReport } from "../dhp/medical-records/diagnosis-report";
 
 const Patients = props => {
 
-    const [scheduleObject, setScheduleObject] = useState('');
-    const [allowState, setAllowState] = useState(true)
-
-    const [patientsData, setPatientsData] = useState('');
-    const [doctorData, setDoctorData] = useState({})
+    const [patientsData, setPatientsData] = useState(JSON.parse(sessionStorage.getItem('patient')));
     const [selectedTab, setSelectedTab] = useState(2);
     const [resetData, setResetData] = useState(true);
     const [outputText, setOutputText] = useState("");
-    const [picture, setPicture] = useState();
-    const [appointmentBooked, setAppointmentBooked] = useState(false);
-    const [showAppointmentDialog, setShowAppointmentDialog] = useState(false)
+    const [picture, setPicture] = useState(JSON.parse(sessionStorage.getItem('patient')).photo);
 
-    //Percentage complete
-    const [percentComplete, setPercentComplete] = useState(0)
+    const [tempPix, setTempPix] = useState('');
 
     //Fetch the data on form load...
-    const idValue = sessionStorage.getItem("id_val")
-    const params = {
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-        },
-        'method': 'GET',
-    }
+    useFetchPatientsData(resetData, setResetData);
 
     const handleChange = e => {
         const file = e.target.files[0];
 
         fileToBase64(file)
             .then(response => {
-                setPicture(response.toString());
+                setTempPix(response.toString());
                 setOutputText(file.name);
             })
             .catch(err => {
@@ -52,71 +36,23 @@ const Patients = props => {
             })
     }
 
-    const checkCircleSector = () => {
-        //Returns a value based on the percentage completion of
-        //the patient's data..
-        //First, get all the relative values required...
-        const pix = patientsData.photo === "" ? 0 : 10;
-        const lifeStyle1 = (patientsData.lifeStyle?.activityLevel && patientsData.lifeStyle?.activityLevel === "") ? 0 : 3;
-        const lifeStyle2 = patientsData.lifeStyle?.alcoholConsumption === "" ? 0 : 3;
-        const lifeStyle3 = patientsData.lifeStyle?.foodPreference === "" ? 0 : 3;
-        const lifeStyle4 = patientsData.lifeStyle?.smokingHabbit === "" ? 0 : 3;
+    const removeFile = () => {
+        setTempPix('');
+        const uploadFile = document.querySelector('#uploadFile');
+        uploadFile.value = '';
+    }
 
-        //general
-        const general1 = patientsData.general?.bloodGroup === "" ? 0 : 2;
-        const general2 = patientsData.general?.bmi === "" ? 0 : 2;
-        const general3 = patientsData.general?.bp === "" ? 0 : 2;
-        const general4 = patientsData.general?.chestExpansion === "" ? 0 : 2;
-        const general5 = patientsData.general?.height === "" ? 0 : 2;
-        const general6 = patientsData.general?.oxygenSaturation === "" ? 0 : 2;
-        const general7 = patientsData.general?.pulse === "" ? 0 : 2;
-        const general8 = patientsData.general?.vision === "" ? 0 : 2;
-        const general9 = patientsData.general?.weight === "" ? 0 : 2;
+    const fetchPatient = () => {
 
-        const general = general1 + general2 + general3 + general4 + general5 + general6 + general7 + general8 + general9;
+        const output = JSON.parse(sessionStorage.getItem('patient'));
+        setPatientsData(output);
+        setPicture(output.photo);
 
-        //Name and phone
-        const fullName = patientsData.name === "" ? 0 : 10;
-        const phoneNo = patientsData.phoneNumber === "" ? 0 : 10;
-        const gender = patientsData.gender === "" ? 0 : 5;
-        const birthDate = patientsData.birthDate === "" ? 0 : 5;
-        const email = patientsData.emailId === "" ? 0 : 5;
-        const maritalStatus = patientsData.maritalStatus === "" ? 0 : 5;
-        const pastPrescriptions = patientsData.pastPrescriptions?.length === 0 ? 0 : 5;
-        const currentMedications = patientsData.currentMedications?.length === 0 ? 0 : 5;
-        const diagnosisReport = patientsData.diagnosisReport?.length === 0 ? 0 : 5;
-        const contactPerson = patientsData.contactPerson?.length === 0 ? 0 : 5;
-
-        const totalValue = pix + lifeStyle1 + lifeStyle2 + lifeStyle3 + lifeStyle4 + general +
-            fullName + phoneNo + gender + email + maritalStatus + pastPrescriptions +
-            currentMedications + diagnosisReport + contactPerson + birthDate;
-
-        //Set the variable...
-        setPercentComplete(totalValue);
-
-        const circle2 = document.getElementById('secondCircle');
-        circle2.style.strokeDashoffset = `calc(440 - (440 * ${totalValue}) / 100)`;
-
-
-        //
-        if (totalValue < 50) {
-            circle2.style.stroke = 'var(--light-golden-rod)';
-        } else if (totalValue > 50 && totalValue < 70) {
-            circle2.style.stroke = 'var(--bluish)';
-        } else if (totalValue > 69) {
-            circle2.style.stroke = 'var(--main-green)';
-        }
     }
 
     useEffect(() => {
         const dropZone = document.querySelector('.upload-file-area');
         const fileInput = document.getElementById('uploadFile');
-
-        //Set loading at this point...
-        props.setIsLoaderVisible(true);
-
-        checkAppointmentBooked();
-        checkCircleSector();
 
         dropZone.addEventListener('dragover', e => {
             // we must preventDefault() to let the drop event fire
@@ -141,6 +77,8 @@ const Patients = props => {
 
         });
 
+        setInterval(() => fetchPatient(), 4000);
+
         return () => {
 
             dropZone.removeEventListener('dragover', e => {
@@ -160,99 +98,11 @@ const Patients = props => {
 
     }, [])
 
-    useEffect(() => {
-        checkAppointmentBooked();
-        checkCircleSector();
-
-    }, [picture, scheduleObject, patientsData])
-
-    useEffect(() => {
-
-        resetData && setTimeout(() => {
-
-            props.setIsLoaderVisible(true);
-
-            fetch(ApiPath + "query/search/" + idValue, params)
-                ?.then(response => (response.json()))
-                .then(res => {
-                    props.setIsLoaderVisible(false)
-
-                    if (res.statusCode === 200) {
-                        setPatientsData(res.data);
-                        setPicture(res.data.photo);
-
-                        //Save this for future use...
-                        localStorage.setItem('patient', JSON.stringify(res.data));
-
-                    } else {
-                        props.showToast(res.message, 'exclamation');
-                    }
-
-                })
-                .catch(err => {
-                    props.setIsLoaderVisible(false);
-                    props.showToast(err.message, 'exclamation');
-                })
-
-            //Always remember to reset the data...
-            setResetData(false);
-
-        }, 5000)
-
-    }, [resetData])
-
-
-    //Also, always check to see if the appointment has been booked...
-    const checkAppointmentBooked = () => {
-        //Remember, that this should be for
-        // year, month, day, hour, minute, second
-        const timeValueOfToday = new Date('2022-01-01').getTime();      //Remove date in parenthesis later....
-        const timeValueOf3MonthsTime = new Date().getTime() + (60 * 60 * 24 * 90);
-
-        //Set other parameters...
-        const input1 = `starttime=${timeValueOfToday}&endtime=${timeValueOf3MonthsTime}`;
-        const options = {
-            'headers': {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-            },
-            'method': 'GET',
-        }
-
-        props.setIsLoaderVisible(true);
-
-        fetch(`${CryptoApiPath}getMeetingList?${input1}`, options)
-            .then(response => (response.json()))
-            .then(response => {
-                props.setIsLoaderVisible(false);
-                if (response.status === 200) {
-                    //Retrieve the result...
-                    const result = response.result?.filter(item => item.patient_id === patientsData.uidNo)
-
-                    //Set other parameters...
-                    setDoctorData(result[result.length - 1]);
-                    if (result.length > 0) {
-                        //Fiter generated result thus...
-                        setAppointmentBooked(true);
-                    } else {
-                        setAppointmentBooked(false);
-                    }
-
-
-                } else {
-                    props.showToast('Failed to fetch data. Please try again after some time.', 'exclamation');
-                }
-            })
-            .catch(err => {
-                props.showToast(err, "exclamation");
-            })
-    }
-
     const updatePicture = () => {
         //Update the picture...
         //update just the personal details contained here...
         const data = {
-            'photo': picture,
+            'photo': tempPix,
         }
 
         const options = {
@@ -284,58 +134,11 @@ const Patients = props => {
                     props.showToast(response.message, 'exclamation');
                 }
             })
-            .catch(error => {
+            .catch(err => {
                 props.setIsLoaderVisible(false);
-                props.showToast(error.message, 'exclamation');
+                props.showToast(err.message, 'exclamation');
             })
     }
-
-    const allowDisallowDoctor = () => {
-        //Allow or disallow doctor to view fields...
-        //First, always toggle the allowState...
-        const data = {
-            "uidNo": patientsData.uidNo,
-            "supportingInfo": {
-                "filesConsent": !allowState
-            }
-        }
-
-        const options = {
-            'method': "POST",
-            'body': JSON.stringify(data),
-            'headers': {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("token")}`
-            }
-        }
-
-        props.setIsLoaderVisible(true)
-
-        //Then update just this data...
-        fetch(ApiPath + "appointmentconsent", options)
-            ?.then(res => {
-                props.setIsLoaderVisible(false);
-                return res.json();
-            })
-            .then(response => {
-                props.setIsLoaderVisible(false);
-                if (response.statusCode === 200) {
-                    props.showToast(`Update Successful! Will be fully effected in about 5 secs`, 'success');
-
-                    //Remember to refresh the fetched data after this..
-                    setAllowState(!allowState);
-
-                } else {
-                    props.showToast(response.message, 'exclamation');
-                }
-            })
-            .catch(error => {
-                props.setIsLoaderVisible(false);
-                props.showToast(error.message, 'exclamation');
-            })
-    }
-
-    const disableConsultButton = SplitDateFromTimestamp(doctorData?.starttime).date !== SplitDateFromTimestamp(new Date()).date ? 'true' : '';
 
     return (
         <div>
@@ -347,7 +150,7 @@ const Patients = props => {
                 <div className="left-container">
                     <div className="profile-image">
                         <img
-                            src={picture || "/portfolio/avatar.png"}
+                            src={tempPix ? tempPix : (picture || "/portfolio/avatar.png")}
                             width='100%'
                             height='100%'
                         />
@@ -356,39 +159,30 @@ const Patients = props => {
                         <h4><i className="icofont-double-right"></i>Patient</h4>
                     </div>
                     <div className="lower-left upload-file-area mb-2">
-                        <button className="btn-main btn-upload">
-                            <input
-                                type="file"
-                                name="uploadFile"
-                                id="uploadFile"
-                                accept={".png, .jpg, .jpeg"}
-                                onChange={handleChange}
-                            />
-                            Change Profile Picture...
-                        </button>
-                        <label><span>Attached File: </span>{outputText}</label>
+                        <div className={tempPix ? 'd-none' : ''}>
+                            <i className='icofont-cloud-upload' />
+                            <label>Drop files to upload or </label>
+                            <button className="btn-upload">
+                                <input
+                                    type="file"
+                                    name="uploadFile"
+                                    id="uploadFile"
+                                    accept={".png, .jpg, .jpeg"}
+                                    onChange={handleChange}
+                                />
+                                browse
+                            </button>
+                        </div>
+                        <label className={tempPix ? '' : 'd-none'}><span>Attached File: </span>{outputText}<button className='btn-upload' onClick={removeFile}>remove</button></label>
                     </div>
                     <div className="lower-left">
                         <button
-                            className={picture ? "btn-main mb-2" : "d-none"}
+                            className={tempPix ? "btn-main mb-2" : "d-none"}
                             id="btnUploadPix"
-                            style={{ display: 'block', width: '100%' }}
+                            style={{ fontSize: '12px', width: '100%' }}
                             onClick={updatePicture}>
                             <i className="icofont-upload-alt"></i> Update Profile Picture
                         </button>
-
-                        <div className='doctor-view d-none'>
-                            <div>
-                                <i className={allowState ? 'icofont-ui-check' : 'icofont-ui-close'} style={{ color: !allowState ? 'maroon' : 'var(--main-green)' }}></i>
-                                <span>Doctor can view data</span>
-                            </div>
-                            <button
-                                className='btn-main-outline'
-                                id="btnUploadPix"
-                                onClick={allowDisallowDoctor}>
-                                <i className="icofont-refresh"></i> Toggle
-                            </button>
-                        </div>
 
                     </div>
 
@@ -397,7 +191,7 @@ const Patients = props => {
                     <div className="title">
                         <h2>{patientsData.name}</h2>
                     </div>
-                    <div className='box'>
+                    {/* <div className='box'>
                         <h4>Profile Status</h4>
                         <div className="percent">
                             <svg>
@@ -409,42 +203,11 @@ const Patients = props => {
                             </div>
                             <h2 className='text'>Complete</h2>
                         </div>
-                    </div>
+                    </div> */}
                     <div className="upcoming-appointment">
                         <div className="line-container">
-                            <h4><i className="icofont-double-right"></i>Upcoming Appointment</h4>
+                            <h4><i className="icofont-double-right"></i>Update Profile</h4>
                         </div>
-                        {(appointmentBooked && Object.keys(patientsData).length > 1) ? <div className="appointment">
-                            <div className="details">
-                                <h2>{doctorData !== '' && `Dr. ${doctorData?.doctor_name}`}</h2>
-                                <h3>{doctorData && doctorData?.doctor_email_id}</h3>
-                                <h4><i className="icofont-clock-time" /> {SplitDateFromTimestamp(doctorData?.starttime).dateTime}</h4>
-                                <Link
-                                    to={doctorData !== '' && '/meeting/meeting-page?meeting_id=' +
-                                        doctorData?.meetinng_id + '&doctor_id=' + doctorData?.doctor_id +
-                                        '&gravatar=./portfolio/avatar.png&past_prescription=' + patientsData?.pastPrescriptions[0]?.name +
-                                        '&patient_id=' + patientsData?.uidNo + '&tk=' + sessionStorage.getItem('token')}
-                                    target='_blank'
-                                    disabled={disableConsultButton}>
-                                    <i className='icofont-video-cam' /> Join Video Consultation
-                                </Link>
-                            </div>
-                            <img src="/portfolio/team-3.jpg" />
-                        </div>
-                            : <div className="book-appointment">
-                                <div>
-                                    <img src="/warning-96.png" alt="" />
-                                    <h4>You do not have any upcoming appointment!</h4>
-                                </div>
-                                <button
-                                    className="btn-main"
-                                    onClick={() => {
-                                        setShowAppointmentDialog(true)
-                                    }}
-                                >Book an Appointment...
-                                </button>
-                            </div>
-                        }
                     </div>
 
                     <PatientTabHeaders
@@ -473,14 +236,14 @@ const Patients = props => {
                         setIsLoaderVisible={props.setIsLoaderVisible}
                         setPatientsData={setPatientsData}
                     />}
-                    {selectedTab === 4 && <MedicalHistory
+                    {selectedTab === 4 && <Lifestyle
                         setResetData={setResetData}
                         data={patientsData}
                         showToast={props.showToast}
                         setIsLoaderVisible={props.setIsLoaderVisible}
                         setPatientsData={setPatientsData}
                     />}
-                    {selectedTab === 5 && <Lifestyle
+                    {selectedTab === 5 && <DiagnosisReport
                         setResetData={setResetData}
                         data={patientsData}
                         showToast={props.showToast}
@@ -490,16 +253,6 @@ const Patients = props => {
                 </div>
             </div>
 
-            {
-                showAppointmentDialog && <ScheduleAppointment
-                    data={patientsData}
-                    showToast={props.showToast}
-                    setIsLoaderVisible={props.setIsLoaderVisible}
-                    setAppointmentBooked={() => setAppointmentBooked(true)}
-                    hideAppointmentDialog={() => setShowAppointmentDialog(false)}
-                    setScheduleObject={setScheduleObject}
-                />
-            }
         </div>
     );
 }

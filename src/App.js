@@ -10,6 +10,7 @@ import { DoctorsLogin } from './login/doctors-login';
 import Dashboard from './admin/dashboard/dashboard';
 import Meeting from './meeting/meeting';
 import DigitalHealthPassport from './dhp/digital-health-passport'
+import Page404 from './page-404';
 
 function App() {
 
@@ -62,7 +63,7 @@ function App() {
           </Route>
           <Route path="*">
             {/* Re-route to the patient's main page... */}
-            <DigitalHealthPassport showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
+            <Page404 showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
 
         </Switch>

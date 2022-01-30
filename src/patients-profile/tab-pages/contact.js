@@ -78,7 +78,7 @@ export const Contact = props => {
 const ContactDialog = props => {
 
     const addressData = props.data.address[0] || {};
-    const contactPerson = props.data.contactPerson[0] || {};
+    const contactPerson = props.data.contactPerson || {};
 
     const [txtPhone, setTxtPhone] = useState(props.data.phoneNumber);
     const [addressType, setAddressType] = useState(addressData?.type);
@@ -107,14 +107,11 @@ const ContactDialog = props => {
                 "state": txtState,
                 "postalCode": txtPostalCode,
             }],
-            contactPerson: [{
+            contactPerson: {
                 "relationship": txtRelationship,
                 "name": txtContactPerson,
-                "contact": {
-                    "system": "Phone",
-                    "value": txtContactPhone,
-                }
-            }],
+                "phoneNumber": txtContactPhone,
+            },
             phoneNumber: txtPhone,
         }
 

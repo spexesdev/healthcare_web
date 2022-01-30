@@ -56,6 +56,8 @@ const OTPLogin = (props) => {
                         sessionStorage.setItem("token", res.token);
                         sessionStorage.setItem("id_val", res.uidNo);
 
+                        sessionStorage.setItem('patient', JSON.stringify(res.data));
+
                         history.push("/patients/digital-health-passport")
 
                     } else {

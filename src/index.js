@@ -4,6 +4,7 @@ import './index.css';
 import './assets/css/dashboard.css'
 import './assets/css/new-loader.css'
 import './assets/css/main.css'
+import './assets/css/controls.css'
 import './assets/css/toast.css'
 import './assets/css/scrollbar.css'
 import './assets/css/dhp.css'

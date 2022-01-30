@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { ApiPath, CryptoApiPath } from '../assets/common/base-url';
+import { constants } from '../assets/common/constants';
 
 export const DoctorsDialog = props => {
 
@@ -13,13 +14,7 @@ export const DoctorsDialog = props => {
 
     //The componentDidMount equivalent...
     //Fetch the doctors list...
-    const params = {
-        'headers': {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-        },
-        'method': 'GET',
-    }
+    const params = constants.getOptions;
 
     useEffect(() => {
         //To set the actual timing for the time of commencement
@@ -81,13 +76,9 @@ export const DoctorsDialog = props => {
         const input3 = `starttime=${timeOfCommencement.getTime()}&duration=${0.50 * 60 * 60}`
         ////const input3 = `starttime=1642264897448&duration=${0.75 * 60 * 60}`
 
-        const options = {
-            'headers': {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
-            },
-            'method': 'POST',
-        }
+        const options = constants.postOptions;
+
+        props.setIsLoaderVisible(true);
 
         fetch(`${CryptoApiPath}scheduleAppointment?${input1}${input2}${input3}`, options)
             .then(response => (response.json()))

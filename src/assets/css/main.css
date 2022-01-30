@@ -9,7 +9,8 @@ body {
     --bluish: #0080AE;
     --golden-rod: #a88e16;
     --light-golden-rod: #e4c020;
-    --special-blue: #0080AE44;;
+    --special-blue: #0080AE44;
+    --lighter-text: #808080;
 }
 
 .header-bar {
@@ -86,12 +87,13 @@ body {
     left: 50px;
 }
 
-.container .float-logo > i {
+.container .float-logo>i {
     position: absolute;
     font-size: 250px;
     opacity: 0.5;
     color: var(--bluish);
 }
+
 .container .left-sidebar .left-text {
     display: block;
     margin-top: 20px;
@@ -221,7 +223,7 @@ body {
     padding: 60px;
     background: #0080AE;
     height: 100%;
-    box-shadow: 3px 3px 15px rgba(0,0,0,25%);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 25%);
 }
 
 .container .right-sidebar>img {
@@ -253,7 +255,7 @@ body {
     border: 1px solid #dedede;
     padding: 35px 20px;
     margin-bottom: 30px;
-    box-shadow: 3px 3px 15px rgba(0,0,0,0.15);
+    box-shadow: 3px 3px 15px rgba(0, 0, 0, 0.15);
 }
 
 .form-data h2 {
@@ -324,7 +326,7 @@ body {
     display: block;
     position: relative;
     margin-bottom: 5px;
-    color: var(--main-green);
+    color: var(--lighter-text);
 }
 
 .form-control {
@@ -452,7 +454,7 @@ button:focus {
     padding: 40px;
 }
 
-.body-container .left-container .profile-image {
+.body-container .left-container img {
     width: 100%;
     max-width: 250px;
     display: block;
@@ -460,8 +462,7 @@ button:focus {
     object-fit: cover;
     margin: 20px 0 40px 0;
     box-shadow: 3px 12px 16px rgba(0, 0, 0, 0.15);
-    padding: 10px;
-
+    
 }
 
 /* Doctor's allow view */
@@ -584,7 +585,7 @@ button:focus {
     position: relative;
     background: #efefef46;
     padding: 30px;
-    box-shadow: 3px 5px 17px rgba(0,0,0,15%);
+    box-shadow: 3px 5px 17px rgba(0, 0, 0, 15%);
     border-radius: 8px;
 }
 
@@ -617,7 +618,7 @@ button:focus {
     font-weight: 600;
 }
 
-.right-container .upcoming-appointment .appointment .details > a {
+.right-container .upcoming-appointment .appointment .details>a {
     display: block;
     text-align: center;
     background: var(--bluish);
@@ -628,33 +629,37 @@ button:focus {
     font-size: 14px;
 }
 
-.right-container .upcoming-appointment .appointment .details >a:hover {
+.right-container .upcoming-appointment .appointment .details>a:hover {
     opacity: 0.8;
 }
 
+/* Book appointment */
 
-
-.right-container .book-appointment {
+.book-appointment {
     display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
     position: relative;
     margin-bottom: 20px;
-    background: #f1f1f1;
+    background: transparent;
     padding: 15px;
     border-radius: 4px;
 }
 
-.right-container .book-appointment > div {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-start;
+.book-appointment>img:first-child {
+    width: 50%;
+    margin-bottom: 30px;
 }
 
-.right-container .book-appointment > div > img {
-    width: 80px;
+.book-appointment>img.warning {
+    width: 60px;
+    position: absolute;
+    transform: translateY(-40px);
 }
 
-.right-container .book-appointment > div > h4 {
+.book-appointment>h4 {
     display: block;
     font-weight: 300;
     font-size: 18px;
@@ -662,6 +667,7 @@ button:focus {
     color: #777;
     margin-bottom: 30px;
     margin-right: 20px;
+    text-align: center;
 }
 
 
@@ -708,26 +714,59 @@ button:focus {
     position: relative;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
+    flex-direction: row;
     /* width: 350px; */
-    background: #EFEFEF;
-    border: 4px dashed darkgrey;
+    background: #EFEFEF55;
+    border: 2px dotted silver;
     border-radius: 4px;
-    padding: 25px;
+    padding: 15px;
     font-family: Poppins;
 }
 
-.upload-file-area .btn-upload, .btn-grey {
+.upload-file-area > div {
+    display: flex;
+}
+
+.upload-file-area .btn-upload {
+    display: inline-block;
+    outline: none;
+    border: none;
+    background: none;
+    color: var(--bluish);
+    font-size: 11px;
+    padding: 0;
+    margin-left: 3px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.upload-file-area .btn-upload:hover {
+    text-decoration: underline;
+    background: none;
+}
+
+.upload-file-area .btn-upload:focus {
+    box-shadow: none;
+}
+
+.upload-file-area i {
+    font-size: 16px;
+    color: dimgrey;
+    margin-right: 5px;
+}
+
+.btn-grey {
     display: inline-block;
     overflow: hidden;
     cursor: pointer;
     position: relative;
     border: 1px solid #aaa;
     outline: none;
-    padding: 5px 35px;
+    padding: 5px 15px;
     background: linear-gradient(gainsboro, whitesmoke);
     text-decoration: none;
     color: #000;
+    font-size: 12px;
 }
 
 .btn-grey {
@@ -735,7 +774,7 @@ button:focus {
     font-size: 12px;
 }
 
-.upload-file-area .btn-upload:hover, .btn-grey:hover {
+.btn-grey:hover {
     background: linear-gradient(silver, gainsboro);
 }
 
@@ -756,16 +795,15 @@ button:focus {
     color: var(--bluish);
 }
 
-.upload-file-area>label {
+.upload-file-area label {
     display: block;
-    margin-top: 10px;
     font-weight: normal;
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .upload-file-area>label>span {
     color: var(--main-green);
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .upload-file-area>span {
@@ -1040,4 +1078,79 @@ button:focus {
 /* Error border */
 .error-border {
     border: 1px solid red;
+}
+
+/* 404 page */
+.page-404-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 600px;
+    transform: translateY(-40px);
+}
+
+.page-404-container>h1 {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-weight: 400;
+    font-size: 50px;
+    color: #666;
+    text-shadow: 30px 60px 5px rgba(0, 0, 0, 0.15);
+
+}
+
+@keyframes drop-in {
+    0% {
+        opacity: 0;
+        transform: translate(0px, -100px);
+    }
+
+    100% {
+        opacity: 1;
+        transform: translate(0, 0);
+    }
+}
+
+.page-404-container>img {
+    width: 100%;
+}
+
+.page-404-container .buttons-404 {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+    margin-top: 20px;
+
+}
+
+.page-404-container .buttons-404>button,
+.page-404-container .buttons-404>a {
+    position: relative;
+    animation: drop-in 0.7s linear;
+    animation-delay: 0.5s;
+    display: inline-block;
+    outline: none;
+    border: none;
+    padding: 8px;
+    background: var(--special-blue);
+    font-family: Poppins;
+    text-decoration: none;
+    color: #444;
+    width: 170px;
+    text-align: center;
+    font-size: 15px;
+    box-shadow: 3px 5px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.page-404-container .buttons-404>button:hover,
+.page-404-container .buttons-404>a:hover {
+    background: #0080AE;
+    color: #fff;
 }

@@ -28,16 +28,15 @@ export const MedicalHistory = (props) => {
                     <tbody>
                         <tr>
                             <td>Current Medications</td>
-                            <td>{(props.data.currentMedications.length > 0 && <button
-                                className="btn-main"
-                                onClick={() => {
-                                    setImageSource(props.data.currentMedications[0].records[0])
-                                    setShowImageDialog(true)
-                                }}
-                            >Preview</button>) || '-'}</td>
+                            <td>{props.data.currentMedications.length > 0 ? props.data.currentMedications[0]?.name : '-'}</td>
                             <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
                         <tr>
+                            <td>Diagnosis Reports</td>
+                            <td>{props.data.diagnosisReport.length > 0 ? props.data.diagnosisReport[0]?.name : '-'}</td>
+                            <td></td>
+                        </tr>
+                        {/* <tr>
                             <td>Diagnosis Reports</td>
                             <td>{(props.data.diagnosisReport.length > 0 && <button
                                 className="btn-main"
@@ -47,16 +46,10 @@ export const MedicalHistory = (props) => {
                                 }}
                             >Preview</button>) || '-'}</td>
                             <td></td>
-                        </tr>
+                        </tr> */}
                         <tr>
                             <td>Past prescriptions</td>
-                            <td>{(props.data.pastPrescriptions.length > 0 && <button
-                                className="btn-main"
-                                onClick={() => {
-                                    setImageSource(props.data.pastPrescriptions[0].records[0])
-                                    setShowImageDialog(true)
-                                }}
-                            >Preview</button>) || '-'}</td>
+                            <td>{props.data.pastPrescriptions.length > 0 ? props.data.pastPrescriptions[0]?.name : '-'}</td>
                             <td onClick={() => setShowPrescriptionsDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                         </tr>
                         <tr>
