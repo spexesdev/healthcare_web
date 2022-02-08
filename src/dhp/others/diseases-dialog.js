@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ApiPath } from '../../assets/common/base-url'
 import FileInput from '../../components/file-input'
 
-export const SurgeriesDialog = props => {
+export const DiseasesDialog = props => {
     const [txtCurrentMedications, setTxtCurrentMedications] = useState('')
     const [txtAddMedication, setTxtAddMedication] = useState('')
     const [cbxIsOnMedications, setCbxIsOnMedications] = useState('')
@@ -16,7 +16,7 @@ export const SurgeriesDialog = props => {
         const data = (txtCurrentMedications) ? {
             [props.updateField]: [{
                 type: cbxIsOnMedications,
-                [props.updateField]: txtAddMedication,
+                illness: txtAddMedication,
                 description: txtMedicationDescription,
                 records: [txtCurrentMedications],
                 timeStamp: txtDate
@@ -26,7 +26,7 @@ export const SurgeriesDialog = props => {
             {
                 [props.updateField]: [{
                     type: cbxIsOnMedications,
-                    [props.updateField]: txtAddMedication,
+                    illness: txtAddMedication,
                     description: txtMedicationDescription,
                     timeStamp: txtDate
                 }]
@@ -142,9 +142,7 @@ export const SurgeriesDialog = props => {
                                     type="text"
                                 />
                             </div>
-
                         </div>
-
                     </div>
 
                 </div>

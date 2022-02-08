@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { ApiPath } from '../../assets/common/base-url';
 import { countriesList } from '../../assets/common/countries';
+import PhoneInput from 'react-phone-number-input'
 
 export const Contact = props => {
 
@@ -28,12 +29,12 @@ export const Contact = props => {
                     <table className="profile-table">
                         <tbody>
                             <tr>
-                                <td><span style={{color:'red'}}>*</span>Phone</td>
+                                <td><span style={{ color: 'red' }}>*</span>Phone</td>
                                 <td>{props.data?.phoneNumber}</td>
                                 <td onClick={() => setShowDialog(true)}><i className="icofont-ui-edit"></i> edit</td>
                             </tr>
                             <tr>
-                                <td><span style={{color:'red'}}>*</span>Address</td>
+                                <td><span style={{ color: 'red' }}>*</span>Address</td>
                                 <td>{address && address === []
                                     ? ""
                                     : `${houseNumber}${street}${city}${district}${state}${postalCode}`}
@@ -41,20 +42,20 @@ export const Contact = props => {
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><span style={{color:'red'}}>*</span>Country</td>
+                                <td><span style={{ color: 'red' }}>*</span>Country</td>
                                 <td>{address ? address[0]?.country : "-"}</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><span style={{color:'red'}}>*</span>E-mail</td>
+                                <td><span style={{ color: 'red' }}>*</span>E-mail</td>
                                 <td>{props.data.emailId}</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td><span style={{color:'red'}}>*</span>Contact Person</td>
+                                <td><span style={{ color: 'red' }}>*</span>Contact Person</td>
                                 <td>
-                                    { contactDetails }<br />
-                                    <i className={showPhone}></i>{props.data?.contactPerson && props.data?.contactPerson[0]?.contact?.value}
+                                    {contactDetails}<br />
+                                    <i className={showPhone}></i>{props.data?.contactPerson && props.data?.contactPerson?.phoneNumber}
                                 </td>
                                 <td></td>
                             </tr>
@@ -70,6 +71,7 @@ export const Contact = props => {
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
                 setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
             />
         </>
     );
@@ -96,6 +98,11 @@ const ContactDialog = props => {
 
     const updateContactDetails = () => {
         //update just the personal details contained here...
+        if (addressType === "") {
+            props.showToast("Select a valid address type to proceed.", 'exclamation');
+            return;
+        }
+
         const data = {
             emailId: txtEmail,
             address: [{
@@ -106,6 +113,7 @@ const ContactDialog = props => {
                 "district": txtDistrict,
                 "state": txtState,
                 "postalCode": txtPostalCode,
+                "country": txtCountry
             }],
             contactPerson: {
                 "relationship": txtRelationship,
@@ -134,11 +142,14 @@ const ContactDialog = props => {
             })
             .then(response => {
                 if (response && response.statusCode === 200) {
-                    props.showToast(`Update Successful! Will be fully effected in about 5 secs`, 'success');
+                    props.showToast(`Update Successful!`, 'success');
                     props.hideDialog();
 
                     //Remember to refresh the fetched data after this..
-                    props.setResetData(true);
+                    props.setPatientsData(response.data.data);
+
+                    //Also, update the sessionstorate
+                    sessionStorage.setItem('patient', JSON.stringify(response.data.data));
 
                 } else {
                     props.showToast(response.message, 'exclamation');
@@ -151,7 +162,7 @@ const ContactDialog = props => {
     }
 
     const displayDialog = props.showDialog ? "dialog-background fade" : "dialog-background";
-    const countryList =  countriesList.map((item, index) => {
+    const countryList = countriesList.map((item, index) => {
         return (<option key={index} value={item.name}>{item.name} ({item.code})</option>)
     })
 
@@ -162,14 +173,15 @@ const ContactDialog = props => {
                     <h2 className="nully" style={{ color: 'var(--bluish)' }}><i className="icofont-contacts"></i> Edit Contact Details</h2>
                 </div>
                 <div className="dialog-body">
-                    <div className="form-row-3">
+                    <div className="form-row-2-1-1">
                         <div className='input-group'>
                             <label>Phone</label>
-                            <input
-                                className="form-control"
-                                id="txtPhone"
+                            <PhoneInput
+                                placeholder="Enter mobile number"
                                 value={txtPhone}
-                                onChange={e => setTxtPhone(e.target.value)}
+                                onChange={phone => setTxtPhone(phone)}
+                                className='form-control'
+                                style={{ paddingTop: 0, paddingBottom: 0 }}
                             />
                         </div>
                         <div className='input-group'>
@@ -209,7 +221,7 @@ const ContactDialog = props => {
                             />
                         </div>
                         <div className="input-group">
-                            <label>City <span style={{color: 'red'}}>*</span></label>
+                            <label>City <span style={{ color: 'red' }}>*</span></label>
                             <input
                                 className="form-control"
                                 id="txtCity"
@@ -250,7 +262,7 @@ const ContactDialog = props => {
                     </div>
                     <div className="form-row-2">
                         <div className="input-group">
-                            <label>Country <span style={{color: 'red'}}>*</span></label>
+                            <label>Country <span style={{ color: 'red' }}>*</span></label>
                             <select
                                 className="form-control"
                                 id="txtCountry"
@@ -297,13 +309,14 @@ const ContactDialog = props => {
                         </div>
                         <div className='input-group'>
                             <label>Phone</label>
-                            <input
-                                className="form-control"
-                                type="tel"
-                                id="txtContactPhone"
+                            <PhoneInput
+                                placeholder="Enter mobile number"
                                 value={txtContactPhone}
-                                onChange={e => setTxtContactPhone(e.target.value)}
+                                onChange={phone => setTxtContactPhone(phone)}
+                                className='form-control'
+                                style={{ paddingTop: 0, paddingBottom: 0 }}
                             />
+
                         </div>
                     </div>
                 </div>

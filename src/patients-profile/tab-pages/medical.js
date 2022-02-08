@@ -77,7 +77,7 @@ export const Medical = props => {
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
                 data={props.data}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
             />
         </div>
     );
@@ -86,7 +86,7 @@ export const Medical = props => {
 const MedicalDialog = props => {
 
     const [txtAllergies, setTxtAllergies] = useState('')
-    const [chkAllergies, setChkAllergies] = useState(props.data?.general.allergies?.length === 0 ? false : true);
+    const [chkAllergies, setChkAllergies] = useState(props.data?.general.allergies?.length !== 0 ? false : true);
     const [txtManagingOrg, setTxtManagingOrg] = useState(props.data.managingOrganization)
 
     const [bloodGroup, setBloodGroup] = useState(props.data?.general?.bloodGroup);
@@ -156,6 +156,35 @@ const MedicalDialog = props => {
 
     const updateMedicalDetails = () => {
         //update just the personal details contained here...
+        if (height === "" || height < 0 || height > 500) {
+            props.showToast("Enter proper value for height to proceed.", 'exclamation');
+            return;
+        }
+        if (weight === "" || weight < 0 || weight > 200) {
+            props.showToast("Enter proper value for weight to proceed.", 'exclamation');
+            return;
+        }
+        if (chestExpansion === "" || chestExpansion < 2 || chestExpansion > 5) {
+            props.showToast("Enter proper value for Chest Expansion to proceed.", 'exclamation');
+            return;
+        }
+        if (vision === "") {
+            props.showToast("Enter proper value for Chest Expansion to proceed.", 'exclamation');
+            return;
+        }
+        if (bloodPressure === "") {
+            props.showToast("Enter proper value for Blood pressure to proceed.", 'exclamation');
+            return;
+        }
+        if (pulse === "" || pulse < 0 || pulse > 200) {
+            props.showToast("Enter proper value for pulse to proceed.", 'exclamation');
+            return;
+        }
+        if (oxygenSaturation === "" || oxygenSaturation < 0 || oxygenSaturation > 100) {
+            props.showToast("Enter proper value for oxygen saturation to proceed.", 'exclamation');
+            return;
+        }
+
         const data = {
             allergies: { value: [...selectedAllergies] },
             general: {
@@ -191,14 +220,16 @@ const MedicalDialog = props => {
             })
             .then(response => {
                 if (response && response.statusCode === 200) {
-                    props.showToast(`Update Successful! Will be fully effected in about 5 secs`, 'success');
+
+                    props.showToast(`Update Successful!`, 'success');
                     props.hideDialog();
 
                     //Remember to refresh the fetched data after this..
-                    props.setResetData(true);
+                    props.setPatientsData(response.data.data);
+                    sessionStorage.setItem('patient', JSON.stringify(response.data.data));
 
                 } else {
-                    props.showToast(response.message, 'exclamation');
+                    props.showToast(response?.message, 'exclamation');
                 }
             })
             .catch(error => {
@@ -218,14 +249,18 @@ const MedicalDialog = props => {
                 <div className="dialog-body">
                     <div className="form-row">
                         <div className='input-group'>
-                            <label>
+                            <div className='check-box'>
+                                <label>
                                 <input
                                     type='checkbox'
                                     id='chkAllergies'
                                     value={chkAllergies}
                                     onChange={e => setChkAllergies(!chkAllergies)}
-                                    className='custom-checkbox' /> Allergies
+                                    className='custom-checkbox'
+                                    /> Allergies
                             </label>
+                            </div>
+
                             <select
                                 id="txtAllergies"
                                 className={chkAllergies ? "form-control mb-1" : 'd-none'}
@@ -235,6 +270,7 @@ const MedicalDialog = props => {
                                     addAllergiesToList(e.target.value);
                                 }}
                             >
+                                <option value="">Select</option>
                                 {allergiesMap}
                             </select>
                             {selectedAllergies.length > 0 && chkAllergies &&
@@ -305,7 +341,7 @@ const MedicalDialog = props => {
                                     document.getElementById(e.target.id).classList.remove('error-border')
                                 }}
                                 type='number'
-                                onBlur={() => handleBlur(0, 180, weight, 'weight')}
+                                onBlur={() => handleBlur(0, 300, weight, 'weight')}
                             />
                         </div>
                     </div>

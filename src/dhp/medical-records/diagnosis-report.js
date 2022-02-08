@@ -5,10 +5,11 @@ import { MedicationRowItem } from "../../components/medication-row-item";
 import { Surgeries } from "./surgeries";
 import { Injuries } from "./injuries";
 import { ChronicDiseases } from "./chronic-diseases";
+import { PastPrescriptions } from "./past-prescriptions";
 
 export const DiagnosisReport = props => {
 
-    const [medicationsArray, setMedicationsArray] = useState(() => JSON.parse(sessionStorage.getItem('patient')).diagnosisReport)
+    const [medicationsArray, setMedicationsArray] = useState(props.data.diagnosisReport)
     const [dialogVisible, setDialogVisible] = useState(false)
     const [medicationsExist, setMedicationsExist] = useState(false);
     const [imageLink, setImageLink] = useState('')
@@ -26,7 +27,7 @@ export const DiagnosisReport = props => {
 
     useEffect(() => {
         setMedicationsArray(props.data.diagnosisReport)
-    }, [])
+    }, [props.data])
 
     useEffect(() => {
         medicationsArray.length === 0
@@ -43,6 +44,7 @@ export const DiagnosisReport = props => {
                 key={index}
                 item={item}
                 showImageDialog={showImageDialog}
+                nameField={item.name}
             />
         )
     })
@@ -70,37 +72,50 @@ export const DiagnosisReport = props => {
             </button>
 
             {/* Other parts of the page */}
-            <Surgeries
+            <PastPrescriptions
+                data={props.data}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
+                setImageLink={setImageLink}
+                showImageDialog={showImageDialog}
+                hideImageDialog={() => setImageDialogVisible(false)}
+            />
+            <Surgeries
+                data={props.data}
+                setIsLoaderVisible={props.setIsLoaderVisible}
+                showToast={props.showToast}
+                setPatientsData={props.setPatientsData}
                 setImageLink={setImageLink}
                 showImageDialog={showImageDialog}
                 hideImageDialog={() => setImageDialogVisible(false)}
             />
             <Injuries
+                data={props.data}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
                 setImageLink={setImageLink}
                 showImageDialog={showImageDialog}
                 hideImageDialog={() => setImageDialogVisible(false)}
             />
             <ChronicDiseases
+                data={props.data}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
                 setImageLink={setImageLink}
                 showImageDialog={showImageDialog}
                 hideImageDialog={() => setImageDialogVisible(false)}
             />
 
             {dialogVisible && <MedicalHistoryDialog
+                data={props.data}
                 showDialog={dialogVisible}
                 hideDialog={() => setDialogVisible(false)}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
                 medicalData={JSON.parse(sessionStorage.getItem('patient')).diagnosisReport}
                 updateField={'diagnosisReport'}
                 questionString={"Include a diagnosis report?"}

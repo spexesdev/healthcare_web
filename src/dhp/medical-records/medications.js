@@ -36,6 +36,7 @@ export const Medications = props => {
                 key={index}
                 item={item}
                 showImageDialog={showImageDialog}
+                nameField={item.name}
             />
         )
     })

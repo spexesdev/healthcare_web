@@ -10,29 +10,28 @@ const useFetchPatientsData = (resetData, setResetData) => {
 
     useEffect(() => {
         //Fetch the patients data...
-        setInterval(() => {
-            fetch(ApiPath + "query/search/" + idValue, params)
-                ?.then(response => (response.json()))
-                .then(res => {
+        fetch(ApiPath + "query/search/" + idValue, params)
+            ?.then(response => (response.json()))
+            .then(res => {
 
-                    if (res.statusCode === 200) {
-                        //Save this for future use...
-                        sessionStorage.setItem('patient', JSON.stringify(res.data));
-                        localStorage.setItem('patient', JSON.stringify(res.data));
+                if (res.statusCode === 200) {
+                    //Save this for future use...
+                    sessionStorage.setItem('patient', JSON.stringify(res.data));
+                    localStorage.setItem('patient', JSON.stringify(res.data));
 
-                    } else {
-                        error = res.message;
-                    }
+                } else {
+                    error = res.message;
+                }
 
-                })
-                .catch(err => {
-                    error = err.message;
-                })
+            })
+            .catch(err => {
+                error = err.message;
+            })
 
-            //Reset this always..
-            setResetData(false);
+        //Reset this always..
+        setResetData(false);
 
-        }, 30000)
+
 
     }, [resetData])
 

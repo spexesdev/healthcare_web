@@ -56,9 +56,9 @@ export const Register = ({ setIsLoaderVisible, showToast }) => {
                     if (response.data.uidNo.substring(0, 1) === "P") {
                         history.push("/");
                     } else {
-                        history.push("/doctors/login")
+                        //Move to the doctor's profile completion page...
+                        history.push("/doctors/complete-profile-registration")
                     }
-
 
                 } else {
                     showToast(response.message, 'exclamation');

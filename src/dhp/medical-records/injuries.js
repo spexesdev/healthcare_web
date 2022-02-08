@@ -5,7 +5,7 @@ import { SurgeriesDialog } from "../others/sugeries-dialog";
 
 export const Injuries = props => {
 
-    const [medicationsArray] = useState(() => JSON.parse(sessionStorage.getItem('patient')).injuries)
+    const [medicationsArray, setMedicationsArray] = useState(props.data.injuries)
     const [dialogVisible, setDialogVisible] = useState(false)
     const [medicationsExist, setMedicationsExist] = useState(false);
     const [imageLink, setImageLink] = useState('')
@@ -20,6 +20,7 @@ export const Injuries = props => {
         setImageLink(imgLink)
         setImageDialogVisible(true);
     }
+    useEffect(() => setMedicationsArray(props.data.injuries), [props.data])
 
     useEffect(() => {
         medicationsArray.length === 0
@@ -36,6 +37,7 @@ export const Injuries = props => {
                 key={index}
                 item={item}
                 showImageDialog={showImageDialog}
+                nameField={item.name || item.injuries}
             />
         )
     })
@@ -69,7 +71,7 @@ export const Injuries = props => {
                 hideDialog={() => setDialogVisible(false)}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
                 medicalData={JSON.parse(sessionStorage.getItem('patient')).injuries}
                 updateField={'injuries'}
                 questionString={"Have you had an injury before?"}

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { MedicationRowItem } from "../../components/medication-row-item";
-import { SurgeriesDialog } from "../others/sugeries-dialog";
+import { DiseasesDialog } from "../others/diseases-dialog";
 import { ImageDialog } from "../../components/image-dialog";
 
 export const ChronicDiseases = props => {
 
-    const [medicationsArray] = useState(() => JSON.parse(sessionStorage.getItem('patient')).chronicDiseases)
+    const [medicationsArray, setMedicationsArray] = useState(props.data.chronicDiseases)
     const [dialogVisible, setDialogVisible] = useState(false)
     const [medicationsExist, setMedicationsExist] = useState(false);
     const [imageLink, setImageLink] = useState('')
@@ -20,6 +20,8 @@ export const ChronicDiseases = props => {
         setImageLink(imgLink)
         setImageDialogVisible(true);
     }
+
+    useEffect(() => setMedicationsArray(props.data.chronicDiseases), [props.data])
 
     useEffect(() => {
         medicationsArray.length === 0
@@ -36,6 +38,7 @@ export const ChronicDiseases = props => {
                 key={index}
                 item={item}
                 showImageDialog={showImageDialog}
+                nameField={item.name || item.illness  || item.chronicDiseases}
             />
         )
     })
@@ -64,12 +67,12 @@ export const ChronicDiseases = props => {
             {/* Other parts of the page */}
 
 
-            {dialogVisible && <SurgeriesDialog
+            {dialogVisible && <DiseasesDialog
                 showDialog={dialogVisible}
                 hideDialog={() => setDialogVisible(false)}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
                 medicalData={JSON.parse(sessionStorage.getItem('patient')).chronicDiseases}
                 updateField={'chronicDiseases'}
                 questionString={"Do you have any chronic disease?"}

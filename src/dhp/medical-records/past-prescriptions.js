@@ -3,9 +3,9 @@ import { MedicalHistoryDialog } from "../others/medical-history-dialog";
 import { ImageDialog } from "../../components/image-dialog";
 import { MedicationRowItem } from "../../components/medication-row-item";
 
-export const Prescriptions = props => {
+export const PastPrescriptions = props => {
 
-    const [prescriptionsArray] = useState(props.data.pastPrescriptions)
+    const [prescriptionsArray, setPrescriptionsArray] = useState(props.data.pastPrescriptions)
     const [dialogVisible, setDialogVisible] = useState(false)
     const [prescriptionsExist, setPrescriptionsExist] = useState(false);
     const [imageLink, setImageLink] = useState('')
@@ -20,6 +20,10 @@ export const Prescriptions = props => {
         setImageLink(imgLink)
         setImageDialogVisible(true);
     }
+
+    useEffect(() => {
+        setPrescriptionsArray(props.data.pastPrescriptions)
+    }, [props.data])
 
     useEffect(() => {
         prescriptionsArray.length === 0
@@ -55,7 +59,7 @@ export const Prescriptions = props => {
                     </div>
             }
             <button
-                className="btn-main medication d-none"
+                className="btn-main medication"
                 onClick={addMedication}
                 id='btnShowDialog'
             >
@@ -67,7 +71,7 @@ export const Prescriptions = props => {
                 hideDialog={() => setDialogVisible(false)}
                 setIsLoaderVisible={props.setIsLoaderVisible}
                 showToast={props.showToast}
-                setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
                 medicalData={JSON.parse(sessionStorage.getItem('patient')).pastPrescriptions}
                 updateField={'pastPrescriptions'}
                 questionString={"Have you taken any medicines in past?"}

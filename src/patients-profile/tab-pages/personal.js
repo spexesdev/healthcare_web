@@ -60,6 +60,7 @@ export const Personal = props => {
                 showToast={props.showToast}
                 setResetData={props.setResetData}
                 data={props.data}
+                setPatientsData={props.setPatientsData}
 
             />
         </div>
@@ -122,14 +123,17 @@ const PersonalDialog = props => {
             })
             .then(response => {
                 if (response && response.statusCode === 200) {
-                    props.showToast(`Update Successful! Will be fully effected in about 5 secs`, 'success');
+                    props.showToast(`Update Successful!`, 'success');
                     props.hideDialog();
 
                     //Remember to refresh the fetched data after this..
-                    props.setResetData(true);
+                    props.setPatientsData(response.data.data);
+
+                    //Also, update the sessionstorate
+                    sessionStorage.setItem('patient', JSON.stringify(response.data.data));
 
                 } else {
-                    props.showToast(response.message, 'exclamation');
+                    props.showToast(response?.message, 'exclamation');
                 }
             })
             .catch(error => {

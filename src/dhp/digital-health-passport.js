@@ -1,7 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useCheckAppointmentBooked from "../hooks/useCheckAppointmentBooked";
-import { ApiPath } from "../assets/common/base-url";
-import { constants } from "../assets/common/constants";
 
 import { DHPHeader } from "../components/dhp-header";
 import { NavBar } from "../components/nav-bar";
@@ -16,10 +14,9 @@ import { HealthProfileBar } from "./others/health-profile-bar";
 
 const DigitalHealthPassport = props => {
 
-    const [resetData, setResetData] = useState(false);
     const [selectedIndex, setSelectedIndex] = useState(1);
     const [appointmentBooked, setAppointmentBooked] = useState(false);
-    const [patientsData, setPatientsData] = useState(() => JSON.parse(sessionStorage.getItem('patient')))
+    const [patientsData] = useState(JSON.parse(sessionStorage.getItem('patient')))
 
     const { isLoading, doctorsData, pastAppointments } = useCheckAppointmentBooked(patientsData.uidNo, setAppointmentBooked, appointmentBooked);
 
@@ -34,45 +31,16 @@ const DigitalHealthPassport = props => {
         />
     })
 
-    useEffect(() => {
-        if (resetData) {
-            const idValue = sessionStorage.getItem("id_val")
-            const params = constants.getOptions;
-
-            fetch(ApiPath + "query/search/" + idValue, params)
-                ?.then(response => (response.json()))
-                .then(res => {
-
-                    if (res.statusCode === 200) {
-                        //Save this for future use...
-                        sessionStorage.setItem('patient', JSON.stringify(res.data));
-                        localStorage.setItem('patient', JSON.stringify(res.data));
-
-                    } else {
-                        error = res.message;
-                    }
-
-                })
-                .catch(err => {
-                    error = err.message;
-                })
-
-            setPatientsData(JSON.parse(sessionStorage.getItem('patient')))
-        }
-
-        setResetData(false);
-
-    }, [resetData])
-
     return (
         <div className='dhp-container'>
             {isLoading ? props.setIsLoaderVisible(true) : props.setIsLoaderVisible(false)}
             <NavBar
                 activeLink={1}
                 picture={patientsData.photo}
+                data={patientsData}
             />
             <DHPHeader />
-            <HealthProfileBar percentage={90} />
+            <HealthProfileBar />
             <div className='dhp-body'>
                 <div className="left-side-bar">
                     {sideBarItems}
@@ -91,7 +59,7 @@ const DigitalHealthPassport = props => {
                         showToast={props.showToast}
                         setIsLoaderVisible={props.setIsLoaderVisible}
                         doctorsData={doctorsData}
-                        setResetData={setResetData}
+                        data={patientsData}
                     />}
 
                     {selectedIndex === 3 && <MedicalInsurance />}

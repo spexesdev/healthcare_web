@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './assets/css/doctors.css'
 import './assets/css/dashboard.css'
 import './assets/css/new-loader.css'
 import './assets/css/main.css'
@@ -13,6 +14,7 @@ import './assets/css/tab-pages.css'
 import './assets/css/progress-bar.css'
 import './assets/200/icofont/icofont.min.css'
 import './assets/200/boxicons/css/boxicons.min.css'
+import './assets/200/ionicons/css/ionicons.min.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 

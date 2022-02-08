@@ -33,6 +33,12 @@ export const PatientTabHeaders = (props) => {
             >
                 <i className="icofont-history"></i>History
             </div>
+            <div
+                className={props.selectedTab === 6 ? "tab active" : "tab"}
+                onClick={() => props.setSelectedTab(6)}
+            >
+                <i className="icofont-question-square"></i>Others
+            </div>
         </div>
     );
 }

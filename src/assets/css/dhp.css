@@ -112,7 +112,7 @@
 .dhp-body .main-content {
     display: block;
     padding: 30px;
-    box-shadow: 3px 5px 17px rgba(0,0,0,25%);
+    box-shadow: 3px 5px 17px rgba(0, 0, 0, 25%);
 }
 
 .dhp-body .main-content .appointment,
@@ -150,7 +150,9 @@
     width: 100%;
 }
 
-.dhp-body .main-content .appointment .not-found {
+.dhp-body .main-content .appointment .not-found,
+.right-container .appointment .not-found,
+.box-container .not-found {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -158,7 +160,14 @@
     padding: 50px;
 }
 
-.dhp-body .main-content .appointment .not-found > h4 {
+.right-container .appointment .not-found,
+.box-container .not-found {
+    padding: 20px;
+}
+
+.dhp-body .main-content .appointment .not-found>h4,
+.right-container .appointment .not-found>h4,
+.box-container .not-found > h4 {
     font-size: 24px;
     color: #888;
     letter-spacing: 1px;
@@ -166,10 +175,15 @@
 
 }
 
-.dhp-body .main-content .appointment .not-found > img {
+.dhp-body .main-content .appointment .not-found>img,
+.right-container .appointment .not-found>img {
     width: 50%;
     margin-bottom: 50px;
     margin-top: 50px;
+}
+
+.box-container .not-found > img {
+    margin-bottom: 20px;
 }
 
 .dhp-body .main-content .appointment button.medication,
@@ -185,10 +199,11 @@
     padding: 30px 10px;
     background: #f8f8f8;
     margin-bottom: 15px;
+    border-left: 6px solid #CCC;
 }
 
-.dhp-body .main-content .appointment .medications > h3,
-.right-container .appointment .medications > h3 {
+.dhp-body .main-content .appointment .medications>h3,
+.right-container .appointment .medications>h3 {
     position: relative;
     display: inline-block;
     color: #666;
@@ -197,8 +212,8 @@
 
 }
 
-.dhp-body .main-content .appointment .medications > h3::before,
-.right-container .appointment .medications > h3::before {
+.dhp-body .main-content .appointment .medications>h3::before,
+.right-container .appointment .medications>h3::before {
     display: block;
     content: '';
     position: absolute;
@@ -209,39 +224,75 @@
     left: 0;
 }
 
+
 .dhp-body .main-content .appointment .medications-container,
 .right-container .appointment .medications-container {
-    display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
-    gap: 10px;
-    align-self: center;
-}
-
-.dhp-body .main-content .appointment .medications-container > div,
-.right-container .appointment .medications-container > div {
-    margin-bottom: 15px;
+    padding: 8px 5px;
     position: relative;
+    display: block;
+    cursor: pointer;
+    transition: 0.3s ease;
 }
 
-.dhp-body .main-content .appointment .medications-container > div > h3,
-.right-container .appointment .medications-container > div > h3 {
+.dhp-body .main-content .appointment .medications-container:hover,
+.right-container .appointment .medications-container:hover {
+    background: #dedede;
+}
+
+.dhp-body .main-content .appointment .medications-container .container-header>h3,
+.right-container .appointment .medications-container .container-header>h3 {
     position: relative;
     display: block;
     color: var(--bluish);
     font-weight: 500;
-    font-size: 13px;
+    font-size: 16px;
 }
 
-.dhp-body .main-content .appointment .medications-container > div > p,
-.right-container .appointment .medications-container > div > p {
+.dhp-body .main-content .appointment .medications-container .container-body,
+.right-container .appointment .medications-container .container-body {
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    gap: 10px;
+    align-self: center;
+    position: relative;
+
+}
+
+.dhp-body .main-content .appointment .medications-container .container-body>div>p,
+.right-container .appointment .medications-container .container-body>div>p {
     display: block;
-    color: #666;
+    color: #777;
     font-weight: 400;
     font-size: 14px;
 }
 
-.dhp-body .main-content .appointment > .details,
-.right-container .appointment > .details {
+
+.dhp-body .main-content .appointment .medications-container .container-body>div:last-child,
+.right-container .appointment .medications-container .container-body>div:last-child {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* The preview button */
+.attachment-preview {
+    display: block;
+    outline: none;
+    background: #aaa;
+    color: #fff;
+    border: 2px solid #aaa;
+    padding: 3px 12px;
+    cursor: pointer;
+    border-radius: 16px;
+}
+
+.attachment-preview:hover {
+    border: 2px solid #bbb;
+    background: #bbb;
+}
+
+.dhp-body .main-content .appointment>.details,
+.right-container .appointment>.details {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -249,23 +300,23 @@
     padding: 50px 0;
 }
 
-.dhp-body .main-content .appointment > .details img,
-.right-container .appointment > .details img {
+.dhp-body .main-content .appointment>.details img,
+.right-container .appointment>.details img {
     width: 150px;
     border-radius: 50%;
     margin: 40px 0;
 }
 
-.dhp-body .main-content .appointment > .details h3,
-.right-container .appointment > .details h3 {
+.dhp-body .main-content .appointment>.details h3,
+.right-container .appointment>.details h3 {
     display: block;
     color: #444;
     font-size: 20px;
     margin-bottom: 20px;
 }
 
-.dhp-body .main-content .appointment > .details h4,
-.right-container .appointment > .details h4 {
+.dhp-body .main-content .appointment>.details h4,
+.right-container .appointment>.details h4 {
     display: block;
     color: var(--bluish);
     font-size: 16px;
@@ -273,10 +324,10 @@
     margin-bottom: 20px;
 }
 
-.dhp-body .main-content .appointment > .details h5,
-.dhp-body .main-content .appointment > .details p,
-.right-container .appointment > .details h5,
-.right-container .appointment > .details p {
+.dhp-body .main-content .appointment>.details h5,
+.dhp-body .main-content .appointment>.details p,
+.right-container .appointment>.details h5,
+.right-container .appointment>.details p {
     display: block;
     color: #888;
     font-size: 16px;
@@ -284,15 +335,15 @@
     margin-bottom: 20px;
 }
 
-.dhp-body .main-content .appointment > .details p,
-.right-container .appointment > .details p {
+.dhp-body .main-content .appointment>.details p,
+.right-container .appointment>.details p {
     font-size: 16px;
     font-weight: 600;
     text-transform: uppercase;
 }
 
-.dhp-body .main-content .appointment > .details > a,
-.right-container .appointment > .details > a {
+.dhp-body .main-content .appointment>.details>a,
+.right-container .appointment>.details>a {
     background: var(--bluish);
     font-size: 14px;
     color: #fff;
@@ -319,7 +370,7 @@
     width: 50%;
     position: relative;
     padding: 20px;
-    box-shadow: 3px 3px 10px rgba(0,0,0,15%);
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 15%);
     border-radius: 6px;
     zoom: 0.85;
 }
@@ -330,7 +381,7 @@
     margin-bottom: 10px;
 }
 
-.dhp-body .past-appointments .appt-card .card-top > img {
+.dhp-body .past-appointments .appt-card .card-top>img {
     display: block;
     width: 90px;
     height: 90px;
@@ -342,21 +393,21 @@
     display: block;
 }
 
-.dhp-body .past-appointments .appt-card .card-top .card-top-text > h3 {
+.dhp-body .past-appointments .appt-card .card-top .card-top-text>h3 {
     color: var(--bluish);
     font-weight: 600;
     font-size: 16px;
 
 }
 
-.dhp-body .past-appointments .appt-card .card-top .card-top-text > h5 {
+.dhp-body .past-appointments .appt-card .card-top .card-top-text>h5 {
     color: #666;
     font-weight: 600;
     font-size: 12px;
     margin-bottom: 10px;
 }
 
-.dhp-body .past-appointments .appt-card .card-top .card-top-text > span {
+.dhp-body .past-appointments .appt-card .card-top .card-top-text>span {
     color: #888;
     font-weight: 400;
     font-size: 12px;
@@ -365,7 +416,7 @@
     display: block;
 }
 
-.dhp-body .past-appointments .appt-card .card-top .card-top-text > span::before {
+.dhp-body .past-appointments .appt-card .card-top .card-top-text>span::before {
     position: absolute;
     content: '';
     bottom: -5px;
@@ -375,7 +426,7 @@
     background: #999;
 }
 
-.dhp-body .past-appointments .appt-card .card-top .card-top-text > p {
+.dhp-body .past-appointments .appt-card .card-top .card-top-text>p {
     color: #888;
     font-weight: 400;
     font-size: 13px;
@@ -390,7 +441,7 @@
     font-weight: 500;
 }
 
-.dhp-body .past-appointments .appt-card > span {
+.dhp-body .past-appointments .appt-card>span {
     display: block;
     width: 100%;
     background: var(--bluish);
@@ -421,7 +472,7 @@
     overflow: hidden;
 }
 
-.nav-bar .logo > img {
+.nav-bar .logo>img {
     display: block;
     position: relative;
     width: 60px;
@@ -435,19 +486,31 @@
     align-items: center;
     color: #888;
     font-size: 16px;
+    width: auto;
 }
 
-.nav-bar .image > h5 {
+.nav-bar .image>h5 {
     position: relative;
     display: inline-block;
     margin-right: 7px;
 }
 
+.nav-bar .img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    overflow: hidden;
+    background: #aaa;
+}
+
 .nav-bar .profile-img {
     display: block;
     position: relative;
-    width: 50px;
-    border-radius: 50%;
+    height: 40px;
     cursor: pointer;
     background: #efefef;
 }
@@ -461,7 +524,7 @@
     left: -100px;
     padding: 20px;
     z-index: 3;
-    box-shadow: 3px 5px 12px rgba(0,0,0,25%);
+    box-shadow: 3px 5px 12px rgba(0, 0, 0, 25%);
     border-radius: 10px;
     width: 130px;
 }
@@ -479,7 +542,7 @@
     z-index: 2;
 }
 
-.nav-bar .img-flyout > a {
+.nav-bar .img-flyout>a {
     display: block;
     color: #666;
     text-decoration: none;
@@ -487,11 +550,11 @@
     margin: 6px 0;
 }
 
-.nav-bar .img-flyout > a:hover {
+.nav-bar .img-flyout>a:hover {
     color: var(--bluish);
 }
 
-.nav-bar .img-flyout > a > i {
+.nav-bar .img-flyout>a>i {
     margin-right: 5px;
 }
 
@@ -505,7 +568,7 @@
 
 }
 
-.nav-bar .links > a {
+.nav-bar .links>a {
     display: block;
     padding: 20px 15px;
     text-decoration: none;
@@ -513,11 +576,11 @@
     transition: 0.5s ease;
 }
 
-.nav-bar .links > a.active {
+.nav-bar .links>a.active {
     color: var(--bluish);
 }
 
-.nav-bar .links > a:hover:not(.active) {
+.nav-bar .links>a:hover:not(.active) {
     background: #008AC045;
     color: white;
 }

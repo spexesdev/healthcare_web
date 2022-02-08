@@ -5,23 +5,19 @@ import { Contact } from "./tab-pages/contact";
 import { Personal } from "./tab-pages/personal"
 import { Medical } from "./tab-pages/medical";
 import { Lifestyle } from "./tab-pages/lifestyle";
+import { Others } from "./tab-pages/others";
 import { ApiPath } from "../assets/common/base-url";
 import { fileToBase64 } from "../assets/common/file-to-base64";
-import useFetchPatientsData from "../hooks/useFetchPatientsData";
 import { DiagnosisReport } from "../dhp/medical-records/diagnosis-report";
 
 const Patients = props => {
 
-    const [patientsData, setPatientsData] = useState(JSON.parse(sessionStorage.getItem('patient')));
+    const [patientsData, setPatientsData] = useState(() => JSON.parse(sessionStorage.getItem('patient')));
     const [selectedTab, setSelectedTab] = useState(2);
-    const [resetData, setResetData] = useState(true);
     const [outputText, setOutputText] = useState("");
-    const [picture, setPicture] = useState(JSON.parse(sessionStorage.getItem('patient')).photo);
+    const [picture, setPicture] = useState(() => JSON.parse(sessionStorage.getItem('patient')).photo);
 
     const [tempPix, setTempPix] = useState('');
-
-    //Fetch the data on form load...
-    useFetchPatientsData(resetData, setResetData);
 
     const handleChange = e => {
         const file = e.target.files[0];
@@ -40,14 +36,6 @@ const Patients = props => {
         setTempPix('');
         const uploadFile = document.querySelector('#uploadFile');
         uploadFile.value = '';
-    }
-
-    const fetchPatient = () => {
-
-        const output = JSON.parse(sessionStorage.getItem('patient'));
-        setPatientsData(output);
-        setPicture(output.photo);
-
     }
 
     useEffect(() => {
@@ -77,8 +65,6 @@ const Patients = props => {
 
         });
 
-        setInterval(() => fetchPatient(), 4000);
-
         return () => {
 
             dropZone.removeEventListener('dragover', e => {
@@ -106,13 +92,13 @@ const Patients = props => {
         }
 
         const options = {
-            'method': "PUT",
-            'body': JSON.stringify(data),
             'headers': {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${sessionStorage.getItem("token")}`
-            }
-        }
+                'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+            },
+            'method': 'PUT',
+            'body': JSON.stringify(data)
+        };
 
         props.setIsLoaderVisible(true)
 
@@ -125,10 +111,11 @@ const Patients = props => {
             .then(response => {
                 props.setIsLoaderVisible(false);
                 if (response && response.statusCode === 200) {
-                    props.showToast(`Update Successful! Will be fully effected in about 5 secs`, 'success');
+                    props.showToast(`Update Successful!`, 'success');
 
                     //Remember to refresh the fetched data after this..
-                    setResetData(true);
+                    setPatientsData(response.data.data);
+                    sessionStorage.setItem('patient', JSON.stringify(response.data.data));
 
                 } else {
                     props.showToast(response.message, 'exclamation');
@@ -145,6 +132,7 @@ const Patients = props => {
             <NavBar
                 activeLink={2}
                 picture={picture}
+                data={patientsData}
             />
             <div className="body-container">
                 <div className="left-container">
@@ -216,35 +204,36 @@ const Patients = props => {
                     />
 
                     {selectedTab === 1 && <Contact
-                        setResetData={setResetData}
                         data={patientsData}
                         showToast={props.showToast}
                         setIsLoaderVisible={props.setIsLoaderVisible}
                         setPatientsData={setPatientsData}
                     />}
                     {selectedTab === 2 && <Personal
-                        setResetData={setResetData}
                         data={patientsData}
                         showToast={props.showToast}
                         setIsLoaderVisible={props.setIsLoaderVisible}
                         setPatientsData={setPatientsData}
                     />}
                     {selectedTab === 3 && <Medical
-                        setResetData={setResetData}
                         data={patientsData}
                         showToast={props.showToast}
                         setIsLoaderVisible={props.setIsLoaderVisible}
                         setPatientsData={setPatientsData}
                     />}
                     {selectedTab === 4 && <Lifestyle
-                        setResetData={setResetData}
                         data={patientsData}
                         showToast={props.showToast}
                         setIsLoaderVisible={props.setIsLoaderVisible}
                         setPatientsData={setPatientsData}
                     />}
                     {selectedTab === 5 && <DiagnosisReport
-                        setResetData={setResetData}
+                        data={patientsData}
+                        showToast={props.showToast}
+                        setIsLoaderVisible={props.setIsLoaderVisible}
+                        setPatientsData={setPatientsData}
+                    />}
+                    {selectedTab === 6 && <Others
                         data={patientsData}
                         showToast={props.showToast}
                         setIsLoaderVisible={props.setIsLoaderVisible}

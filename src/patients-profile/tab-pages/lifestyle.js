@@ -44,6 +44,7 @@ export const Lifestyle = props => {
                 showToast={props.showToast}
                 data={props.data}
                 setResetData={props.setResetData}
+                setPatientsData={props.setPatientsData}
             />
 
         </div>
@@ -91,11 +92,12 @@ const LifestyleDialog = props => {
             })
             .then(response => {
                 if (response && response.statusCode === 200) {
-                    props.showToast(`Update Successful! Will be fully effected in about 5 secs`, 'success');
+                    props.showToast(`Update Successful!`, 'success');
                     props.hideDialog();
 
                     //Remember to refresh the fetched data after this..
-                    props.setResetData(true);
+                    props.setPatientsData(response.data.data);
+                    sessionStorage.setItem('patient', JSON.stringify(response.data.data));
 
                 } else {
                     props.showToast(response.message, 'exclamation');
@@ -113,7 +115,7 @@ const LifestyleDialog = props => {
         <div className={displayDialog}>
             <div className="dialog-container">
                 <div className="dialog-header">
-                    <h2 className="nully" style={{ color: 'var(--bluish)' }}><i className="icofont-ui-edit"></i> Edit Medical History</h2>
+                    <h2 className="nully" style={{ color: 'var(--bluish)' }}><i className="icofont-ui-edit"></i> Edit Lifestyle</h2>
                 </div>
                 <div className="dialog-body" style={{ marginBottom: '20px' }}>
                     <div className="form-row-2">
