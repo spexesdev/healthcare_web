@@ -21,7 +21,7 @@ const Toast = (props) => {
     switch (props.msgBoxType) {
         case "success":
             iconSrc = "/success.png";
-            contentStyle.borderLeft = "3px solid var(--main-green)"
+            contentStyle.borderLeft = "2px solid var(--main-green)"
 
             headerStyle.color = "var(--main-green)"
             headerStyle.innerText = "Success"
@@ -30,7 +30,7 @@ const Toast = (props) => {
 
         case "information":
             iconSrc = "/info.png";
-            contentStyle.borderLeft = "3px solid var(--bluish)";
+            contentStyle.borderLeft = "2px solid var(--bluish)";
 
             headerStyle.color = "var(--bluish)"
             headerStyle.innerText = "Information"
@@ -39,7 +39,7 @@ const Toast = (props) => {
 
         case "exclamation":
             iconSrc = "/warning.png";
-            contentStyle.borderLeft = "3px solid var(--golden-rod)";
+            contentStyle.borderLeft = "2px solid var(--golden-rod)";
 
             headerStyle.color = "var(--golden-rod)"
             headerStyle.innerText = "Error"

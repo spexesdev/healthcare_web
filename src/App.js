@@ -12,6 +12,7 @@ import Meeting from './meeting/meeting';
 import DigitalHealthPassport from './dhp/digital-health-passport'
 import Page404 from './page-404';
 import DoctorsProfileUpdate from './doctors/profile-update';
+import ProfileUpdateSuccessful from './doctors/profile-update-successful';
 
 function App() {
 
@@ -65,6 +66,10 @@ function App() {
           <Route path='/doctors/complete-profile-registration' exact>
             <DoctorsProfileUpdate showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
           </Route>
+          <Route path='/doctors/profile-update-successful' exact>
+            <ProfileUpdateSuccessful showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
+          </Route>
+
           <Route path="*">
             {/* Re-route to the patient's main page... */}
             <Page404 showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />

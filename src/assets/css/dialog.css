@@ -13,8 +13,8 @@
     z-index: 499;
     overflow: hidden;
     opacity: 0;
-    transition: 1000ms ease;
-
+    transition: opacity .15s linear;
+    
 }
 
 .dialog-background.image-dialog {
@@ -363,8 +363,8 @@
 .dialog-background.fade {
     display: flex;
     -ms-display: flex;
-    opacity: 1;
     transition: opacity .15s linear;
+    opacity: 1;
 }
 
 .mr-2 {

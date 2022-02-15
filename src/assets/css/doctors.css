@@ -75,6 +75,47 @@
     min-height: 100px;
 }
 
+.box-container.profile-successful {
+    border-radius: 7px;
+    padding: 40px;
+}
+
+.box-container.profile-successful > h2 {
+    display: block;
+    position: relative;
+    font-weight: 400;
+    color: var(--bluish);
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.box-container.profile-successful > i {
+    display: block;
+    position: absolute;
+    right: 40px;
+    top: 40px;
+    font-size: 32px;
+    color: var(--bluish);
+    padding: 10px;
+    background: var(--special-blue);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.box-container.profile-successful > p {
+    position: relative;
+    display: block;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.box-container.profile-successful > .buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .box-container>h3 {
     display: inline-block;
     position: relative;
@@ -95,14 +136,14 @@
     background: var(--bluish);
     bottom: -3px;
     left: 0;
-    transition: width 1s ease, transform 0.7s ease;
+    transition: width 1s ease;
 }
 
 .box-container>h3:hover::before {
     width: 100%;
 }
 
-.box-container > h3::after {
+.box-container>h3::after {
     display: inline-block;
     position: absolute;
     left: -20px;
@@ -112,11 +153,13 @@
     font-family: 'Icofont';
     content: '\eaa0';
     font-weight: bold;
-    transition: 0.3s transform 0.7s ease;
+    transition: 0.3s transform 0.7s ease,
+                0.3s color 0.7s ease-in-out;
 }
 
 .box-container>h3:hover::after {
     transform: rotateZ(90deg);
+    color: var(--bluish);
 }
 
 .box-container .doc-profile-header {
@@ -196,7 +239,114 @@
 
 .box-container .qualifications {
     display: flex;
+    width: 100%;
     align-items: center;
     justify-content: center;
     flex-direction: column;
+}
+
+/* Qualifications item */
+.qual-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    background: #f1f1f1;
+    border-left: 5px solid #aaa;
+    padding: 25px;
+    padding-left: 55px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.qual-container:last-child {
+    margin-bottom: 20px;
+}
+
+.qual-container > i {
+    display: block;
+    position: absolute;
+    top: 20px;
+    left: 16px;
+    color: var(--bluish);
+    font-size: 26px;
+}
+
+.qual-container > .qual-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+}
+
+.qual-container > .qual-header > h3 {
+    display: inline-block;
+    color: var(--bluish);
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.qual-container .icons {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    color: #888;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.qual-container .icons > i {
+    display: inline-block;
+    position: relative;
+    transition: 0.4s ease;
+    background: transparent;
+    padding: 5px;
+    border-radius: 50%;
+}
+
+.qual-container .icons > i:hover{
+    color: var(--purplish);
+    background: #ccc;
+}
+
+.qual-container .qual-main {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+}
+
+.qual-container .qual-main > .text {
+    display: block;
+    position: relative;
+}
+
+.qual-container .qual-main > .text > h4 {
+    display: inline-block;
+    color: #888;
+    font-weight: 400;
+    font-size: 14px;
+    margin-bottom: 8px;
+}
+
+.qual-container .qual-main > .text > p {
+    display: block;
+    color: #555;
+    font-weight: 500;
+    font-size: 12px;
+}
+
+.qual-container .qual-main > .text > p > span {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 15px;
+    background: lightgrey;
+
 }

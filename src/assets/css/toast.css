@@ -50,6 +50,7 @@
     font-size: 16px;
     margin-bottom: 5px;
     margin-right: 10px;
+    font-weight: 500;
 }
 
 .toast .content .content-header > span {
@@ -66,7 +67,7 @@
 
 .toast .content .content-header > span:hover {
     background: linear-gradient(whitesmoke, white);
-    border: 1px solid var(--lighter-text);
+    border: 1px solid #ccc;
 }
 
 .toast .content > p {

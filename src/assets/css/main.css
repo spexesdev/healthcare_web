@@ -12,7 +12,6 @@ body {
     --special-blue: #0080AE44;
     --lighter-text: #808080;
     --control-blue: #0080AEAA;
-    --lighter-text: #808080;
     --success-bg: rgba(159, 218, 159, 0.6);
     --purplish: #aa24ab;
 }
@@ -314,6 +313,7 @@ body {
 }
 
 @media screen and (max-width: 767px) {
+
     .form-row-2,
     .form-row-2-1-1,
     .form-row-2-1,
@@ -339,7 +339,7 @@ body {
     }
 
     .input-group {
-        margin-bottom: 0!important;
+        margin-bottom: 0 !important;
     }
 }
 
@@ -347,6 +347,18 @@ body {
     display: block;
     position: relative;
     margin-bottom: 15px;
+}
+
+.input-group>.form-control~label {
+    font-weight: 400;
+    font-size: 14px;
+    color: #666;
+    display: block;
+    position: absolute;
+    color: var(--lighter-text);
+    top: 10px;
+    left: 15px;
+    transition: 0.4s ease;
 }
 
 .input-group>label {
@@ -357,6 +369,14 @@ body {
     position: relative;
     margin-bottom: 5px;
     color: var(--lighter-text);
+    pointer-events: none;
+    background: #fff;
+}
+
+.input-group>label>span {
+    /* This is for an error message */
+    color: red;
+    margin-right: 2px;
 }
 
 .form-control {
@@ -370,6 +390,15 @@ body {
     color: #666;
     font-family: Poppins;
 
+}
+
+.form-control:focus~label,
+.form-control:valid~label {
+    transform: translateY(-17px);
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    color: var(--bluish);
+    font-size: 13px;
+    padding: 0 5px;
 }
 
 .form-control input[type=tel] {
@@ -390,7 +419,10 @@ body {
     font-size: 14px;
 }
 
-input:focus, select:focus, button:focus, textarea:focus {
+input:focus,
+select:focus,
+button:focus,
+textarea:focus {
     box-shadow: 0 0 4px rgba(40, 70, 190, 0.4);
 }
 
@@ -411,7 +443,7 @@ button:focus {
 .btn-main {
     position: relative;
     display: inline-block;
-    border: 2px solid var(--bluish);
+    border: 3px solid var(--bluish);
     outline: none;
     padding: 5px 25px;
     background: var(--bluish);
@@ -426,7 +458,7 @@ button:focus {
 .btn-main-outline {
     position: relative;
     display: inline-block;
-    border: 2px solid var(--bluish);
+    border: 3px solid var(--bluish);
     outline: none;
     padding: 5px 25px;
     color: var(--bluish);
@@ -760,7 +792,7 @@ button:focus {
     font-family: Poppins;
 }
 
-.upload-file-area > div {
+.upload-file-area>div {
     display: flex;
 }
 
@@ -1202,4 +1234,39 @@ button:focus {
 .page-404-container .buttons-404>a:hover {
     background: #0080AE;
     color: #fff;
+}
+
+/* hr */
+
+hr {
+    display: block;
+    position: relative;
+    width: 100%;
+    height: 1px;
+    border: 0.5px solid #efefef;
+    margin: 20px 0;
+}
+
+/* information-boxes */
+.information-box {
+    display: flex;
+    width: 100%;
+    padding: 20px;
+    border: 3px solid #bbb;
+    border-radius: 7px;
+    background: #0080ae2a;
+}
+
+.information-box > i {
+    display: block;
+    color: #0080aed5;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+.information-box > p {
+    display: block;
+    margin-left: 10px;
+    color: #555;
+    font-size: 13px;
 }

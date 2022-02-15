@@ -4,7 +4,7 @@ import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { countries } from '../assets/common/countries';
 
-export default function CountrySelect() {
+export default function CountrySelect(props) {
     return (
         <Autocomplete
             id="country-select-demo"
@@ -12,8 +12,8 @@ export default function CountrySelect() {
             options={countries}
             autoHighlight
             getOptionLabel={(option) => option.label}
-            renderOption={(props, option) => (
-                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...props}>
+            renderOption={(opts, option) => (
+                <Box component="li" sx={{ '& > img': { mr: 2, flexShrink: 0 } }} {...opts}>
                     <img
                         loading="lazy"
                         width="20"
@@ -27,7 +27,7 @@ export default function CountrySelect() {
             renderInput={(params) => (
                 <TextField
                     {...params}
-                    label="Choose a country"
+                    label={props.label}
                     inputProps={{
                         ...params.inputProps,
                         autoComplete: 'new-password', // disable autocomplete and autofill
