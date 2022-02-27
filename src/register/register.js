@@ -57,6 +57,8 @@ export const Register = ({ setIsLoaderVisible, showToast }) => {
                         history.push("/");
                     } else {
                         //Move to the doctor's profile completion page...
+                        // set the variables for access on the other page...
+                        sessionStorage.setItem("temp", JSON.stringify(data))
                         history.push("/doctors/complete-profile-registration")
                     }
 

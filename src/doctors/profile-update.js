@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PhoneInput from 'react-phone-number-input'
 import FileInput from "../components/file-input";
 import CountrySelect from "../components/country-select";
@@ -69,6 +69,16 @@ const DoctorsProfileUpdate = (props) => {
         />)
     })
 
+    const [fullname, setFullname] = useState('')
+    const [email, setEmail] = useState('');
+
+    useEffect(() => {
+        //This is for the default loading...
+        const tempData = JSON.parse(sessionStorage.getItem("temps"));
+        setFullname(tempData?.name || 'BigBenny');
+        setEmail(tempData?.emailId  || 'bigbennysemail@gmail.com');
+
+    }, [])
 
     const updateDoctorsData = () => {
         //Set the contact data...
@@ -124,13 +134,15 @@ const DoctorsProfileUpdate = (props) => {
         //Else add..
         const specialization = {
             "type": cbxSpecialization,
-            "document": specializationDoc,
-            "license": practiceDoc,
-            "period": {
-                "start": txtIssueDate,
-                "end": txtExpiryDate
-            },
-            "issuer": txtIssuingAuthority
+            "cerfification": specializationDoc,
+        }
+
+        const license = {
+            "certification": practiceDoc,
+            "expireDate": txtExpiryDate,
+            "issueDate": txtIssueDate,
+            "issuer": txtIssuingAuthority,
+            "issuerID": ""
         }
 
         //In Case of Emergency
@@ -140,10 +152,19 @@ const DoctorsProfileUpdate = (props) => {
         }
 
         const ice = {
-            "phone": txtIcePhone,
-            "period": {
-                "start": txtAvailableFrom,
-                "end": txtAvailableTo
+            "call": {
+                "period": {
+                    "start": txtAvailableFrom,
+                    "end": txtAvailableTo
+                },
+                "value": txtIcePhone
+            },
+            "sms": {
+                "period": {
+                    "start": txtAvailableFrom,
+                    "end": txtAvailableTo
+                },
+                "value": txtIcePhone
             }
         }
 
@@ -161,7 +182,7 @@ const DoctorsProfileUpdate = (props) => {
 
         const proofOfClinic = {
             "document": proofOfClinicDocument,
-            "operation": selfOwned ? "self-owned" : "rented",
+            "type": selfOwned ? "self-owned" : "rented",
             "renter": {
                 "name": txtClinicOwner,
                 "phone": txtClinicPhone,
@@ -180,6 +201,7 @@ const DoctorsProfileUpdate = (props) => {
             'photo': profilePicture,
             'profileConsent': chkProfileConsent.toString(),
             'qualification': qualificationsList,
+            'license': license,
             'specialization': specialization,
             'ice': ice,
             'proofOfClinic': proofOfClinic,
@@ -195,6 +217,7 @@ const DoctorsProfileUpdate = (props) => {
         }
 
         props.setIsLoaderVisible(true)
+        props.showToast("This might take a while, as there's a lot of information to upload... Please be patient.", 'information');
 
         //Then update just this data...
         fetch(ApiPath + "doctor/profileUpdate", options)
@@ -206,10 +229,10 @@ const DoctorsProfileUpdate = (props) => {
                 props.setIsLoaderVisible(false);
 
                 if (response && response.statusCode === 200) {
-                    props.showToast("Update successful!", 'information');
+                    props.showToast("Update successful!", 'success');
 
                     //Redirect to the doctor's profile page...
-
+                    history.push("/doctors/login");
 
                 } else {
                     props.showToast(response.message, 'exclamation');
@@ -250,15 +273,15 @@ const DoctorsProfileUpdate = (props) => {
                             <div className="details">
                                 <div className="name-group">
                                     <h4>Fullname</h4>
-                                    <p>John Doe</p>
+                                    <p>{fullname}</p>
                                 </div>
                                 <div className="name-group">
                                     <h4>Email</h4>
-                                    <p>reubenogbuani@gmail.com</p>
+                                    <p>{email}</p>
                                 </div>
                                 <div className="name-group">
                                     <h4>Specialization</h4>
-                                    <p>Dentistry</p>
+                                    <p>{cbxSpecialization}</p>
                                 </div>
                             </div>
                         </div>

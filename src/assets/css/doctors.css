@@ -80,7 +80,7 @@
     padding: 40px;
 }
 
-.box-container.profile-successful > h2 {
+.box-container.profile-successful>h2 {
     display: block;
     position: relative;
     font-weight: 400;
@@ -89,7 +89,7 @@
     margin-bottom: 20px;
 }
 
-.box-container.profile-successful > i {
+.box-container.profile-successful>i {
     display: block;
     position: absolute;
     right: 40px;
@@ -102,21 +102,22 @@
     pointer-events: none;
 }
 
-.box-container.profile-successful > p {
+.box-container.profile-successful>p {
     position: relative;
     display: block;
     color: #666;
     margin-bottom: 30px;
 }
 
-.box-container.profile-successful > .buttons {
+.box-container.profile-successful>.buttons {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
 }
 
-.box-container>h3 {
+.box-container>h3,
+.special-header>h3 {
     display: inline-block;
     position: relative;
     font-weight: 500;
@@ -126,7 +127,8 @@
     margin-left: 15px;
 }
 
-.box-container>h3::before {
+.box-container>h3::before,
+.special-header>h3::before {
     display: block;
     position: absolute;
     content: '';
@@ -139,11 +141,13 @@
     transition: width 1s ease;
 }
 
-.box-container>h3:hover::before {
+.box-container>h3:hover::before,
+.special-header>h3:hover::before {
     width: 100%;
 }
 
-.box-container>h3::after {
+.box-container>h3::after,
+.special-header>h3::after {
     display: inline-block;
     position: absolute;
     left: -20px;
@@ -154,10 +158,11 @@
     content: '\eaa0';
     font-weight: bold;
     transition: 0.3s transform 0.7s ease,
-                0.3s color 0.7s ease-in-out;
+        0.3s color 0.7s ease-in-out;
 }
 
-.box-container>h3:hover::after {
+.box-container>h3:hover::after,
+.special-header>h3:hover::after {
     transform: rotateZ(90deg);
     color: var(--bluish);
 }
@@ -264,7 +269,7 @@
     margin-bottom: 20px;
 }
 
-.qual-container > i {
+.qual-container>i {
     display: block;
     position: absolute;
     top: 20px;
@@ -273,7 +278,7 @@
     font-size: 26px;
 }
 
-.qual-container > .qual-header {
+.qual-container>.qual-header {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -281,7 +286,7 @@
     position: relative;
 }
 
-.qual-container > .qual-header > h3 {
+.qual-container>.qual-header>h3 {
     display: inline-block;
     color: var(--bluish);
     font-size: 18px;
@@ -299,7 +304,7 @@
     transition: 0.3s ease;
 }
 
-.qual-container .icons > i {
+.qual-container .icons>i {
     display: inline-block;
     position: relative;
     transition: 0.4s ease;
@@ -308,7 +313,7 @@
     border-radius: 50%;
 }
 
-.qual-container .icons > i:hover{
+.qual-container .icons>i:hover {
     color: var(--purplish);
     background: #ccc;
 }
@@ -323,12 +328,12 @@
 
 }
 
-.qual-container .qual-main > .text {
+.qual-container .qual-main>.text {
     display: block;
     position: relative;
 }
 
-.qual-container .qual-main > .text > h4 {
+.qual-container .qual-main>.text>h4 {
     display: inline-block;
     color: #888;
     font-weight: 400;
@@ -336,17 +341,661 @@
     margin-bottom: 8px;
 }
 
-.qual-container .qual-main > .text > p {
+.qual-container .qual-main>.text>p {
     display: block;
     color: #555;
     font-weight: 500;
     font-size: 12px;
 }
 
-.qual-container .qual-main > .text > p > span {
+.qual-container .qual-main>.text>p>span {
     display: inline-block;
     padding: 2px 8px;
     border-radius: 15px;
     background: lightgrey;
 
+}
+
+/* Doctor's Profile styling */
+.doctor-header {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 70px;
+    background: #fcfcfc;
+    border-bottom: 1px solid #eee;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    padding: 15px 40px;
+    margin-bottom: 0;
+}
+
+.doctor-header .header-title {
+    display: block;
+    width: 150px;
+    height: auto;
+}
+
+.doctor-header .header-title>h4 {
+    display: block;
+    position: relative;
+    color: #222;
+    font-size: 24px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.doctor-header .mah-image {
+    display: block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+
+.doctor-header .mah-image>img {
+    display: block;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+}
+
+.doctor-header .doctors-data {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    height: 60px;
+}
+
+.doctor-header .doctors-data>img {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.doctor-header .doctors-data>h5 {
+    display: inline-block;
+    position: relative;
+    margin-left: 6px;
+    color: #444;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-size: 14px;
+}
+
+/* Doctor's Profile styling - sidebar*/
+.background>.body-container {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: flex-start;
+    width: 100vw;
+}
+
+.doctor-sidebar {
+    display: block;
+    position: relative;
+    background: #fafafa;
+    padding: 50px 25px;
+    height: calc(100vh - 70px);
+    width: 330px;
+    overflow-y: auto;
+    transition: width 0.5s ease-in-out, transform 0.5s ease-in;
+}
+
+.doctor-sidebar.toggle {
+    width: 0px;
+    transform: translateX(-50px);
+}
+
+.doctor-sidebar .side-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+}
+
+.doctor-sidebar .side-links>span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    position: relative;
+    transition: all 0.3s ease;
+    padding: 20px;
+    border-bottom: 1px solid #ddd;
+    cursor: pointer;
+    color: #666;
+}
+
+.special-header>h3 {
+    margin-left: 25px;
+    margin-top: 20px;
+    font-size: 15px;
+    letter-spacing: 0.4px;
+}
+
+.doctor-sidebar .side-links>span.active {
+    color: var(--bluish);
+}
+
+.doctor-sidebar .side-links>span:hover>i {
+    transform: rotateY(180deg);
+}
+
+.doctor-sidebar .side-links>span:hover:not(.active)>h4 {
+    letter-spacing: 0.6px;
+}
+
+.doctor-sidebar .side-links>span.active>h4 {
+    font-weight: 600;
+    cursor: default;
+}
+
+.doctor-sidebar .side-links>span>i {
+    display: inline-block;
+    position: relative;
+    margin-right: 10px;
+    font-size: 22px;
+    transition: transform 0.7s ease-in-out;
+    padding: 7px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.09);
+}
+
+.doctor-sidebar .side-links>span>h4 {
+    display: inline-block;
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.calendar-widget {
+    display: block;
+    position: relative;
+    margin-top: 5px;
+}
+
+/* Side-bar appointment boxes... */
+.appointment-boxes {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.appointment-boxes .appt-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    padding: 10px;
+    background: var(--special-blue);
+    border-radius: 5px;
+    margin-bottom: 10px;
+    color: #333;
+    border-left: 5px solid var(--bluish);
+    cursor: pointer;
+}
+
+.appointment-boxes .appt-box:hover {
+    background: #ccc;
+    border-left: 5px solid #888;
+    box-shadow: 2px 2px 8px rgba(0,0,0, 0.15);
+}
+
+.appointment-boxes .appt-box>i {
+    display: block;
+    position: relative;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--bluish);
+    margin-right: 10px;
+}
+
+.appointment-boxes .appt-box>.details {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+}
+
+.appointment-boxes .appt-box>.details>h5 {
+    display: block;
+    position: relative;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.appointment-boxes .appt-box>.details>span {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 12px;
+}
+
+.appointment-boxes .appt-box>.details>span>i {
+    margin-right: 5px;
+}
+
+.upcoming-appt-details {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    width: 100%;
+    padding: 15px 20px;
+    background: linear-gradient(rgba(120,120,120,0.06), white);
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 2px solid #ececec;
+    border-left: 5px solid var(--special-blue);
+
+}
+
+.upcoming-appt-details > i {
+    display: block;
+    position: relative;
+    padding: 10px;
+    background: var(--special-blue);
+    border-radius: 50%;
+    color: var(--bluish);
+    font-size: 26px;
+    margin-right: 15px;
+}
+
+.upcoming-appt-details > div > h3 {
+    display: block;
+    color: var(--bluish);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    font-size: 16px;
+}
+
+.upcoming-appt-details > div > p {
+    display: block;
+    color: #777;
+    font-size: 12px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+}
+
+/* Doctor's profile sub header */
+.background .main {
+    display: block;
+    position: relative;
+    width: 100%;
+}
+
+.doctors-sub-header {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: flex-end;
+    width: 100%;
+    height: 40px;
+    background: #fafafa;
+    padding: 0px 30px;
+    border-left: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+
+}
+
+.doctors-sub-header>.nav-menu {
+    display: block;
+    position: absolute;
+    left: 15px;
+    top: 2px;
+    font-size: 18px;
+    color: #444;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 50%;
+    transition: color 0.5s ease;
+}
+
+.doctors-sub-header>.nav-menu:hover,
+.doctors-sub-header>h6:hover {
+    color: var(--bluish);
+}
+
+.doctors-sub-header>h6 {
+    display: block;
+    position: relative;
+    color: #444;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+}
+
+.doctors-sub-header>h6>i {
+    font-size: 16px;
+}
+
+/* sub-main */
+.background .main .sub-main {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.main .sub-main .central-panel {
+    display: block;
+    width: 100%;
+    padding: 20px;
+}
+
+/* Ceentral Panel */
+
+.central-panel .box-container > h3 {
+    margin-bottom: 30px;
+}
+
+.central-panel .box-container .availability-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+@media screen and (max-width: 600px) {
+    .central-panel .box-container .availability-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+}
+
+.central-panel .box-container .question-group {
+    display: block;
+    width: 80%;
+    position: relative;
+    border-left: 1px solid #ececec;
+    margin-left: 15px;
+    padding-left: 30px;
+    width: 90%;
+}
+/*
+.central-panel .box-container .question-group {
+    border-left: 1px solid #ececec;
+    padding-left: 30px;
+    width: 90%;
+} */
+
+@media screen and (max-width: 740px) {
+    .central-panel .box-container .question-group:last-child {
+        border-left: none;
+        padding-left: 0;
+    }
+}
+
+.central-panel .box-container .question-group p {
+    color: #444;
+    display: block;
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.central-panel .box-container .question-group p > span {
+    margin-right: 25px;
+}
+
+.central-panel .box-container .question-group .radio-group {
+    justify-content: flex-start;
+}
+
+
+/* Right sidebar... */
+.main .sub-main .right-sidebar {
+    display: block;
+    position: relative;
+    width: 330px;
+    height: calc(100vh - 120px);
+    background: #fafafa;
+    overflow-y: auto;
+    transition: 0.4s ease;
+    padding: 25px;
+}
+
+.main .sub-main .right-sidebar h3 {
+    transform: translateY(-15px);
+}
+
+.sub-main .right-sidebar .right-sidebar-profile {
+    display: flex;
+    position: relative;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    border-bottom: 1px solid #a4a4a444;
+    padding: 10px 0;
+    cursor: pointer;
+}
+
+.sub-main .right-sidebar .right-sidebar-profile:not(:last-child):hover {
+    border-bottom: 1px solid #999;
+}
+
+.sub-main .right-sidebar .right-sidebar-profile:last-child {
+    border-bottom: none;
+}
+
+.sub-main .right-sidebar .right-sidebar-profile>.image {
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 10px;
+    cursor: pointer;
+
+}
+
+.sub-main .right-sidebar .right-sidebar-profile .image>img {
+    display: block;
+    position: relative;
+    width: 40px;
+    height: 40px;
+    top: 0;
+    left: 0;
+}
+
+.sub-main .right-sidebar .right-sidebar-profile .text {
+    display: block;
+    position: relative;
+}
+
+.sub-main .right-sidebar .right-sidebar-profile .text>h5 {
+    position: relative;
+    display: block;
+    color: var(--bluish);
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+}
+
+.sub-main .right-sidebar .right-sidebar-profile .text>p,
+.sub-main .right-sidebar .right-sidebar-profile .text>span {
+    position: relative;
+    display: block;
+    color: #555;
+    font-size: 11px;
+    letter-spacing: 0.3px;
+}
+
+.sub-main .right-sidebar .right-sidebar-profile:hover .text>p,
+.sub-main .right-sidebar .right-sidebar-profile:hover .text>span {
+    color: #888;
+}
+
+/* Slots */
+.slots-grid {
+    display: grid;
+    position: relative;
+    grid-template-columns: repeat(3, 1fr);
+    margin-top: 20px;
+    flex-grow: 1;
+    gap: 10px;
+}
+
+.slots-grid .slot-data {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+    border-radius: 5px;
+    border-left: 5px solid var(--special-blue);
+    padding: 10px;
+    background: linear-gradient(whitesmoke, rgba(255,255,255,0.5));
+}
+
+.slots-grid .slot-data > h4 {
+    display: block;
+    position: relative;
+    text-align: center;
+    font-weight: 500;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #ddd;
+    transition: border-bottom 0.4s ease;
+}
+
+.slots-grid .slot-data > h4:hover {
+    border-bottom: 2px solid #aaa;
+}
+
+.slots-grid .slot-data > h4::before {
+    display: block;
+    position: absolute;
+    content: '\ea98';
+    color: var(--bluish);
+    top: 3px;
+    left: -15px;
+    font-weight: 400;
+    font-family: 'Icofont';
+    transition: transform 0.4s ease;
+}
+
+.slots-grid .slot-data > h4:hover::before {
+    transform: scale(1.5) rotate(90deg)
+}
+
+.slots-grid .slot-data > .slots {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    font-weight: 500;
+    font-size: 14px;
+    color: #666;
+}
+
+.slots-grid .slot-data > .slots > span {
+    display: inline-block;
+    position: relative;
+    padding: 3px 8px;
+    max-width: 120px;
+    background: rgba(0,0,0,0.15);
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #333;
+    cursor: pointer;
+    margin: 4px 2px;
+}
+
+.slots-grid .slot-data > .slots > span > i {
+    padding: 1px;
+    background: rgba(0,0,0,0.25);
+    border-radius: 50%;
+    margin-left: 3px;
+    cursor: pointer;
+}
+
+.slots-grid .slot-data > .slots > span > i:hover {
+    background: rgba(0,0,0,0.5);
+}
+
+legend {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 15px 10px;
+    border-radius: 12px;
+    border: 2px solid #ededed;
+    margin: 20px 0;
+    transition: 0.5s ease;
+}
+
+legend > h4 {
+    display: inline-block;
+    position: absolute;
+    top: -12px;
+    left: 20px;
+    color: var(--bluish);
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    background: #fff;
+    padding: 0 2px;
+}
+
+legend > .slots {
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    position: relative;
+}
+
+legend > .slots span {
+    display: inline-block;
+    text-align: center;
+    position: relative;
+    margin: 10px;
+    color: #444;
+    background: #ddd;
+    padding: 5px;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    border: 1px solid #f2f2f2;
+    width: 130px;
+}
+
+legend > .slots span:hover {
+    box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.12);
+}
+
+legend > .slots span > i:hover {
+    background: #aaa;
+}
+
+legend > .slots span > i {
+    position: relative;
+    display: inline-block;
+    margin-left: 3px;
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    background: #ccc;
 }

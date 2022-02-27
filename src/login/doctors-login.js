@@ -65,7 +65,7 @@ export const DoctorsLogin = (props) => {
                         //In the future, make the doctor go to this profile completion
                         //page if the requirements were not supplied earlier...
                         //if (requirements_not_complete) { history.push("/doctors/complete-profile-registration") }
-                        history.push("/doctors/profile-update");
+                        history.push("/doctors/appointment-onboarding");
                     }
                 }
             })
@@ -172,6 +172,7 @@ export const DoctorsLogin = (props) => {
                     hideDialog={() => setDisplayOTP(false)}
                     showToast={showToast}
                     setIsLoaderVisible={setIsLoaderVisible}
+                    sender={"Doctor"}
                 />
             }
         </>

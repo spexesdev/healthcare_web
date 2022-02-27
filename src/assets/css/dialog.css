@@ -2,25 +2,26 @@
     position: fixed;
     top: 0;
     left: 0;
-    display: none; /*display flex whenever needed to show*/
+    display: none;
+    /*display flex whenever needed to show*/
     -ms-display: none;
     justify-content: center;
     align-items: center;
     height: 100vh;
     padding: 20px 0;
     width: 100vw;
-    background: rgba(0,0,0,0.5);
+    background: rgba(0, 0, 0, 0.5);
     z-index: 499;
     overflow: hidden;
     opacity: 0;
     transition: opacity .15s linear;
-    
+
 }
 
 .dialog-background.image-dialog {
     z-index: 600;
     flex-direction: column;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0, 0, 0, 0.7);
     align-items: center;
     justify-content: center;
 }
@@ -55,8 +56,8 @@
     pointer-events: auto;
     border-radius: .3rem;
     outline: 0;
-    box-shadow: 0px 12px 30px rgba(0,0,0,0.7);
-    zoom: 0.85;
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.7);
+
 }
 
 .dialog-container.otp {
@@ -80,8 +81,8 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0,0.9);
+    background-color: rgb(0, 0, 0);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 #full-image {
@@ -90,13 +91,20 @@
     width: 100%;
     max-width: 700px;
 }
+
 #full-image {
     animation-name: zoom;
     animation-duration: 0.6s;
 }
+
 @keyframes zoom {
-    from {transform:scale(0)}
-    to {transform:scale(1)}
+    from {
+        transform: scale(0)
+    }
+
+    to {
+        transform: scale(1)
+    }
 }
 
 #image-viewer .close {
@@ -108,6 +116,7 @@
     font-weight: bold;
     transition: 0.3s;
 }
+
 #image-viewer .close:hover,
 #image-viewer .close:focus {
     color: #bbb;
@@ -115,7 +124,7 @@
     cursor: pointer;
 }
 
-@media only screen and (max-width: 700px){
+@media only screen and (max-width: 700px) {
     #full-image {
         width: 100%;
     }
@@ -152,23 +161,25 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
 }
 
-.dialog-container .dialog-header > .nully {
+.dialog-container .dialog-header>.nully {
     font-size: 20px;
     font-weight: bold;
     color: #121212;
+    font-weight: 600;
+    letter-spacing: .7px;
 }
 
-.dialog-container .dialog-header > .nully.main {
+.dialog-container .dialog-header>.nully.main {
     font-size: 18px;
-    font-weight: bold;
+    font-weight: 600;
     color: var(--bluish);
 
 }
 
-.dialog-container .dialog-header > .nully~span {
+.dialog-container .dialog-header>.nully~span {
     font-size: 28px;
     cursor: pointer;
     color: #666;
@@ -178,13 +189,13 @@
     transition: 0.3s ease;
 }
 
-.dialog-container .dialog-header > .nully~span:hover {
+.dialog-container .dialog-header>.nully~span:hover {
     border: 1px solid #bbb;
 }
 
-.dialog-header > .create,
-.dialog-header > .nully,
-.dialog-header > .edit {
+.dialog-header>.create,
+.dialog-header>.nully,
+.dialog-header>.edit {
     position: relative;
     display: inline-block;
     font-weight: bold;
@@ -192,8 +203,8 @@
     color: var(--faded-main-green);
 }
 
-.dialog-header > .create::before,
-.dialog-header > .edit::before {
+.dialog-header>.create::before,
+.dialog-header>.edit::before {
     position: absolute;
     content: '\efc2';
     left: 0;
@@ -203,11 +214,11 @@
 
 }
 
-.dialog-header > .edit::before {
+.dialog-header>.edit::before {
     content: '\ec55';
 }
 
-.dialog-header > .nully::before {
+.dialog-header>.nully::before {
     content: '';
 }
 
@@ -222,7 +233,7 @@
     margin-bottom: 20px;
 }
 
-.dialog-container .dialog-body > h4 {
+.dialog-container .dialog-body>h4 {
     color: #666;
     font-size: 14px;
     font-family: Arial, Helvetica, sans-serif;
@@ -231,7 +242,7 @@
     margin-bottom: 10px;
 }
 
-.dialog-container .dialog-body > .phone-no {
+.dialog-container .dialog-body>.phone-no {
     display: block;
     text-align: center;
     font-size: 24px;
@@ -239,7 +250,7 @@
     margin-bottom: 30px;
 }
 
-.dialog-container .dialog-body > .input-array {
+.dialog-container .dialog-body>.input-array {
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 20px;
@@ -252,7 +263,7 @@
     margin-bottom: 40px;
 }
 
-.dialog-container .dialog-body > .input-array > input {
+.dialog-container .dialog-body>.input-array>input {
     width: 100%;
     height: 100%;
     border-radius: 6px;
@@ -277,14 +288,14 @@
 
 }
 
-.dialog-container .dialog-body .resend-group > div {
+.dialog-container .dialog-body .resend-group>div {
     display: flex;
     font-size: 12px;
     color: #777;
     font-weight: bold;
 }
 
-.dialog-container .dialog-body .resend-group > div > button {
+.dialog-container .dialog-body .resend-group>div>button {
     display: inline-block;
     position: relative;
     outline: none;
@@ -296,7 +307,7 @@
     font-size: 12px;
 }
 
-.dialog-container .dialog-body .resend-group > div > button:hover {
+.dialog-container .dialog-body .resend-group>div>button:hover {
     text-decoration: underline;
 }
 
@@ -306,7 +317,7 @@
     margin-bottom: 25px;
 }
 
-.dialog-container .dialog-body .otp-call > button {
+.dialog-container .dialog-body .otp-call>button {
     display: inline-block;
     position: relative;
     outline: none;
@@ -340,7 +351,8 @@
     width: 100%;
 }
 
-.dialog-container .dialog-footer .btn-continue, .btn-cancel {
+.dialog-container .dialog-footer .btn-continue,
+.btn-cancel {
     display: block;
     width: 100%;
     outline: none;
@@ -357,7 +369,7 @@
 }
 
 .btn-cancel {
-    background: #888!important;
+    background: #888 !important;
 }
 
 .dialog-background.fade {
@@ -368,11 +380,11 @@
 }
 
 .mr-2 {
-    margin-right: 10px!important;
+    margin-right: 10px !important;
 }
 
 .mr-1 {
-    margin-right: 5px!important;
+    margin-right: 5px !important;
 }
 
 /* Dialog table... */
@@ -387,7 +399,7 @@
     font-weight: 600;
 }
 
-.dialog-left-panel tbody > tr > td:last-child {
+.dialog-left-panel tbody>tr>td:last-child {
     font-weight: 300;
     text-align: right;
 }

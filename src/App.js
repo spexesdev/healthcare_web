@@ -13,6 +13,9 @@ import DigitalHealthPassport from './dhp/digital-health-passport'
 import Page404 from './page-404';
 import DoctorsProfileUpdate from './doctors/profile-update';
 import ProfileUpdateSuccessful from './doctors/profile-update-successful';
+import DoctorsProfile from './doctors/doctors-profile';
+
+import { Test } from './test'
 
 function App() {
 
@@ -68,6 +71,12 @@ function App() {
           </Route>
           <Route path='/doctors/profile-update-successful' exact>
             <ProfileUpdateSuccessful showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
+          </Route>
+          <Route path='/doctors/appointment-onboarding' exact>
+            <DoctorsProfile showToast={ShowToast} setIsLoaderVisible={setIsLoaderVisible} />
+          </Route>
+          <Route path='/test' exact>
+            <Test />
           </Route>
 
           <Route path="*">

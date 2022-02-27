@@ -1,0 +1,111 @@
+
+.calendar-container {
+    display: block;
+    width: 100%;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ccc;
+}
+
+.calendar-body {
+    width: 100%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+}
+
+.day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    background-color: white;
+    border-radius: 50%;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.15);
+    flex-direction: column;
+    justify-content: space-between;
+
+}
+
+.day>h6 {
+    display: inline-block;
+    text-align: center;
+    line-height: 25px;
+    position: relative;
+    font-weight: 500;
+    font-size: 11px;
+}
+
+.day:hover {
+    background: rgba(0, 50, 0, 0.3);
+}
+
+.padding {
+    cursor: default !important;
+    background-color: whitesmoke !important;
+    box-shadow: none !important;
+}
+
+#weekdays {
+    width: 100%;
+    display: grid;
+    color: var(--main-green);
+    grid-template-columns: repeat(7, 1fr);
+    font-size: 12px;
+    font-weight: 500;
+    position: relative;
+    gap: 2px;
+}
+
+#weekdays div {
+    width: 100%;
+    padding: 10px;
+}
+
+.calendar-header {
+    padding: 10px;
+    color: var(--bluish);
+    font-weight: 600;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.calendar-header .month-display {
+    display: block;
+    position: relative;
+    cursor: pointer;
+}
+
+.calendar-header>button {
+    display: block;
+    position: relative;
+    outline: none;
+    border: none;
+    background: lightgray;
+    padding: 6px 7px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: 0.3s ease;
+}
+
+.calendar-header>button:hover {
+    background: var(--special-blue);
+}
+
+.event {
+    font-size: 10px;
+    padding: 3px 7px;
+    background-color: var(--bluish);
+    color: white;
+    border-radius: 5px;
+    max-height: 55px;
+    overflow: hidden;
+}
+
+.currentDay {
+    background: var(--special-blue);
+}

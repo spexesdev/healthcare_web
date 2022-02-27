@@ -31,7 +31,7 @@ const OTPLogin = (props) => {
 
             const data = {
                 loginId: props.phoneNumber,
-                role: 'Patient',
+                role: props.sender || 'Patient',
                 otp: OTP,
             }
 
@@ -56,9 +56,17 @@ const OTPLogin = (props) => {
                         sessionStorage.setItem("token", res.token);
                         sessionStorage.setItem("id_val", res.uidNo);
 
-                        sessionStorage.setItem('patient', JSON.stringify(res.data));
+                        if (props.sender === "Doctor") {
+                            //Redirect to the doctor's profile page...
+                            history.push("/doctors/appointment-onboarding");
+                            sessionStorage.setItem("doctor", JSON.stringify(res.data));
 
-                        history.push("/patients/digital-health-passport")
+                        } else {
+                            //A Patient... redirect to the patients dhp page...
+                            sessionStorage.setItem('patient', JSON.stringify(res.data));
+                            history.push("/patients/digital-health-passport")
+                        }
+
 
                     } else {
                         props.showToast(res.message, 'exclamation');

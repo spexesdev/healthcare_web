@@ -50,6 +50,7 @@ export const SplitDateFromTimestamp = timeStamp => {
     return ({
         "date": waDate.split(" ")[0],
         "time": waDate.split(" ")[1],
+        "timeNoSecs": waDate.split(" ")[1].substring(0, 5),
         "dateTime": waDate,
 
     });

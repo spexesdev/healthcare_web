@@ -35,7 +35,7 @@ export const AddQualificationDialog = (props) => {
                 "end": txtEndDate
             },
             "issuer": txtIssuer,
-            "issuerId": ""
+            "issuerId": props.qualificationsList?.length,
         }
 
         props.setQualificationsList([...props.qualificationsList, qualifications])
