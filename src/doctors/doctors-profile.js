@@ -40,6 +40,8 @@ const DoctorsProfile = props => {
                         setSelectedMenu={setSelectedMenu}
                         appointments={appointments}
                         menuActive={menuActive}
+                        showToast={props.showToast}
+                        setIsLoaderVisible={props.setIsLoaderVisible}
                     />
                     <div className='main'>
                         <DoctorsProfileSubHeader
@@ -48,14 +50,18 @@ const DoctorsProfile = props => {
                         />
                         <div className='sub-main'>
                             <div className='central-panel'>
-                                { selectedMenu === 1 && <AvailabilitySetup data={doctorsData} /> }
+                                {selectedMenu === 1 && <AvailabilitySetup
+                                    showToast={props.showToast}
+                                    setIsLoaderVisible={props.setIsLoaderVisible}
+                                    data={doctorsData}
+                                />}
                                 {selectedMenu === 2 && <ProfilePage
                                     showToast={props.showToast}
                                     setIsLoaderVisible={props.setIsLoaderVisible}
                                     data={doctorsData}
-                                    />}
-                                { selectedMenu === 3 && <AppointmentSetupPage /> }
-                                { selectedMenu === 4 && <ChargeSheet /> }
+                                />}
+                                {selectedMenu === 3 && <AppointmentSetupPage />}
+                                {selectedMenu === 4 && <ChargeSheet />}
 
                             </div>
                             <DoctorsProfileRightSidebar

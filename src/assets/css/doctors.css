@@ -999,3 +999,246 @@ legend > .slots span > i {
     border-radius: 50%;
     background: #ccc;
 }
+
+/* Dialog styling - Scheduled appointment dialog */
+.date-caption {
+    display: flex;
+    flex-direction: row;
+    background: transparent;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: 0.3s ease;
+    margin-bottom: 30px;
+    border-left: 4px solid var(--bluish);
+    border-right: 4px solid var(--bluish);
+    background-color: rgba(245, 245, 220, 0.3);
+    padding: 7px 0;
+}
+
+.date-caption > i {
+    display: block;
+    color: var(--main-green);
+    background: var(--success-bg);
+    padding: 7px;
+    border-radius: 3px;
+    margin-right: 7px;
+}
+
+.date-caption > h4 {
+    display: block;
+    color: #777;
+    padding: 7px;
+    border-radius: 3px;
+    margin-right: 10px;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.display-group {
+    display: grid;
+    position: relative;
+    width: 100%;
+    grid-template-columns: 2fr 3fr;
+    margin: 10px 0 20px 0;
+    gap: 15px;
+
+}
+
+.display-group .display-group-lhs {
+    display: block;
+    position: relative;
+}
+
+.display-group-lhs .display-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: 100%;
+    padding: 8px;
+    background: var(--lighter-special-blue);
+    border-radius: 20px;
+
+}
+
+.display-group-lhs .display-title > h4 {
+    display: block;
+    position: relative;
+    background: var(--special-blue);
+    border-radius: 15px;
+    padding: 6px 18px;;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: #222;
+}
+
+.display-group .appt-group {
+    display: block;
+    position: relative;
+    width: 100%;
+    margin: 10px 0 20px 0;
+    min-width: 100%;
+    min-height: 300px;
+    max-height: 350px;
+    overflow-y: auto;
+}
+
+.display-group .appt-group .appt {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    width: 100%;
+    cursor: pointer;
+    border-right: 4px solid rgba(0,0,0,0.0);
+    margin-bottom: 10px;
+}
+
+.display-group .appt-group .appt:hover, .display-group .appt-group .appt.selected {
+    background: rgba(0,0,0,0.02);
+    border-right: 4px solid rgba(0,0,0,0.05);
+}
+
+.display-group .appt-group .appt .appt-main {
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    width: auto
+}
+
+.display-group .appt-group .appt img {
+    display: block;
+    position: relative;
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.display-group .appt-group .appt .name-and-define {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+}
+
+.display-group .appt-group .appt .name-and-define > h5 {
+    display: block;
+    position: relative;
+    font-size: 13px;
+    color: #333;
+    margin-bottom: 0;
+}
+
+.display-group .appt-group .appt .name-and-define > span {
+    display: block;
+    position: relative;
+    font-size: 12px;
+    font-weight: 400;
+    color: #888;
+}
+
+.display-group .appt-group .appt .others {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.display-group .appt-group .appt .others .period {
+    display: block;
+    padding: 0 auto;
+    position: relative;
+    background: beige;
+    border-radius: 13px;
+    font-size: 10.5px;
+    font-weight: 600;
+    color: #444;
+    padding: 3px 7px;
+    white-space: nowrap;
+    transition: 0.3s ease;
+}
+
+.display-group .appt-group .appt .others > i {
+    display: block;
+    position: relative;
+    color: maroon;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 7px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.display-group .appt-group .appt .others > i:hover {
+    transform: rotate(-25deg);
+}
+
+.display-group .appt-group .appt > i {
+    display: block;
+    position: absolute;
+    color: transparent;
+    right: -4px;
+
+}
+.display-group .appt-group .appt:hover > i,
+.display-group .appt-group .appt.selected > i {
+    color: #888888;
+
+}
+
+/* The rhs of the scheduled appointments dialog */
+
+
+.display-group .display-group-rhs {
+    display: block;
+    padding: 15px 0;
+    margin-left: 10px;
+}
+
+.display-group-rhs .patient-data {
+    display: block;
+    position: relative;
+}
+
+.display-group-rhs .patient-data > .patient-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.display-group-rhs .patient-data > .patient-header > img {
+    display: block;
+    position: relative;
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 25px;
+    margin-bottom: 15px;
+}
+
+.display-group-rhs .patient-data > .patient-header > h3 {
+    display: block;
+    position: relative;
+    color: #444;
+    font-weight: 600;
+    font-size: 1.2em;
+}
+
+.display-group-rhs .patient-data > .patient-header > span {
+    display: block;
+    position: relative;
+    color: #777;
+    font-weight: 400;
+    font-size: 1em;
+}

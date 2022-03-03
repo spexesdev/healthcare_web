@@ -6,8 +6,6 @@ export const Day = props => {
     return (
         <div onClick={onClick} className={className} title={eventTitle}>
             <h6>{day.value === 'padding' ? '' : day.value}</h6>
-
-            {day.event && <div className='event'></div>}
         </div>
     )
 

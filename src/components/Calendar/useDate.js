@@ -4,7 +4,24 @@ export const useDate = (events, nav) => {
   const [dateDisplay, setDateDisplay] = useState('');
   const [days, setDays] = useState([]);
 
-  const eventForDate = date => events.find(e => e.date === date);
+  const eventForDate = date => {
+    //First, fitler the date by getting the time component...
+    let dateEvent;
+
+    //The starttime comes in milliseconds... Thus,
+    // get the first and last hour/time in this
+    // day in order to know whether it falls into
+    // the range...
+    const dateInMilliseconds = new Date(date).getTime();
+    const dateEndInMilliseconds = dateInMilliseconds + (1000 * 60 * 60 * 24)
+
+    dateEvent = events.length > 0
+      ? events?.find(e => e.result?.starttime >= dateInMilliseconds && e.result?.starttime <= dateEndInMilliseconds)
+      : {};
+
+    return dateEvent;
+
+  };
 
   useEffect(() => {
     const weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -20,6 +37,7 @@ export const useDate = (events, nav) => {
 
     const firstDayOfMonth = new Date(year, month, 1);
     const daysInMonth = new Date(year, month + 1, 0).getDate();
+
     const dateString = firstDayOfMonth.toLocaleDateString('en-us', {
       weekday: 'long',
       year: 'numeric',
@@ -33,7 +51,9 @@ export const useDate = (events, nav) => {
     const daysArr = [];
 
     for (let i = 1; i <= paddingDays + daysInMonth; i++) {
-      const dayString = `${month + 1}/${i - paddingDays}/${year}`;
+      const d = i - paddingDays > 9 ? i - paddingDays : "0" + (i - paddingDays);
+      const mnt = (month + 1) > 9 ? month + 1 - month : "0" + (month + 1)
+      const dayString = `${d}/${mnt}/${year}`;
 
       if (i > paddingDays) {
         daysArr.push({

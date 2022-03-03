@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { DynamicSort } from '../../assets/common/operations';
 import { SlotsDialog } from '../dialogs/slots-dialog';
-import { ApiPath } from "../../assets/common/base-url";
+import { ApiSecondaryPath } from "../../assets/common/base-url";
 
 const AvailabilitySetup = props => {
 
@@ -144,7 +144,7 @@ const AvailabilitySetup = props => {
         }
 
         //save Weekly record of doctor / time slots for doctor...
-        fetch(ApiPath + 'create', options)
+        fetch(ApiSecondaryPath + 'create', options)
             .then(response => (response.json()))
             .then(response => {
                 if (response && response.ok) {
@@ -155,7 +155,7 @@ const AvailabilitySetup = props => {
                 }
             })
             .catch(error => {
-                props.showToast(response.error.message);
+                props.showToast(error.message, "exclamation");
             })
 
     }

@@ -2,21 +2,20 @@ import { CalendarHeader } from './calendar-header';
 import { Day } from './day';
 import { useState } from 'react';
 import { useDate } from './useDate'
+import { useEventsAndNav } from './useEventsAndNav';
 
 const CalendarPicker = props => {
-
-    const [clicked, setClicked] = useState(null);
     const [nav, setNav] = useState(0);
-    const [events, setEvents] = useState(props.events)
+    const events = useEventsAndNav(nav, props.setIsLoaderVisible, props.showToast)
 
-    const setDayValue = input => {
+    const setDayValue = (input) => {
         if (input.value !== 'padding') {
-            setClicked(input.date)
+            props.setSelectedEventDate(input.date);
+            props.showDialog()
         }
     }
 
     const { days, dateDisplay } = useDate(events, nav);
-
 
     return (
         <>
@@ -41,7 +40,7 @@ const CalendarPicker = props => {
                             <Day
                                 key={index}
                                 day={item}
-                                onClick={val => setDayValue(val)}
+                                onClick={() => setDayValue(item)}
                             />
                         )
                     })}

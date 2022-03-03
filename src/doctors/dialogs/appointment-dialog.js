@@ -22,11 +22,16 @@ export const AppointmentDialog = props => {
                                 <h3>{props.apptDetails.name}</h3>
                                 <p><i className='icofont-stopwatch' /> { shortDateString(props.apptDetails.date) } • {props.apptDetails.time} </p>
                             </div>
-
                         </div>
                     </div>
                 </div>
                 <div className="dialog-footer main px-2">
+                    <a href="#" target="_blank" className="btn-main mr-1">
+                        <i className="icofont-video" /> Join Meeting
+                    </a>
+                    <buttton className="btn-main mr-1">
+                        <i className="icofont-meeting-add" /> Re-schedule
+                    </buttton>
                     <button className="btn-main d-none">
                         <i className="icofont-upload-alt" /> Update Selection
                     </button>
