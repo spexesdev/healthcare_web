@@ -12,11 +12,11 @@ export const useDate = (events, nav) => {
     // get the first and last hour/time in this
     // day in order to know whether it falls into
     // the range...
-    const dateInMilliseconds = new Date(date).getTime();
-    const dateEndInMilliseconds = dateInMilliseconds + (1000 * 60 * 60 * 24)
+    const dateInMilliseconds = new Date(date).getTime() / 1000;
+    const dateEndInMilliseconds = dateInMilliseconds + (60 * 60 * 24)
 
-    dateEvent = events.length > 0
-      ? events?.find(e => e.result?.starttime >= dateInMilliseconds && e.result?.starttime <= dateEndInMilliseconds)
+    dateEvent = (events.length > 0)
+      ? events?.find(e => e?.starttime >= dateInMilliseconds && e?.starttime <= dateEndInMilliseconds)
       : {};
 
     return dateEvent;
@@ -58,7 +58,7 @@ export const useDate = (events, nav) => {
       if (i > paddingDays) {
         daysArr.push({
           value: i - paddingDays,
-          event: eventForDate(dayString),
+          event: eventForDate(dayString) === {} ? null : eventForDate(dayString),
           isCurrentDay: i - paddingDays === day && nav === 0,
           date: dayString,
         });

@@ -59,6 +59,8 @@ export const Register = ({ setIsLoaderVisible, showToast }) => {
                         //Move to the doctor's profile completion page...
                         // set the variables for access on the other page...
                         sessionStorage.setItem("temp", JSON.stringify(data))
+                        sessionStorage.setItem("token", JSON.stringify(response.data?.token))
+
                         history.push("/doctors/complete-profile-registration")
                     }
 
@@ -179,12 +181,10 @@ export const Register = ({ setIsLoaderVisible, showToast }) => {
                                     onClick={register}
                                 >Register</button>
                             </div>
-
                             <div className="doctor-register">
                                 <h4>Already a user? <Link to="/">Login here</Link></h4>
                             </div>
                         </div>
-
                     </div>
                     <div className="right-sidebar" style={{ minHeight: '80%'}}>
                         <img src="./access-account.svg" style={{ width: '50%' }} />

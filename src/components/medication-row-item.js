@@ -49,7 +49,7 @@ export const MedicationRowItem = props => {
                         : <>
                             <button
                                 className='attachment-preview'
-                                onClick={() => props.showImageDialog(props.item.records[0])}>
+                                onClick={() => props.showImageDialog(props.item.records)}>          ////This was formerly props.item.records[0]
                                 Attachment
                             </button>
                         </>}

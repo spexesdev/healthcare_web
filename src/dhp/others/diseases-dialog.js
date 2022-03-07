@@ -18,7 +18,7 @@ export const DiseasesDialog = props => {
                 type: cbxIsOnMedications,
                 illness: txtAddMedication,
                 description: txtMedicationDescription,
-                records: [txtCurrentMedications],
+                records: txtCurrentMedications,
                 timeStamp: txtDate
             }]
         }

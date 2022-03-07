@@ -97,13 +97,7 @@
 }
 
 .event {
-    font-size: 10px;
-    padding: 3px 7px;
-    background-color: var(--bluish);
-    color: white;
-    border-radius: 5px;
-    max-height: 55px;
-    overflow: hidden;
+    background-color: var(--lighter-special-blue);
 }
 
 .currentDay {

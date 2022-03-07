@@ -14,7 +14,13 @@ export const DoctorsDialog = props => {
 
     //The componentDidMount equivalent...
     //Fetch the doctors list...
-    const params = constants.getOptions;
+    const params = {
+        'headers': {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${sessionStorage.getItem('token')}`,
+        },
+        'method': 'GET'
+    }
 
     useEffect(() => {
         //To set the actual timing for the time of commencement
@@ -129,81 +135,82 @@ export const DoctorsDialog = props => {
     })
 
     return (
-        <div className="dialog-background fade">
-            <div className="dialog-container">
-                <div className="dialog-header">
-                    <h2 className="nully" style={{ color: 'var(--bluish)' }}>
-                        <i className='icofont-doctor-alt'></i> Select a Doctor
-                    </h2>
-                </div>
-                <div className="dialog-body mb-2">
-                    <div className='form-row-3'>
-                        <div className='input-group'>
-                            <label>Specialization</label>
-                            <select
-                                className="form-control"
-                                id="cbxSpeciality"
-                                value={cbxSpeciality}
-                                onChange={e => setCbxSpeciality(e.target.value)}
-                            >
-                                <option value="">Select</option>
-                                <option value="Allergist">Allergist</option>
-                                <option value="Cardiologist">Cardiologist</option>
-                                <option value="Dermatologist">Dermatologist</option>
-                                <option value="Endocrinologist">Endocrinologist</option>
-                                <option value="Gastroenterologist">Gastroenterologist</option>
-                                <option value="Geriatrician">Geriatrician</option>
-                                <option value="Nephrologist">Nephrologist</option>
-                                <option value="Neurologist">Neurologist</option>
-                                <option value="OB/GYN">OB/GYN</option>
-                                <option value="Ophthalmologist">Ophthalmologist</option>
-                                <option value="Pediatrician">Pediatrician</option>
-                                <option value="Psychiatrist">Psychiatrist</option>
-                                <option value="Urologist">Urologist</option>
-                            </select>
-                        </div>
-                        <div className='input-group'>
-                            <label>Choose Date</label>
-                            <input
-                                className='form-control'
-                                type='date'
-                                id='txtDate'
-                                value={txtDate}
-                                onChange={e => setTxtDate(e.target.value)}
-                            />
-                        </div>
-                        <div className='input-group'>
-                            <label>Wallet Balance</label>
-                            <input
-                                className='form-control'
-                                value="123 HTRAX"
-                                disabled
-                            />
-                        </div>
+        <div className="modal fade show">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                    <div className="modal-header">
+                        <h2 className="nully">
+                            <i className='icofont-doctor-alt'></i> Select Doctor
+                        </h2>
                     </div>
-                    <div className='form-row'>
+                    <div className="modal-body mb-2">
+                        <div className='form-row-3'>
+                            <div className='input-group'>
+                                <label>Specialization</label>
+                                <select
+                                    className="form-control"
+                                    id="cbxSpeciality"
+                                    value={cbxSpeciality}
+                                    onChange={e => setCbxSpeciality(e.target.value)}
+                                >
+                                    <option value="">Select</option>
+                                    <option value="Allergist">Allergist</option>
+                                    <option value="Cardiologist">Cardiologist</option>
+                                    <option value="Dermatologist">Dermatologist</option>
+                                    <option value="Endocrinologist">Endocrinologist</option>
+                                    <option value="Gastroenterologist">Gastroenterologist</option>
+                                    <option value="Geriatrician">Geriatrician</option>
+                                    <option value="Nephrologist">Nephrologist</option>
+                                    <option value="Neurologist">Neurologist</option>
+                                    <option value="OB/GYN">OB/GYN</option>
+                                    <option value="Ophthalmologist">Ophthalmologist</option>
+                                    <option value="Pediatrician">Pediatrician</option>
+                                    <option value="Psychiatrist">Psychiatrist</option>
+                                    <option value="Urologist">Urologist</option>
+                                </select>
+                            </div>
+                            <div className='input-group'>
+                                <label>Choose Date</label>
+                                <input
+                                    className='form-control'
+                                    type='date'
+                                    id='txtDate'
+                                    value={txtDate}
+                                    onChange={e => setTxtDate(e.target.value)}
+                                />
+                            </div>
+                            <div className='input-group'>
+                                <label>Wallet Balance</label>
+                                <input
+                                    className='form-control'
+                                    value="123 HTRAX"
+                                    disabled
+                                />
+                            </div>
+                        </div>
+                        <div className='form-row'>
 
-                    </div>
-                    <div className='form-row'>
-                        <div className='doctors-list-container'>
-                            {doctorsArray}
+                        </div>
+                        <div className='form-row'>
+                            <div className='doctors-list-container'>
+                                {doctorsArray}
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div className="dialog-footer main">
-                    <button
-                        id="btnUpdate"
-                        onClick={selectDoctor}
-                        className="btn-main mr-1"
-                    ><i className="icofont-doctor"></i> Choose Doctor
-                    </button>
-                    <button
-                        className="btn-main-outline"
-                        onClick={() => props.hideDoctorsDialog()}
-                    >Cancel</button>
+                    <div className="modal-footer">
+                        <button
+                            id="btnUpdate"
+                            onClick={selectDoctor}
+                            className="btn-main mr-1"
+                        ><i className="icofont-doctor"></i> Choose Doctor
+                        </button>
+                        <button
+                            className="btn-main-outline"
+                            onClick={() => props.hideDoctorsDialog()}
+                        >Cancel</button>
+                    </div>
                 </div>
             </div>
-            Doctors Dialog
         </div>
     )
 }

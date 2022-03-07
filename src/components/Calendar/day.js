@@ -1,7 +1,7 @@
 export const Day = props => {
     const { day, onClick } = props;
-    const className = `day ${day.value === 'padding' ? 'padding' : ''} ${day.isCurrentDay ? 'currentDay' : ''}`;
-    const eventTitle = day.event?.title ? day.event.title : '';
+    const className = `day ${day.value === 'padding' ? 'padding' : ''} ${day.isCurrentDay ? 'currentDay' : ''} ${day.event !== null ? 'event' : ''}`;
+    const eventTitle = day.event?.status ? day.event.status : '';
 
     return (
         <div onClick={onClick} className={className} title={eventTitle}>

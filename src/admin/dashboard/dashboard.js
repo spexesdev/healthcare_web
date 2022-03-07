@@ -22,7 +22,7 @@ const Dashboard = props => {
 
         props.setIsLoaderVisible(true);
 
-        fetch(ApiPath + "query/Doctor", params)
+        fetch(ApiPath + "mahadmin/MahDoctorList", params)
             ?.then(response => (response.json()))
             .then(res => {
                 props.setIsLoaderVisible(false)

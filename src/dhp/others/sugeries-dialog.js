@@ -18,7 +18,7 @@ export const SurgeriesDialog = props => {
                 type: cbxIsOnMedications,
                 [props.updateField]: txtAddMedication,
                 description: txtMedicationDescription,
-                records: [txtCurrentMedications],
+                records: txtCurrentMedications,
                 timeStamp: txtDate
             }]
         }

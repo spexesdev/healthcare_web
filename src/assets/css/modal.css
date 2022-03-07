@@ -16,7 +16,7 @@
     transition: 1000ms ease;
     overflow-x: hidden;
     overflow-y: auto;
-    transition: all 200ms;
+    transition: animation all 200ms;
 }
 
 .modal.fade.show {

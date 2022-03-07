@@ -22,15 +22,15 @@ export const useEventsAndNav = (nav, setIsLoaderVisible, showToast) => {
         const firstDayOfMonth = new Date(year, month, 1);
         const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-        const startTime = firstDayOfMonth.getTime();
-        const endTime = startTime + (1000 * 60 * 60 * 24 * daysInMonth)
+        const startTime = firstDayOfMonth.getTime() / 1000;         //In secs for now
+        const endTime = startTime + (60 * 60 * 24 * daysInMonth)    //Also in seconds for now...
 
         fetch(`${CryptoApiPath}getMeetinglist?starttime=${startTime}&endtime=${endTime}`, constants.getOptions)
             .then(response => (response.json()))
             .then(response => {
                 setIsLoaderVisible(false)
                 if (response.statusText === "OK") {
-                    setEvents(response)
+                    setEvents(response.result)
                 } else {
                     setIsLoaderVisible(response?.message, "exclamation")
                     setEvents([])

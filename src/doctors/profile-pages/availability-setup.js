@@ -102,34 +102,36 @@ const AvailabilitySetup = props => {
 
         })
 
+        //Remove the unnecessary first empty string..
+        workingDays.splice(0, 1);
 
         const data = {
             "doctorId": props.data.uidNo,
             "slots": {
                 "monday": {
-                    "available_slot-details": daysSlotsData.find(item => item.dayOfWeek === 'Monday')?.timeSlots,
+                    "available_slot_details": daysSlotsData.find(item => item.dayOfWeek === 'Monday')?.timeSlots,
                 },
                 "tuesday": {
-                    "available_slot-details": daysSlotsData.find(item => item.dayOfWeek === 'Tuesday')?.timeSlots,
+                    "available_slot_details": daysSlotsData.find(item => item.dayOfWeek === 'Tuesday')?.timeSlots,
                 },
                 "wednesday": {
-                    "available_slot-details": daysSlotsData.find(item => item.dayOfWeek === 'Wednesday')?.timeSlots,
+                    "available_slot_details": daysSlotsData.find(item => item.dayOfWeek === 'Wednesday')?.timeSlots,
                 },
                 "thursday": {
-                    "available_slot-details": daysSlotsData.find(item => item.dayOfWeek === 'Thursday')?.timeSlots,
+                    "available_slot_details": daysSlotsData.find(item => item.dayOfWeek === 'Thursday')?.timeSlots,
                 },
                 "friday": {
-                    "available_slot-details": daysSlotsData.find(item => item.dayOfWeek === 'Friday')?.timeSlots,
+                    "available_slot_details": daysSlotsData.find(item => item.dayOfWeek === 'Friday')?.timeSlots,
                 },
                 "saturday": {
-                    "available_slot-details": daysSlotsData.find(item => item.dayOfWeek === 'Saturday')?.timeSlots,
+                    "available_slot_details": daysSlotsData.find(item => item.dayOfWeek === 'Saturday')?.timeSlots,
                 },
                 "sunday": {
-                    "available_slot-details": daysSlotsData.find(item => item.dayOfWeek === 'Sunday')?.timeSlots,
+                    "available_slot_details": daysSlotsData.find(item => item.dayOfWeek === 'Sunday')?.timeSlots,
                 },
 
             },
-            "working_day": [workingDays],
+            "working_day": workingDays
         }
 
         console.table(workingDays)

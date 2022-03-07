@@ -18,8 +18,8 @@ const DoctorsProfileUpdate = (props) => {
     const [txtClinicCity, setTxtClinicCity] = useState('');
     const [txtClinicState, setTxtClinicState] = useState('');
     const [txtClinicCountry, setTxtClinicCountry] = useState('');
-    const [txtPhone, setTxtPhone] = useState(props.data?.phone);
-    const [txtEmail, setTxtEmail] = useState(props.data?.email);
+    const [txtPhone, setTxtPhone] = useState('');
+    const [txtEmail, setTxtEmail] = useState('');
     const [chkProfileConsent, setChkProfileConsent] = useState(false);
     const [cbxSpecialization, setCbxSpecialization] = useState('');
     const [practiceDoc, setPracticeDoc] = useState('');
@@ -74,9 +74,11 @@ const DoctorsProfileUpdate = (props) => {
 
     useEffect(() => {
         //This is for the default loading...
-        const tempData = JSON.parse(sessionStorage.getItem("temps"));
-        setFullname(tempData?.name || 'BigBenny');
-        setEmail(tempData?.emailId  || 'bigbennysemail@gmail.com');
+        const tempData = JSON.parse(sessionStorage.getItem("temp"));
+        setFullname(tempData?.name);
+        setEmail(tempData?.emailId);
+        setTxtPhone(tempData?.phoneNumber)
+        setTxtEmail(tempData?.emailId)
 
     }, [])
 
