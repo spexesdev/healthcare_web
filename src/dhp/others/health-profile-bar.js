@@ -12,7 +12,7 @@ export const HealthProfileBar = () => {
             setPatientsData(() => JSON.parse(sessionStorage.getItem('patient')));
         }, 30000);
 
-        checkCircleSector()
+        checkProfileCompleteStatus()
         const progressStatus = document.querySelector(".progress-status");
 
         if (percentage < 50) {
@@ -27,7 +27,7 @@ export const HealthProfileBar = () => {
 
     }, [percentage])
 
-    const checkCircleSector = () => {
+    const checkProfileCompleteStatus = () => {
         //Returns a value based on the percentage completion of
         //the patient's data..
         //First, get all the relative values required...
@@ -70,18 +70,6 @@ export const HealthProfileBar = () => {
         //Set the variable...
         setPercentage(totalValue);
 
-        // //const circle2 = document.getElementById('secondCircle');
-        // //circle2.style.strokeDashoffset = `calc(440 - (440 * ${totalValue}) / 100)`;
-
-
-        //
-        // // if (totalValue < 50) {
-        // //     circle2.style.stroke = 'var(--light-golden-rod)';
-        // // } else if (totalValue > 50 && totalValue < 70) {
-        // //     circle2.style.stroke = 'var(--bluish)';
-        // // } else if (totalValue > 69) {
-        // //     circle2.style.stroke = 'var(--main-green)';
-        // // }
     }
 
     return (

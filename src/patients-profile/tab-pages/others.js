@@ -11,6 +11,7 @@ export const Others = props => {
     const [hasFamilyMedicalHistory, setHasFamilyMedicalHistory] = useState(false);
     const [cbxDateOfMedicalHistory, setCbxDateOfMedicalHistory] = useState('');
     const [chkNotSureMedicalHistory, setChkNotSureMedicalHistory] = useState(false);
+    const [hadSurgeries, setHadSurgeries] = useState(false);
 
     useEffect(() => {
         //Use effect on form load to set the variables....
@@ -20,37 +21,45 @@ export const Others = props => {
             //First item...
             const upperBound = othersData.length - 1;
 
-            if (othersData[upperBound - 2].answer === "Not sure") {
+            if (othersData[upperBound - 3].answer === "Not sure") {
                 setChkNotSure(!chkNotSure)
-            } else if (othersData[upperBound - 2].answer !== "") {
+            } else if (othersData[upperBound - 3].answer !== "") {
                 //A date was set...
-                setCbxDate(othersData[upperBound - 2].answer)
+                setCbxDate(othersData[upperBound - 3].answer)
             }
 
             //Second item...
-            if (othersData[upperBound - 1].answer === "No") {
+            if (othersData[upperBound - 2].answer === "No") {
                 //set the radio buttons...
                 setWasHospitalized(false);
             } else {
                 setWasHospitalized(true);
                 //Date exists so split...
-                const splitDate = othersData[upperBound - 1].answer.split("to");
+                const splitDate = othersData[upperBound - 2].answer.split("to");
                 setCbxDateFrom(splitDate[0].trim())
                 setCbxDateTo(splitDate[1].trim())
+            }
+
+            //The third item...
+            if (othersData[upperBound - 1].answer === "No") {
+                //Disable the checkbox...
+                setHasFamilyMedicalHistory(false);
+            } else {
+                setHasFamilyMedicalHistory(true);
+                if (othersData[upperBound - 1].answer === "Not sure") {
+                    setChkNotSureMedicalHistory(true);
+                } else {
+                    //The date...
+                    setCbxDateOfMedicalHistory(othersData[upperBound - 1].answer);
+                }
             }
 
             //The last item...
             if (othersData[upperBound].answer === "No") {
                 //Disable the checkbox...
-                setHasFamilyMedicalHistory(false);
+                setHadSurgeries(false);
             } else {
                 setHasFamilyMedicalHistory(true);
-                if (othersData[upperBound].answer === "Not sure") {
-                    setChkNotSureMedicalHistory(true);
-                } else {
-                    //The date...
-                    setCbxDateOfMedicalHistory(othersData[upperBound].answer);
-                }
             }
         }
 
@@ -120,8 +129,13 @@ export const Others = props => {
 
         questions.push(obj3);
 
+        //Forth question
+        const obj4Answer = hadSurgeries ? "Yes" : "No";
+        const obj4 = { question: "Have you undergone any surgeries?", answer: obj4Answer };
+        questions.push(obj4);
+
         const data = {
-           others: [...questions]
+            "others": [...questions]
         }
 
         const options = {
@@ -315,6 +329,40 @@ export const Others = props => {
                                 </label>
                             </div>
                         </div>
+
+                    </div>
+                    <div className='questions pb-2'>
+                        <div className='question'>
+                            <p><span>Q4</span>Have you undergone any surgeries?</p>
+                            <div className="radio-group">
+                                <div className="radio-button">
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            className='custom-radio'
+                                            name='hadSurgeries'
+                                            checked={hadSurgeries}
+                                            onChange={() => setHadSurgeries(true)}
+                                        />
+                                        Yes
+                                    </label>
+                                </div>
+                                <div className="radio-button">
+                                    <label>
+                                        <input
+                                            type='radio'
+                                            className='custom-radio'
+                                            name='hadSurgeries'
+                                            checked={!hadSurgeries}
+                                            onChange={() => setHadSurgeries(false)}
+                                        />
+                                        No
+                                    </label>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
                     <div className='others-botton-container'>
                         <button

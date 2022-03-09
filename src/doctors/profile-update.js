@@ -6,7 +6,8 @@ import { AddQualificationDialog } from "./dialogs/add-qualification-dialog";
 import { ApiPath } from "../assets/common/base-url";
 import { QualificationsItem } from "./lists-objects/qualifications-item"
 import { ImageDialog } from "../components/image-dialog";
- import { useHistory } from "react-router-dom"
+import { useHistory } from "react-router-dom"
+import { countriesList } from "../assets/common/countries";
 
 const DoctorsProfileUpdate = (props) => {
 
@@ -215,7 +216,7 @@ const DoctorsProfileUpdate = (props) => {
             'qualification': qualificationsList,
             'license': license,
             'specialization': specialization,
-            'ice': ice,
+            'emergencyContact': ice,
             'proofOfClinic': proofOfClinic,
         }
 
@@ -257,6 +258,9 @@ const DoctorsProfileUpdate = (props) => {
     }
 
     const rentedClass = selfOwned ? "form-row-3 d-none" : "form-row-3";
+    const countryList = countriesList.map((item, index) => {
+        return (<option key={index} value={item.name}>{item.name} ({item.code})</option>)
+    })
 
     return (
         <>
@@ -307,6 +311,7 @@ const DoctorsProfileUpdate = (props) => {
                         <h3>Contact Details</h3>
                         <div className="form-row-2">
                             <div className="input-group">
+                                <label>Contact Address</label>
                                 <textarea
                                     required
                                     className="form-control"
@@ -315,10 +320,10 @@ const DoctorsProfileUpdate = (props) => {
                                     value={txtContactAddress}
                                     onChange={e => setTxtContactAddress(e.target.value)}
                                 />
-                                <label>Contact Address</label>
 
                             </div>
                             <div className="input-group">
+                                <label>Clinic Address</label>
                                 <textarea
                                     required
                                     className="form-control"
@@ -327,12 +332,13 @@ const DoctorsProfileUpdate = (props) => {
                                     value={txtClinicAddress}
                                     onChange={e => setTxtClinicAddress(e.target.value)}
                                 />
-                                <label>Clinic Address</label>
+
                             </div>
                         </div>
                         <div className="form-row-2">
                             <div className="form-row-2">
                                 <div className="input-group">
+                                    <label>Contact City</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -341,9 +347,10 @@ const DoctorsProfileUpdate = (props) => {
                                         value={txtContactCity}
                                         onChange={e => setTxtContactCity(e.target.value)}
                                     />
-                                    <label>Contact City</label>
+
                                 </div>
                                 <div className="input-group">
+                                    <label>Contact State</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -352,11 +359,12 @@ const DoctorsProfileUpdate = (props) => {
                                         value={txtContactState}
                                         onChange={e => setTxtContactState(e.target.value)}
                                     />
-                                    <label>Contact State</label>
+
                                 </div>
                             </div>
                             <div className="form-row-2">
                                 <div className="input-group">
+                                    <label>Clinic City</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -365,9 +373,10 @@ const DoctorsProfileUpdate = (props) => {
                                         value={txtClinicCity}
                                         onChange={e => setTxtClinicCity(e.target.value)}
                                     />
-                                    <label>Clinic City</label>
+
                                 </div>
                                 <div className="input-group">
+                                    <label>Clinic State</label>
                                     <input
                                         type="text"
                                         className="form-control"
@@ -376,22 +385,35 @@ const DoctorsProfileUpdate = (props) => {
                                         value={txtClinicState}
                                         onChange={e => setTxtClinicState(e.target.value)}
                                     />
-                                    <label>Clinic State</label>
+
                                 </div>
                             </div>
                         </div>
                         {/* Country row */}
-                        <div className="form-row-2 mb-2">
-                            <div className="form-row-2-1">
-                                <CountrySelect
-                                    label={"Contact Country"}
+                        <div className="form-row-2">
+                            <div className="input-group">
+                                <label>Contact Country <span style={{ color: 'red' }}>*</span></label>
+                                <select
+                                    className="form-control"
                                     id="txtContactCountry"
                                     value={txtContactCountry}
                                     onChange={e => setTxtContactCountry(e.target.value)}
-                                />
-
+                                >
+                                    {countryList}
+                                </select>
                             </div>
-                            <div className="form-row-2-1">
+                            <div className="input-group">
+                                <label>Clinic Country <span style={{ color: 'red' }}>*</span></label>
+                                <select
+                                    className="form-control"
+                                    id="txtClinicCountry"
+                                    value={txtClinicCountry}
+                                    onChange={e => setTxtClinicCountry(e.target.value)}
+                                >
+                                    {countryList}
+                                </select>
+                            </div>
+                            {/*
                                 <CountrySelect
                                     label={"Clinic Country"}
                                     id="txtClinicCountry"
@@ -399,10 +421,12 @@ const DoctorsProfileUpdate = (props) => {
                                     onChange={e => setTxtClinicCountry(e.target.value)}
                                     className="form-control"
                                 />
-                            </div>
+                                */}
+
                         </div>
                         <div className='form-row-2'>
                             <div className='input-group'>
+                                <label>Phone</label>
                                 <PhoneInput
                                     placeholder=""
                                     value={txtPhone}
@@ -412,6 +436,7 @@ const DoctorsProfileUpdate = (props) => {
                                 />
                             </div>
                             <div className="input-group">
+                                <label>Email</label>
                                 <input
                                     className="form-control"
                                     type="email"
@@ -421,7 +446,7 @@ const DoctorsProfileUpdate = (props) => {
                                     style={{ paddingTop: '12px', paddingBottom: '12px' }}
                                     required
                                 />
-                                <label>Email</label>
+
                             </div>
                         </div>
                         <hr />
@@ -650,7 +675,7 @@ const DoctorsProfileUpdate = (props) => {
                                 </div>
                             </div>
                         </div>
-                        <div className={ rentedClass }>
+                        <div className={rentedClass}>
                             <div className="input-group">
                                 <label>Owner Name</label>
                                 <input

@@ -39,7 +39,7 @@ const DigitalHealthPassport = props => {
                 picture={patientsData.photo}
                 data={patientsData}
             />
-            <DHPHeader />
+            <DHPHeader barcodeLink={patientsData.qrCode}/>
             <HealthProfileBar />
             <div className='dhp-body'>
                 <div className="left-side-bar">

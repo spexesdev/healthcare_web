@@ -10,7 +10,7 @@ import ChargeSheet from './profile-pages/charge-sheet';
 
 const DoctorsProfile = props => {
 
-    const [doctorsData, setDoctorsData] = useState('');
+    const [doctorsData, setDoctorsData] = useState(JSON.parse(sessionStorage.getItem("doctor")));
 
     const [appointments] = useState([
         { 'name': 'First Patient', 'date': '2022-02-12', 'event': 'Clinicals', 'time': '12:00' },
@@ -58,7 +58,7 @@ const DoctorsProfile = props => {
                                 {selectedMenu === 2 && <ProfilePage
                                     showToast={props.showToast}
                                     setIsLoaderVisible={props.setIsLoaderVisible}
-                                    data={doctorsData}
+                                    data={doctorsData.data}
                                 />}
                                 {selectedMenu === 3 && <AppointmentSetupPage />}
                                 {selectedMenu === 4 && <ChargeSheet />}

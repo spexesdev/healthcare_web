@@ -1,12 +1,11 @@
 import { useState } from "react";
 import PhoneInput from 'react-phone-number-input'
 import FileInput from "../../components/file-input";
-import CountrySelect from "../../components/country-select";
+import { countriesList } from "../../assets/common/countries";
 import { AddQualificationDialog } from "../dialogs/add-qualification-dialog";
 import { ApiPath } from "../../assets/common/base-url";
 import { QualificationsItem } from "../lists-objects/qualifications-item"
 import { ImageDialog } from "../../components/image-dialog";
-import { useHistory } from "react-router-dom"
 
 export const ProfilePage = (props) => {
 
@@ -207,7 +206,7 @@ export const ProfilePage = (props) => {
             'qualification': qualificationsList,
             'license': license,
             'specialization': specialization,
-            'ice': ice,
+            'emergencyContact': ice,
             'proofOfClinic': proofOfClinic,
         }
 
@@ -250,6 +249,9 @@ export const ProfilePage = (props) => {
     }
 
     const rentedClass = selfOwned ? "form-row-3 d-none" : "form-row-3";
+    const countryList = countriesList.map((item, index) => {
+        return (<option key={index} value={item.name}>{item.name} ({item.code})</option>)
+    })
 
     return (
         <>
@@ -297,6 +299,7 @@ export const ProfilePage = (props) => {
                 <h3>Contact Details</h3>
                 <div className="form-row-2">
                     <div className="input-group">
+                        <label>Contact Address</label>
                         <textarea
                             required
                             className="form-control"
@@ -305,10 +308,10 @@ export const ProfilePage = (props) => {
                             value={txtContactAddress}
                             onChange={e => setTxtContactAddress(e.target.value)}
                         />
-                        <label>Contact Address</label>
 
                     </div>
                     <div className="input-group">
+                        <label>Clinic Address</label>
                         <textarea
                             required
                             className="form-control"
@@ -317,12 +320,13 @@ export const ProfilePage = (props) => {
                             value={txtClinicAddress}
                             onChange={e => setTxtClinicAddress(e.target.value)}
                         />
-                        <label>Clinic Address</label>
+
                     </div>
                 </div>
                 <div className="form-row-2">
                     <div className="form-row-2">
                         <div className="input-group">
+                            <label>Contact City</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -331,9 +335,10 @@ export const ProfilePage = (props) => {
                                 value={txtContactCity}
                                 onChange={e => setTxtContactCity(e.target.value)}
                             />
-                            <label>Contact City</label>
+
                         </div>
                         <div className="input-group">
+                            <label>Contact State</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -342,11 +347,11 @@ export const ProfilePage = (props) => {
                                 value={txtContactState}
                                 onChange={e => setTxtContactState(e.target.value)}
                             />
-                            <label>Contact State</label>
                         </div>
                     </div>
                     <div className="form-row-2">
                         <div className="input-group">
+                            <label>Clinic City</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -355,9 +360,9 @@ export const ProfilePage = (props) => {
                                 value={txtClinicCity}
                                 onChange={e => setTxtClinicCity(e.target.value)}
                             />
-                            <label>Clinic City</label>
                         </div>
                         <div className="input-group">
+                            <label>Clinic State</label>
                             <input
                                 type="text"
                                 className="form-control"
@@ -366,32 +371,37 @@ export const ProfilePage = (props) => {
                                 value={txtClinicState}
                                 onChange={e => setTxtClinicState(e.target.value)}
                             />
-                            <label>Clinic State</label>
                         </div>
                     </div>
                 </div>
                 {/* Country row */}
-                <div className="form-row-2 mb-2">
-                    <div className="form-row-2-1">
-                        <CountrySelect
-                            label={"Contact Country"}
+                <div className="form-row-2">
+                    <div className="input-group">
+                        <label>Contact Country <span style={{ color: 'red' }}>*</span></label>
+                        <select
+                            className="form-control"
                             id="txtContactCountry"
                             value={txtContactCountry}
                             onChange={e => setTxtContactCountry(e.target.value)}
-                        />
+                        >
+                            {countryList}
+                        </select>
                     </div>
-                    <div className="form-row-2-1">
-                        <CountrySelect
-                            label={"Clinic Country"}
+                    <div className="input-group">
+                        <label>Clinic Country <span style={{ color: 'red' }}>*</span></label>
+                        <select
+                            className="form-control"
                             id="txtClinicCountry"
                             value={txtClinicCountry}
-                            onChange={(val) => setTxtClinicCountry(val.target.value)}
-                            className="form-control"
-                        />
+                            onChange={e => setTxtClinicCountry(e.target.value)}
+                        >
+                            {countryList}
+                        </select>
                     </div>
                 </div>
                 <div className='form-row-2'>
                     <div className='input-group'>
+                        <label>Phone</label>
                         <PhoneInput
                             placeholder=""
                             value={txtPhone}
@@ -401,6 +411,7 @@ export const ProfilePage = (props) => {
                         />
                     </div>
                     <div className="input-group">
+                        <label>Email</label>
                         <input
                             className="form-control"
                             type="email"
@@ -410,7 +421,7 @@ export const ProfilePage = (props) => {
                             style={{ paddingTop: '12px', paddingBottom: '12px' }}
                             required
                         />
-                        <label>Email</label>
+
                     </div>
                 </div>
                 <hr />

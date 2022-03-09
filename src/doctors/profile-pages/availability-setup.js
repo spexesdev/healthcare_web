@@ -21,6 +21,13 @@ const AvailabilitySetup = props => {
         return (<option value={item} key={item}>{item}</option>)
     })
 
+    //Also, fetch slots on form load...
+    useState(() => {
+        //Do so once Guarav provides the timing slots endpoints
+        // for the timing...
+        
+    }, [])
+
     const displaySlotDialog = () => {
         //First check that the cbx is not empty...
         if (cbxDayOfWeek === "") {
