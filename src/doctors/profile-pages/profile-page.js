@@ -379,7 +379,6 @@ export const ProfilePage = (props) => {
                             value={txtContactCountry}
                             onChange={e => setTxtContactCountry(e.target.value)}
                         />
-
                     </div>
                     <div className="form-row-2-1">
                         <CountrySelect
