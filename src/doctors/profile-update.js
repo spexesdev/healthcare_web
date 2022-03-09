@@ -6,6 +6,7 @@ import { AddQualificationDialog } from "./dialogs/add-qualification-dialog";
 import { ApiPath } from "../assets/common/base-url";
 import { QualificationsItem } from "./lists-objects/qualifications-item"
 import { ImageDialog } from "../components/image-dialog";
+ import { useHistory } from "react-router-dom"
 
 const DoctorsProfileUpdate = (props) => {
 
@@ -31,6 +32,9 @@ const DoctorsProfileUpdate = (props) => {
     const [txtAvailableFrom, setTxtAvailableFrom] = useState('');
     const [txtAvailableTo, setTxtAvailableTo] = useState('');
     const [proofOfClinicDocument, setProofOfClinicDocument] = useState('')
+    const [txtProofFrom, setTxtProofFrom] = useState('');
+    const [txtProofTo, setTxtProofTo] = useState('');
+
     const [selfOwned, setSelfOwned] = useState(true);
     const [chkAgree, setChkAgree] = useState(false)
     const [txtClinicOwner, setTxtClinicOwner] = useState('')
@@ -43,6 +47,8 @@ const DoctorsProfileUpdate = (props) => {
 
     const [showQualificationDialog, setShowQualificationDialog] = useState(false);
     const [qualificationsList, setQualificationsList] = useState([])
+
+    const history = useHistory();
 
 
     const doctorsSpecializations = ["Allergist", "Cardiologist", "Dermatologist", "Endocrinologist", "Gastroenterologist",
@@ -189,6 +195,10 @@ const DoctorsProfileUpdate = (props) => {
                 "name": txtClinicOwner,
                 "phone": txtClinicPhone,
                 "email": txtClinicEmail
+            },
+            "period": {
+                "start": txtProofFrom,
+                "end": txtProofTo
             }
         }
 
@@ -580,7 +590,7 @@ const DoctorsProfileUpdate = (props) => {
                         </div>
                         <h3>Proof of Clinic / Address</h3>
 
-                        <div className="form-row-2 mb-1">
+                        <div className="form-row-2-1-1 mb-1">
                             <div className="input-group">
                                 <label>Upload document</label>
                                 <FileInput
@@ -588,6 +598,27 @@ const DoctorsProfileUpdate = (props) => {
                                     acceptFileTypes={".png, .jpg, .jpeg, .pdf"}
                                 />
                             </div>
+                            <div className="input-group">
+                                <label>Occupation Period</label>
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    id="txtProofFrom"
+                                    value={txtProofFrom}
+                                    onChange={e => setTxtProofFrom(e.target.value)}
+                                />
+                            </div>
+                            <div className="input-group">
+                                <label>To</label>
+                                <input
+                                    type="date"
+                                    className="form-control"
+                                    id="txtProofTo"
+                                    value={txtProofTo}
+                                    onChange={e => setTxtProofTo(e.target.value)}
+                                />
+                            </div>
+
                         </div>
                         <div className="questions">
                             <div className='question mb-1'>

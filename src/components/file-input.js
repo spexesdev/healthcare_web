@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fileToBase64 } from '../assets/common/file-to-base64';
+import { ImageDialog } from './image-dialog';
 
 const FileInput = (props) => {
     /**
@@ -10,6 +11,7 @@ const FileInput = (props) => {
      */
     const [tempPix, setTempPix] = useState('');
     const [outputText, setOutputText] = useState('');
+    const [displayImage, setDisplayImage] = useState(false);
 
     const handleChange = e => {
         const file = e.target.files[0];
@@ -35,6 +37,21 @@ const FileInput = (props) => {
         props.setFileOutput('');
     }
 
+    const viewFile = () => {
+        //Preview the attached file in custom image viewer...
+        setDisplayImage(true);
+
+    }
+
+    useEffect(() => {
+        //Also, check whether there is a file input...
+        if (props.inputFile !== "") {
+            setTempPix(props.inputFile);
+        }
+
+        //eslint-disable-next-line
+    }, [])
+
     useEffect(() => {
         const dropZone = document.querySelector('.upload-file-area');
         const fileInput = document.getElementById('uploadFile');
@@ -53,7 +70,6 @@ const FileInput = (props) => {
 
             fileToBase64(file)
                 .then(response => {
-                    setPicture(response.toString());
                     setOutputText(file.name);
                 })
                 .catch(err => {
@@ -84,26 +100,33 @@ const FileInput = (props) => {
     const bgColor = tempPix ? 'var(--success-bg)' : '';
 
     return (
-        <div className="upload-file-area" style={{ background: bgColor }}>
-            <div className={tempPix ? 'd-none' : ''}>
-                <i className='icofont-cloud-upload' />
-                <label>Drop files to upload or </label>
-                <button className="btn-upload">
-                    <input
-                        type="file"
-                        name="uploadFile"
-                        id="uploadFile"
-                        accept={props.acceptFileTypes}
-                        onChange={handleChange}
-                    />
-                    browse
-                </button>
+        <>
+            <div className="upload-file-area" style={{ background: bgColor }}>
+                <div className={tempPix ? 'd-none' : ''}>
+                    <i className='icofont-cloud-upload' />
+                    <label>Drop files to upload or </label>
+                    <button className="btn-upload">
+                        <input
+                            type="file"
+                            name="uploadFile"
+                            id="uploadFile"
+                            accept={props.acceptFileTypes}
+                            onChange={handleChange}
+                        />
+                        browse
+                    </button>
+                </div>
+                <label className={tempPix ? '' : 'd-none'}><span>File: </span>
+                    {outputText} <button className='btn-upload' onClick={removeFile}>
+                        remove</button> | <button className="btn-upload" onClick={viewFile}>preview</button>
+                </label>
             </div>
-            <label className={tempPix ? '' : 'd-none'}><span>Attached File: </span>
-                {outputText} <button className='btn-upload' onClick={removeFile}>
-                    remove</button>
-            </label>
-        </div>
+            {displayImage && <ImageDialog
+                src={tempPix}
+                setImageDisplay={displayImage}
+                hideImageDialog={setDisplayImage}
+            />}
+        </>
     );
 }
 

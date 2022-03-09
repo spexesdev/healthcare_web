@@ -278,7 +278,7 @@
 .attachment-preview {
     display: block;
     outline: none;
-    background: #aaa;
+    background: var(--special-blue);
     color: #fff;
     border: 2px solid #aaa;
     padding: 3px 12px;

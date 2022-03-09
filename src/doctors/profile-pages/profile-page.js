@@ -6,43 +6,51 @@ import { AddQualificationDialog } from "../dialogs/add-qualification-dialog";
 import { ApiPath } from "../../assets/common/base-url";
 import { QualificationsItem } from "../lists-objects/qualifications-item"
 import { ImageDialog } from "../../components/image-dialog";
+import { useHistory } from "react-router-dom"
 
 export const ProfilePage = (props) => {
 
-    const [profilePicture, setProfilePicture] = useState(props.data.photo);
-    const [txtContactAddress, setTxtContactAddress] = useState('');
-    const [txtContactCity, setTxtContactCity] = useState('');
-    const [txtContactState, setTxtContactState] = useState('');
-    const [txtContactCountry, setTxtContactCountry] = useState('');
-    const [txtClinicAddress, setTxtClinicAddress] = useState('');
-    const [txtClinicCity, setTxtClinicCity] = useState('');
-    const [txtClinicState, setTxtClinicState] = useState('');
-    const [txtClinicCountry, setTxtClinicCountry] = useState('');
-    const [txtPhone, setTxtPhone] = useState(props.data?.phone);
-    const [txtEmail, setTxtEmail] = useState(props.data?.email);
-    const [chkProfileConsent, setChkProfileConsent] = useState(false);
-    const [cbxSpecialization, setCbxSpecialization] = useState(props.data.specialization.type);
-    const [practiceDoc, setPracticeDoc] = useState('');
-    const [specializationDoc, setSpecializationDoc] = useState('');
-    const [txtIssueDate, setTxtIssueDate] = useState('');
-    const [txtExpiryDate, setTxtExpiryDate] = useState('');
-    const [txtIssuingAuthority, setTxtIssuingAuthority] = useState('');
-    const [txtIcePhone, setTxtIcePhone] = useState('');
-    const [txtAvailableFrom, setTxtAvailableFrom] = useState('');
-    const [txtAvailableTo, setTxtAvailableTo] = useState('');
-    const [proofOfClinicDocument, setProofOfClinicDocument] = useState('')
-    const [selfOwned, setSelfOwned] = useState(true);
-    const [chkAgree, setChkAgree] = useState(false)
-    const [txtClinicOwner, setTxtClinicOwner] = useState('')
-    const [txtClinicPhone, setTxtClinicPhone] = useState('')
-    const [txtClinicEmail, setTxtClinicEmail] = useState('')
+    const { data } = props;
+
+    const homeAddy = data?.address[0];
+    const officeAddy = data?.address[1];
+
+    const [profilePicture, setProfilePicture] = useState(data.photo);
+    const [txtContactAddress, setTxtContactAddress] = useState(homeAddy?.street);
+    const [txtContactCity, setTxtContactCity] = useState(homeAddy?.city);
+    const [txtContactState, setTxtContactState] = useState(homeAddy?.state);
+    const [txtContactCountry, setTxtContactCountry] = useState(homeAddy?.country);
+    const [txtClinicAddress, setTxtClinicAddress] = useState(officeAddy?.street);
+    const [txtClinicCity, setTxtClinicCity] = useState(officeAddy?.city);
+    const [txtClinicState, setTxtClinicState] = useState(officeAddy?.state);
+    const [txtClinicCountry, setTxtClinicCountry] = useState(officeAddy?.country);
+    const [txtPhone, setTxtPhone] = useState(data?.phoneNumber);
+    const [txtEmail, setTxtEmail] = useState(data?.emailId);
+    const [chkProfileConsent, setChkProfileConsent] = useState(data.profileConsent === "true" ? true : false);
+    const [cbxSpecialization, setCbxSpecialization] = useState(data.specialization.type);
+    const [practiceDoc, setPracticeDoc] = useState(data?.license?.certification);
+    const [specializationDoc, setSpecializationDoc] = useState(data.specialization?.certification);
+    const [txtIssueDate, setTxtIssueDate] = useState(data.license?.issueDate);
+    const [txtExpiryDate, setTxtExpiryDate] = useState(data.license?.expireDate);
+    const [txtIssuingAuthority, setTxtIssuingAuthority] = useState(data.license?.issuer);
+    const [txtIcePhone, setTxtIcePhone] = useState(data.emergencyContact?.call.value);
+    const [txtAvailableFrom, setTxtAvailableFrom] = useState(data.emergencyContact?.call.period.start);
+    const [txtAvailableTo, setTxtAvailableTo] = useState(data.emergencyContact?.call.period.end);
+    const [proofOfClinicDocument, setProofOfClinicDocument] = useState(data.proofOfClinic.document)
+    const [txtProofFrom, setTxtProofFrom] = useState(data.proofOfClinic.period?.start);
+    const [txtProofTo, setTxtProofTo] = useState(data.proofOfClinic.period?.end);
+    const [selfOwned, setSelfOwned] = useState(data.proofOfClinic.type === "self-owned" ? true : false);
+    const [chkAgree, setChkAgree] = useState(true)
+    const [txtClinicOwner, setTxtClinicOwner] = useState(data.proofOfClinic.renter?.name)
+    const [txtClinicPhone, setTxtClinicPhone] = useState(data.proofOfClinic.renter?.phone)
+    const [txtClinicEmail, setTxtClinicEmail] = useState(data.proofOfClinic.renter?.emailId)
 
     const [imageDialogVisible, setImageDialogVisible] = useState(false)
     const [imageURL, setImageURL] = useState("");
     const [editQualificationIndex, setEditQualificationIndex] = useState(0);
 
     const [showQualificationDialog, setShowQualificationDialog] = useState(false);
-    const [qualificationsList, setQualificationsList] = useState([])
+    const [qualificationsList, setQualificationsList] = useState(data.qualification)
 
 
     const doctorsSpecializations = ["Allergist", "Cardiologist", "Dermatologist", "Endocrinologist", "Gastroenterologist",
@@ -69,9 +77,8 @@ export const ProfilePage = (props) => {
         />)
     })
 
-    const [fullname] = useState(props.data.name)
-    const [email] = useState(props.data.emailId);
-
+    const [fullname] = useState(data.name)
+    const [email] = useState(data.emailId);
 
     const updateDoctorsData = () => {
         //Set the contact data...
@@ -180,6 +187,10 @@ export const ProfilePage = (props) => {
                 "name": txtClinicOwner,
                 "phone": txtClinicPhone,
                 "email": txtClinicEmail
+            },
+            "period": {
+                "start": txtProofFrom,
+                "end": txtProofTo
             }
         }
 
@@ -189,7 +200,7 @@ export const ProfilePage = (props) => {
             return;
         }
 
-        const data = {
+        const updateData = {
             'address': [homeContact, clinicContact],
             'photo': profilePicture,
             'profileConsent': chkProfileConsent.toString(),
@@ -201,7 +212,7 @@ export const ProfilePage = (props) => {
         }
 
         const options = {
-            'body': JSON.stringify(data),
+            'body': JSON.stringify(updateData),
             'headers': {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${sessionStorage.getItem("token")}`
@@ -224,8 +235,9 @@ export const ProfilePage = (props) => {
                 if (response && response.statusCode === 200) {
                     props.showToast("Update successful!", 'success');
 
-                    //Redirect to the doctor's profile page...
-                    history.push("/doctors/login");
+                    //update doctor's data
+                    sessionStorage.setItem('doctor', JSON.stringify(response.data));
+
 
                 } else {
                     props.showToast(response.message, 'exclamation');
@@ -254,6 +266,7 @@ export const ProfilePage = (props) => {
                         </div>
                         <div className="input-group">
                             <FileInput
+                                inputFile={profilePicture}
                                 setFileOutput={setProfilePicture}
                                 acceptFileTypes={".png, .jpg, .jpeg"}
                             />
@@ -373,7 +386,7 @@ export const ProfilePage = (props) => {
                             label={"Clinic Country"}
                             id="txtClinicCountry"
                             value={txtClinicCountry}
-                            onChange={e => setTxtClinicCountry(e.target.value)}
+                            onChange={(val) => setTxtClinicCountry(val.target.value)}
                             className="form-control"
                         />
                     </div>
@@ -468,6 +481,7 @@ export const ProfilePage = (props) => {
                     <div className="input-group">
                         <label>Specialization document (upload)</label>
                         <FileInput
+                            inputFile={specializationDoc}
                             setFileOutput={setSpecializationDoc}
                             acceptFileTypes={".png, .jpg, .jpeg, .pdf"}
                         />
@@ -477,6 +491,7 @@ export const ProfilePage = (props) => {
                     <div className="input-group">
                         <label>License to practice document (upload)</label>
                         <FileInput
+                            inputFile={practiceDoc}
                             setFileOutput={setPracticeDoc}
                             acceptFileTypes={".png, .jpg, .jpeg, .pdf"}
                         />
@@ -567,12 +582,33 @@ export const ProfilePage = (props) => {
                 </div>
                 <h3>Proof of Clinic / Address</h3>
 
-                <div className="form-row-2 mb-1">
+                <div className="form-row-2-1-1 mb-1">
                     <div className="input-group">
                         <label>Upload document</label>
                         <FileInput
+                            inputFile={proofOfClinicDocument}
                             setFileOutput={setProofOfClinicDocument}
                             acceptFileTypes={".png, .jpg, .jpeg, .pdf"}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>Occupation Period</label>
+                        <input
+                            type="date"
+                            className="form-control"
+                            id="txtProofFrom"
+                            value={txtProofFrom}
+                            onChange={e => setTxtProofFrom(e.target.value)}
+                        />
+                    </div>
+                    <div className="input-group">
+                        <label>To</label>
+                        <input
+                            type="date"
+                            className="form-control"
+                            id="txtProofTo"
+                            value={txtProofTo}
+                            onChange={e => setTxtProofTo(e.target.value)}
                         />
                     </div>
                 </div>

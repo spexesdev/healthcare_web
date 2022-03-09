@@ -59,7 +59,7 @@ export const DoctorsLogin = (props) => {
                         sessionStorage.setItem("token", response.token);
                         sessionStorage.setItem("id_val", response.uidNo);
 
-                        //Store patient's data
+                        //Store doctor's data
                         sessionStorage.setItem('doctor', JSON.stringify(response.data));
 
                         //In the future, make the doctor go to this profile completion

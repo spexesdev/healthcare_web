@@ -10,12 +10,7 @@ export const MedicalHistoryDialog = props => {
     const [txtDate, setTxtDate] = useState('');
     const [txtDoctor, setTxtDoctor] = useState('');
 
-    // // const [medicationsData, setMedicationsData] = useState([]);
-
-    // // useEffect(() => {
-    // //     setMedicationsData(props.medicalData)
-    // // }, [])
-
+    
     const updateMedicalHistoryDetails = () => {
 
         props.setIsLoaderVisible(true)

@@ -21,10 +21,10 @@ export default function CountrySelect(props) {
                         srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
                         alt=""
                     />
-                    {option.label} ({option.code}) +{option.phone}
+                    {option.label} ({option.code}) + {option.phone}
                 </Box>
             )}
-            renderInput={(params) => (
+            renderInput={params => (
                 <TextField
                     {...params}
                     label={props.label}
